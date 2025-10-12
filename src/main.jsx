@@ -1,9 +1,11 @@
-import { StrictMode } from 'react'
+// FILE: src/main.jsx
+
+import React, { StrictMode } from 'react' // <--- ADDED React IMPORT HERE
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// ADD THIS LINE:
+// ADDED Console Log here (Line 7)
 console.log("--- main.jsx: Script started and creating root ---");
 
 createRoot(document.getElementById('root')).render(

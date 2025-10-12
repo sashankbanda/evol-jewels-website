@@ -2,7 +2,7 @@
 
 import React from 'react';
 // FIX: Change to a default import from the main package name
-import QRCode from 'qrcode.react'; 
+// import QRCode from 'qrcode.react'; 
 import { useVibe } from '../../context/VibeContext';
 
 const LeadCaptureScreen = () => {
@@ -28,7 +28,7 @@ const LeadCaptureScreen = () => {
                     Scan the QR code to save your recommended products and unlock your special in-store offer.
                 </h3>
                 
-                <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3">
+                {/* <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3">
                     <QRCode 
                         value={profileUrl} 
                         size={200} 
@@ -37,6 +37,11 @@ const LeadCaptureScreen = () => {
                         fgColor="#111111" 
                         // Note: You might need to adjust bgColor/fgColor dynamically for light theme 
                     />
+                </div> */}
+
+                <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3 h-64 border-4 border-dashed border-gray-400">
+                    {/* Placeholder for QR Code: Component removed to fix crash */}
+                    <p className="text-gray-700">QR Code functionality removed.</p>
                 </div>
 
                 <p className="mt-8 text-sm text-B1B1B1 font-sans">
