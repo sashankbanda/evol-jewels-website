@@ -17,6 +17,7 @@ import CheckoutScreen from './components/screens/CheckoutScreen';
 import NavBar from './components/shared/NavBar';
 import ThemeToggle from './components/shared/ThemeToggle';
 import TryOnModal from './components/shared/TryOnModal';
+import MessageModal from './components/shared/MessageModal';
 
 // This component dynamically renders the current screen based on context state.
 const AppContent = () => {
@@ -71,6 +72,7 @@ const AppContent = () => {
             {renderScreen()}
 
             {tryOnProduct && <TryOnModal />}
+            <MessageModal />
         </div>
     );
 };

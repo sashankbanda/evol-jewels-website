@@ -6,7 +6,8 @@ import { getAllFilteredRecommendations, getVibeMatchDetails } from '../../logic/
 import ProductCard from '../shared/ProductCard';
 
 const ResultScreen = () => {
-    const { isDarkTheme, quizAnswers, navigate } = useVibe();
+    // Make sure showMessageModal is destructured here
+    const { isDarkTheme, quizAnswers, navigate, showMessageModal } = useVibe(); 
     const [recommendations, setRecommendations] = useState([]);
     const [offset, setOffset] = useState(0);
     const batchSize = 4;
@@ -15,35 +16,43 @@ const ResultScreen = () => {
     
     // Combined logic for generating recommendations and fetching batches
     const loadNextBatch = (allProducts) => {
+        // 1. Calculate the next batch slice based on the current offset in state
         const nextBatch = allProducts.slice(offset, offset + batchSize);
-        setRecommendations(nextBatch);
+        
+        // 2. Update the offset state by adding the length of the batch loaded
         setOffset(prev => prev + nextBatch.length);
-        return nextBatch.length;
+        
+        // 3. Return the batch so the caller can handle appending the results
+        return nextBatch;
     };
 
     useEffect(() => {
-        // Generate initial recommendations only once when screen loads
+        // Generate initial recommendations only once when screen loads (offset should be 0)
         const allProducts = getAllFilteredRecommendations(quizAnswers);
-        loadNextBatch(allProducts);
-        // Note: In a real app, you'd store allProducts in state/context to reuse it for "Show More"
-    }, []);
+        
+        // Fetch the initial batch
+        const initialBatch = allProducts.slice(0, batchSize);
+        
+        // Set initial state for recommendations and offset
+        setRecommendations(initialBatch); 
+        setOffset(initialBatch.length); 
+    }, []); // Dependency array remains empty, runs only on mount
 
     const handleShowMore = () => {
-        // Re-generate ALL filtered products, but start from offset 0 temporarily
-        // NOTE: The `loadNextBatch` currently uses the state `offset`, but this is safer:
-        const allProducts = getAllFilteredRecommendations(quizAnswers); 
+        // 1. Regenerate all filtered products (the full list, correctly filtered by category)
+        const allProducts = getAllFilteredRecommendations(quizAnswers);
         
-        // 1. Calculate the next batch based on the current offset in state
-        const nextBatch = allProducts.slice(offset, offset + batchSize);
+        // 2. Get the next slice and update the offset via the function
+        const nextBatch = loadNextBatch(allProducts);
         
-        // 2. Add the next batch to the existing list
-        setRecommendations(prev => [...prev, ...nextBatch]); 
+        // 3. THE FIX: Use a functional update to APPEND the new batch to the existing list
+        if (nextBatch.length > 0) {
+            setRecommendations(prev => [...prev, ...nextBatch]); 
+        }
         
-        // 3. Update the offset
-        setOffset(prev => prev + nextBatch.length); 
-
-        if (nextBatch.length === 0) { // Check length of the newly loaded batch
-            alert("That's all the vibe matches we found for you! Try the 'Browse All Products' feature or restart the quiz.");
+        // 4. Check the count and show the custom modal if nothing was loaded
+        if (nextBatch.length === 0) { 
+            showMessageModal("That's all the vibe matches we found for you! Try the 'Browse All Products' feature or restart the quiz.");
         }
     };
     

@@ -19,6 +19,7 @@ export const VibeProvider = ({ children }) => {
     const [screenHistory, setScreenHistory] = useState(['start']); 
     const [tryOnProduct, setTryOnProduct] = useState(null); 
     const [recommendationOffset, setRecommendationOffset] = useState(0);
+    const [messageModal, setMessageModal] = useState(null);
 
 
     // --- Initialization & Theme Logic ---
@@ -95,6 +96,15 @@ export const VibeProvider = ({ children }) => {
             setTimeout(() => navigate('results'), 1500); 
         }
     };
+
+    // --- NEW: Custom Modal Logic ---
+    const showMessageModal = (message) => {
+        setMessageModal(message);
+    };
+
+    const hideMessageModal = () => {
+        setMessageModal(null);
+    };
     
     // --- Cart Logic ---
     const addToCart = (productId) => {
@@ -146,6 +156,7 @@ export const VibeProvider = ({ children }) => {
         cart,
         screenHistory: screenHistory[screenHistory.length - 1] || 'start', 
         tryOnProduct,
+        messageModal,
         recommendationOffset,
         setRecommendationOffset,
 
@@ -159,6 +170,8 @@ export const VibeProvider = ({ children }) => {
         showTryOnModal,
         handleTryOnFeedback,
         startNewSession,
+        showMessageModal, // <-- EXPORT NEW FUNCTION
+        hideMessageModal, // <-- EXPORT NEW FUNCTION
     };
 
     useEffect(() => {
