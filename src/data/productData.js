@@ -1,7 +1,7 @@
 // src/data/productData.js
 
 // Placeholder function for image paths (adjust paths as needed for your assets)
-const getImageUrl = (index) => `media/image${index}.png`;
+const getImageUrl = (index) => `/media/image${index}.png`;
 
 export const productData = [
     { id: 1, name: 'Halo Spiral Diamond Earrings', price: 138477.07, category: 'Earring', collection: 'Statement', imageUrl: getImageUrl(1), tags: ['Party/Celebration', 'Ears', 'Polished Gold'] },
