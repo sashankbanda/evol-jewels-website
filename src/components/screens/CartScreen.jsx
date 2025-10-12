@@ -3,7 +3,7 @@
 import React from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils';
-import { ShoppingCart, X } from 'lucide-react'; // Example icons
+import { ShoppingCart, Trash2 } from 'lucide-react'; // Changed X to Trash2
 
 const CartScreen = () => {
     const { isDarkTheme, cart, removeCartItem, getCartTotal, navigate, isKioskMode } = useVibe();
@@ -51,7 +51,7 @@ const CartScreen = () => {
                                     onClick={() => removeCartItem(index)} 
                                     className={`${removeColor} hover:${removeColor}/80 transition duration-200 ml-4`}
                                 >
-                                    <X className="h-6 w-6" />
+                                    <Trash2 className="h-6 w-6" /> {/* CHANGED: Trash icon */}
                                 </button>
                             </div>
                         ))

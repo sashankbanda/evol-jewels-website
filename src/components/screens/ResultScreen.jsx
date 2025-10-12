@@ -41,7 +41,7 @@ const ResultScreen = () => {
     const styleSubtitleClass = isDarkTheme ? 'text-F5F5F5' : 'text-gray-700';
 
     return (
-        <div id="resultScreen" className="screen flex-col flex pt-24">
+        <div id="resultScreen" className="screen flex-col flex">
             <div className="w-full max-w-6xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center mb-8">
                     Your Vibe Match is Ready!

@@ -5,18 +5,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Step 10: Custom CSS (Copied from prototype's <style> block) */
+/* Step 10: Custom CSS (COPIED EXACTLY FROM PROTOTYPE'S <style> BLOCK) */
 
 /* Base Styles */
 body {
     font-family: 'Inter', sans-serif;
-    transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
 }
 
 /* --- Dark Theme Classes (Platinum) --- */
 .dark-theme {
-    background-color: #111111;
-    color: #F5F5F5;
+    background-color: #111111; /* Deep Charcoal */
+    color: #F5F5F5; /* Diamond White */
 }
 .dark-theme .primary-bg { background-color: #111111; }
 .dark-theme .text-text-light { color: #F5F5F5; }
@@ -41,8 +41,42 @@ body {
     background-color: #DAD5C1;
     color: #111111;
 }
-/* ... include all dark theme-specific styles for CTA, quiz-option, etc. ... */
-
+.dark-theme .tertiary-cta {
+    background-color: #2A2A2A;
+    color: #F5F5F5;
+}
+.dark-theme .tertiary-cta:hover {
+    background-color: #111111;
+}
+.dark-theme .quiz-option {
+    background-color: rgba(42, 42, 42, 0.5);
+    color: #F5F5F5;
+    border: 2px solid #111111;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.dark-theme .quiz-option:hover {
+    border-color: #DAD5C1;
+}
+.dark-theme .quiz-option.selected {
+    background-color: #DAD5C1;
+    color: #111111;
+    border-color: #DAD5C1;
+    box-shadow: 0 0 10px rgba(218, 213, 193, 0.3);
+}
+.dark-theme #qrCodeContainer { 
+    background: #E6E2D3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dark-theme .back-btn { background-color: #2A2A2A; color: #F5F5F5; }
+.dark-theme .back-btn:hover { background-color: #111111; }
+.dark-theme .cart-icon-btn { background-color: #DAD5C1; color: #111111; }
+.dark-theme .cart-icon-btn:hover { background-color: #D8CBAF; }
+.dark-theme .spinner { 
+    border: 8px solid rgba(245, 245, 245, 0.3);
+    border-top: 8px solid #DAD5C1; 
+}
 .dark-theme .platinum-text-gradient {
     background: linear-gradient(90deg, #E9E4D0 0%, #C8BCA0 100%);
     -webkit-background-clip: text;
@@ -51,38 +85,240 @@ body {
     text-shadow: 0 2px 6px rgba(255, 255, 255, 0.08); 
     letter-spacing: 0.5px;
 }
-.dark-theme #startScreenTitle {
-    font-size: 4.5rem;
-    line-height: 1.19;
+.dark-theme .product-card {
+    background-color: #2A2A2A;
+    border: 1px solid rgba(177, 177, 177, 0.1);
 }
+.dark-theme .total-price-font {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* medium */
+}
+.dark-theme #startScreenTitle {
+    font-size: 4.5rem; /* Matches text-7xl */
+    line-height: 1.19; /* Matches leading-tighter-custom */
+}
+
 
 /* --- Light Theme Classes (Vibe Match - Red/Gray) --- */
 .light-theme {
-    background-color: #f7f3f1;
+    background-color: #f7f3f1; /* Light background: Rosy/Off-white */
+    color: #333333; /* Dark text */
+}
+.light-theme .primary-bg { background-color: #f7f3f1; }
+.light-theme .text-text-light { color: #333333; }
+.light-theme .text-B1B1B1 { color: #737373; }
+.light-theme .text-accent-platinum { color: #ff5a5f; } /* Accent Red */
+.light-theme .card-bg { background-color: #FFFFFF; }
+.light-theme .primary-cta {
+    background: #333333; /* Secondary/Dark button background */
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+.light-theme .primary-cta:hover {
+    background: #ff5a5f; /* Accent Red on hover */
+}
+.light-theme .secondary-cta {
+    border: 1px solid #ff5a5f;
+    color: #ff5a5f;
+    background-color: transparent;
+}
+.light-theme .secondary-cta:hover {
+    background-color: #ff5a5f;
+    color: #FFFFFF;
+}
+.light-theme .tertiary-cta {
+    background-color: #D1D5DB; /* Light Gray */
     color: #333333;
 }
-/* ... include all light theme specific styles for CTA, quiz-option, etc. ... */
+.light-theme .tertiary-cta:hover {
+    background-color: #B1B1B1;
+}
+.light-theme .quiz-option {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 2px solid #D1D5DB;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.light-theme .quiz-option:hover {
+    border-color: #ff5a5f;
+}
+.light-theme .quiz-option.selected {
+    background-color: #ff5a5f;
+    color: #FFFFFF;
+    border-color: #ff5a5f;
+    box-shadow: 0 0 10px rgba(255, 90, 95, 0.5);
+}
+.light-theme #qrCodeContainer { 
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.light-theme .back-btn { background-color: #D1D5DB; color: #333333; }
+.light-theme .back-btn:hover { background-color: #B1B1B1; }
+.light-theme .cart-icon-btn { background-color: #ff5a5f; color: #FFFFFF; }
+.light-theme .cart-icon-btn:hover { background-color: #CC484D; }
+.light-theme .spinner { 
+    border: 8px solid rgba(51, 51, 51, 0.1);
+    border-top: 8px solid #ff5a5f; 
+}
+.light-theme .platinum-text-gradient {
+    background: linear-gradient(90deg, #ff5a5f 0%, #CC484D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none; 
+    letter-spacing: normal;
+}
+.light-theme .product-card {
+    background-color: #FFFFFF;
+    border: 1px solid #D1D5DB;
+}
+.light-theme .total-price-font {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* medium */
+}
+/* This was explicitly asked for in your light theme fix */
 .light-theme .border-accent-platinum {
     border-color: #ff5a5f !important;
 }
+/* START SCREEN TITLE LIGHT THEME - FIXED */
+.light-theme #startScreenTitle {
+    /* Inherits text-7xl md:text-8xl font-serif font-semibold leading-tighter-custom from dark-theme settings */
+    background: linear-gradient(90deg, #ff5a5f 0%, #CC484D 100%); /* Use light theme gradient as platinum-text-gradient replacement */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none; 
+    letter-spacing: normal;
+    text-transform: uppercase; /* Ensure it stays uppercase */
+    animation: none; /* Remove animate-pulse, keep style static */
+    font-size: 4.5rem; /* text-7xl */
+    line-height: 1.19; /* leading-tighter-custom */
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
 
-/* Global screen, animation, and fixed nav styles */
+
+/* Global screen and animation styles */
 .screen {
-    /* *** THIS IS THE CRITICAL CHANGE *** */
-    /* REMOVE the 'display: none;' rule from your CSS */
-    
-    display: flex !important;/* Keep this to ensure internal layout is flex when rendered */
+    /* CRITICAL FIX: Overrides prototype's initial 'display: none' and ensures it can be seen. */
+    display: flex !important;
     min-height: 100vh;
     padding: 1rem;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
-/* ... include all other global styles like .spinner, .back-btn, .toggle-switch-container ... */
-
+.spinner {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* Fixed positioning for Nav */
+.back-btn, .cart-icon-btn {
+    position: fixed;
+    z-index: 20;
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.back-btn { top: 1rem; left: 1rem; }
+.cart-icon-btn { top: 1rem; right: 1rem; }
+.toggle-switch-container {
+    position: fixed;
+    bottom: 1rem; 
+    right: 1rem; 
+    z-index: 50;
+}
+.toggle-switch {
+    width: 60px;
+    height: 34px;
+    background-color: #2A2A2A; 
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.4s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.toggle-switch::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #F5F5F5;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.toggle-switch.toggled {
+    background-color: #DAD5C1; 
+}
+.toggle-switch.toggled::after {
+    transform: translateX(26px);
+    background-color: #111111; 
+}
 
-/* Note: The theme toggle styles are extensive. Ensure ALL of the custom CSS from your original <style> block is copied here. */
+/* Icons inside the switch */
+.toggle-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #F5F5F5;
+    transition: opacity 0.4s;
+}
+.sun-icon {
+    right: 8px;
+    opacity: 1;
+}
+.moon-icon {
+    left: 8px;
+    opacity: 0;
+}
+.toggle-switch.toggled .sun-icon {
+    opacity: 0;
+}
+.toggle-switch.toggled .moon-icon {
+    opacity: 1;
+}
+.toggle-switch.toggled::after {
+    content: ""; /* Maintain original content for smooth transition */
+    transform: translateX(26px);
+}
+/* Adjust for Light Theme Colors */
+.light-theme .toggle-switch {
+    background-color: #DAD5C1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.light-theme .toggle-switch::after {
+    background-color: #111111;
+    transform: translateX(26px);
+}
+.light-theme .toggle-switch.toggled {
+    background-color: #2A2A2A;
+}
+.light-theme .toggle-switch.toggled::after {
+    background-color: #F5F5F5;
+    transform: translateX(4px);
+}
+.light-theme .sun-icon { color: #111111; opacity: 0; }
+.light-theme .moon-icon { color: #DAD5C1; opacity: 1; }
+.light-theme .toggle-switch.toggled .sun-icon { opacity: 1; }
+.light-theme .toggle-switch.toggled .moon-icon { opacity: 0; }

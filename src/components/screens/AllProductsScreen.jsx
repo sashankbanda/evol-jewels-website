@@ -61,7 +61,7 @@ const AllProductsScreen = () => {
 
 
     return (
-        <div id="allProductsScreen" className="screen flex-col flex pt-24">
+        <div id="allProductsScreen" className="screen flex-col flex">
             <div className="w-full max-w-6xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center mb-8">
                     All Evol Jewels Products
