@@ -46,7 +46,7 @@ const AppContent = () => {
                     <div id="loadingScreen" className="screen flex-col">
                         <div className="spinner mb-6"></div>
                         <p className="text-2xl md:text-4xl font-serif font-semibold text-text-light">Finding your vibe...</p>
-                        <p className="text-lg md:text-xl mt-2 text-B1B1B1 font-sans">One sec — matching your style preferences.</p>
+                        <p className="text-lg md:text-xl mt-2 text-B1B1B1 font-sans">Just a moment — matching your style preferences.</p>
                     </div>
                 );
             case 'results': return <ResultScreen />;

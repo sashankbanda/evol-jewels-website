@@ -32,7 +32,7 @@ const CartScreen = () => {
                 <div id="cartItemsContainer" className="w-full space-y-4">
                     {cart.length === 0 ? (
                         <p className={`text-xl text-center ${subTextColor} mt-10 font-sans`}>
-                            Your cart is empty. Time to find your vibe!
+                            Your cart is empty — let’s find your vibe!
                         </p>
                     ) : (
                         cart.map((product, index) => (

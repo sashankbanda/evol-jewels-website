@@ -27,7 +27,7 @@ const CheckoutScreen = () => {
                     Your Order is Placed In-Store.
                 </p>
                 <p className={`text-lg ${p3Color} mb-4 font-sans`}>
-                    A staff member has been notified and will prepare your selections.
+                    Our team’s preparing your selections in-store.
                 </p>
                 
                 <p className={`text-lg font-bold ${p3Color} mb-2 font-sans`}>

@@ -6,7 +6,7 @@ import { useVibe } from '../../context/VibeContext';
 const quizQuestions = {
     1: { question: "Q1. What's the occasion today?", answers: { q1: ['Casual Day Out', 'Professional Setting', 'Evening / Party'] } },
     2: { question: "Q2. What are you shopping for today?", answers: { q2: ['Necklace', 'Ring', 'Earring', 'Bracelet'] } },
-    3: { question: "Q3. Pick the outfit style that feels most you.", answers: { q3: ['Classic (Elegant, Timeless)', 'Modern (Bold, Structured)', 'Relaxed (Casual, Layered)'] } },
+    3: { question: "Q3. Choose the outfit style that feels most like you.", answers: { q3: ['Classic (Elegant, Timeless)', 'Modern (Bold, Structured)', 'Relaxed (Casual, Layered)'] } },
     4: { question: "Q4. Which type of metal finish do you prefer?", answers: { q4: ['Polished Gold', 'Matte Silver', 'Mixed Metals'] } },
 };
 

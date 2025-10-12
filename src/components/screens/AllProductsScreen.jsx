@@ -103,7 +103,7 @@ const AllProductsScreen = () => {
                     ))}
                     {displayedProducts.length === 0 && (
                         <p className="col-span-full text-center text-B1B1B1 mt-8">
-                            No products found matching your filter criteria.
+                            No items match your filters. Try adjusting your selection.
                         </p>
                     )}
                 </div>

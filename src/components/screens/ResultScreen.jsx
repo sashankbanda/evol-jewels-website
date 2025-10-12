@@ -88,7 +88,7 @@ const ResultScreen = () => {
                                     <img id="celebImage" src={match.celebrityImage} alt={match.icon} className="w-full h-full object-cover opacity-80" />
                                 </div>
                                 <div className="p-4 text-center">
-                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Celebrity Vibe</p>
+                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Celebrity Inspiration</p>
                                     <p className="text-lg font-semibold text-text-light font-sans">Iconic Jewelry Match</p>
                                 </div>
                             </div>

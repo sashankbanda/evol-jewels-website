@@ -13,7 +13,7 @@ const TryOnModal = () => {
     // Simulate engagement detection
     useEffect(() => {
         const timer = setTimeout(() => {
-            setEngagementStatus("Engagement: Confirmed (Active View)");
+            setEngagementStatus("View active — engagement confirmed.");
         }, 1000);
         return () => clearTimeout(timer);
     }, [tryOnProduct]); 
@@ -59,7 +59,7 @@ const TryOnModal = () => {
                <button 
                    onClick={() => handleTryOnFeedback('cancel')} // 'cancel' action to just close the modal
                    className={`mt-4 w-full py-2 text-sm font-sans transition duration-200 ${closeBtnTextClass}`}>
-                    Cancel / Back to Looks
+                    Back to Looks
                 </button>
             </div>
         </div>
