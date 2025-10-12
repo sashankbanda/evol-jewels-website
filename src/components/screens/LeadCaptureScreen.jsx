@@ -1,7 +1,8 @@
 // src/components/screens/LeadCaptureScreen.jsx
 
 import React from 'react';
-import { QRCode } from 'qrcode.react';
+// FIX: Change to a default import from the main package name
+import QRCode from 'qrcode.react'; 
 import { useVibe } from '../../context/VibeContext';
 
 const LeadCaptureScreen = () => {

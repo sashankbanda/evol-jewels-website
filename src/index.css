@@ -71,7 +71,7 @@ body {
     /* *** THIS IS THE CRITICAL CHANGE *** */
     /* REMOVE the 'display: none;' rule from your CSS */
     
-    display: flex; /* Keep this to ensure internal layout is flex when rendered */
+    display: flex !important;/* Keep this to ensure internal layout is flex when rendered */
     min-height: 100vh;
     padding: 1rem;
     align-items: center;
