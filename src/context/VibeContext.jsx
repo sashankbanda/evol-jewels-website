@@ -50,14 +50,29 @@ export const VibeProvider = ({ children }) => {
                 return ['start']; 
             }
             
-            const lastScreen = prev[prev.length - 1];
+            let history = [...prev];
+            const lastScreen = history[history.length - 1];
 
+            // 1. Handle Quiz step navigation (same as before)
             if (lastScreen === 'quiz' && currentStep > 1) {
                 setCurrentStep(prevStep => prevStep - 1);
-                return prev;
+                return history;
             }
-            // Pop the current screen to go back to the previous one
-            return prev.slice(0, prev.length - 1);
+            
+            // Pop the current screen off the history array
+            history.pop(); 
+            
+            // 2. NEW FIX: If the previous screen was 'loading', pop that too, 
+            //    so we land on the screen *before* loading (which is quiz or cart)
+            if (history.length > 0 && history[history.length - 1] === 'loading') {
+                history.pop();
+            }
+
+            // If history is empty after cleanup, default to start
+            if (history.length === 0) return ['start'];
+
+            // Return the corrected history array
+            return history; 
         });
     };
 
