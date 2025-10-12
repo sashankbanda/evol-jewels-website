@@ -1,0 +1,88 @@
+/* src/index.css */
+
+/* Step 8: Inject Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Step 10: Custom CSS (Copied from prototype's <style> block) */
+
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* --- Dark Theme Classes (Platinum) --- */
+.dark-theme {
+    background-color: #111111;
+    color: #F5F5F5;
+}
+.dark-theme .primary-bg { background-color: #111111; }
+.dark-theme .text-text-light { color: #F5F5F5; }
+.dark-theme .text-B1B1B1 { color: #B1B1B1; }
+.dark-theme .text-accent-platinum { color: #DAD5C1; }
+.dark-theme .card-bg { background-color: #2A2A2A; }
+.dark-theme .primary-cta {
+    background: linear-gradient(145deg, #E8E4D8, #CFC6B0);
+    color: #111111;
+    border: 0.5px solid #D8CBAF; 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); 
+}
+.dark-theme .primary-cta:hover {
+    background: linear-gradient(145deg, #F5F2E8, #D8CBAF);
+}
+.dark-theme .secondary-cta {
+    border: 1px solid #DAD5C1;
+    color: #DAD5C1;
+    background-color: transparent;
+}
+.dark-theme .secondary-cta:hover {
+    background-color: #DAD5C1;
+    color: #111111;
+}
+/* ... include all dark theme-specific styles for CTA, quiz-option, etc. ... */
+
+.dark-theme .platinum-text-gradient {
+    background: linear-gradient(90deg, #E9E4D0 0%, #C8BCA0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 6px rgba(255, 255, 255, 0.08); 
+    letter-spacing: 0.5px;
+}
+.dark-theme #startScreenTitle {
+    font-size: 4.5rem;
+    line-height: 1.19;
+}
+
+/* --- Light Theme Classes (Vibe Match - Red/Gray) --- */
+.light-theme {
+    background-color: #f7f3f1;
+    color: #333333;
+}
+/* ... include all light theme specific styles for CTA, quiz-option, etc. ... */
+.light-theme .border-accent-platinum {
+    border-color: #ff5a5f !important;
+}
+
+/* Global screen, animation, and fixed nav styles */
+.screen {
+    /* *** THIS IS THE CRITICAL CHANGE *** */
+    /* REMOVE the 'display: none;' rule from your CSS */
+    
+    display: flex; /* Keep this to ensure internal layout is flex when rendered */
+    min-height: 100vh;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+/* ... include all other global styles like .spinner, .back-btn, .toggle-switch-container ... */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Note: The theme toggle styles are extensive. Ensure ALL of the custom CSS from your original <style> block is copied here. */
