@@ -6,8 +6,8 @@ import { getAllFilteredRecommendations, getVibeMatchDetails } from '../../logic/
 import ProductCard from '../shared/ProductCard';
 
 const ResultScreen = () => {
-    // Make sure showMessageModal is destructured here
-    const { isDarkTheme, quizAnswers, navigate, showMessageModal } = useVibe(); 
+    // NOTE: startNewSession is pulled from useVibe()
+    const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession } = useVibe(); 
     const [recommendations, setRecommendations] = useState([]);
     const [offset, setOffset] = useState(0);
     const batchSize = 4;
@@ -45,7 +45,7 @@ const ResultScreen = () => {
         // 2. Get the next slice and update the offset via the function
         const nextBatch = loadNextBatch(allProducts);
         
-        // 3. THE FIX: Use a functional update to APPEND the new batch to the existing list
+        // 3. Append the new batch to the existing list
         if (nextBatch.length > 0) {
             setRecommendations(prev => [...prev, ...nextBatch]); 
         }
@@ -123,8 +123,14 @@ const ResultScreen = () => {
                     </div>
                 </div>
                 
-                {/* BOTTOM BUTTONS */}
+                {/* BOTTOM BUTTONS - ADDING RESTART QUIZ HERE */}
                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 max-w-xl mx-auto mt-10">
+                    <button 
+                        onClick={startNewSession} // <-- RESTART QUIZ BUTTON
+                        className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
+                    >
+                        Restart Quiz
+                    </button>
                     <button 
                         onClick={() => navigate('allproducts')}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
