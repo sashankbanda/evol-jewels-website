@@ -1,22 +1,28 @@
 // src/components/screens/LeadCaptureScreen.jsx
 
 import React from 'react';
-// FIX: Change to a default import from the main package name
-// import QRCode from 'qrcode.react'; 
+// FIX: Using the highly stable 'react-qr-code' library
+import QRCode from 'react-qr-code'; 
 import { useVibe } from '../../context/VibeContext';
 
 const LeadCaptureScreen = () => {
     const { quizAnswers, navigate, isDarkTheme } = useVibe();
 
-    // Dynamic Class Logic
+    // Dynamic Class Logic (These use colors defined in tailwind.config/index.css)
     const containerBg = isDarkTheme ? 'bg-E6E2D3' : 'bg-light-card-bg';
     const textPrimary = isDarkTheme ? 'text-111111' : 'text-light-secondary';
     const buttonClass = isDarkTheme 
         ? 'mt-6 w-full py-4 bg-111111 text-F5F5F5 text-xl font-sans font-medium rounded-xl shadow-lg hover:bg-2A2A2A transition duration-300 transform hover:scale-105 active:scale-100'
         : 'mt-6 w-full py-4 bg-light-secondary text-light-card-bg text-xl font-sans font-medium rounded-xl shadow-lg hover:bg-light-primary transition duration-300 transform hover:scale-105 active:scale-100';
 
-    // The logic to generate the URL (copied from prototype)
+    // The logic to generate the URL (btoa(JSON.stringify(quizAnswers)))
     const profileUrl = `https://evoljewels.com/saved-look?vibe=${btoa(JSON.stringify(quizAnswers))}&match=true`;
+
+    // Dynamic colors for QR code to maintain theme contrast
+    // Note: react-qr-code uses standard hex values for bgcolor and fgcolor
+    const qrBgColor = isDarkTheme ? '#E6E2D3' : '#FFFFFF';
+    const qrFgColor = isDarkTheme ? '#111111' : '#333333';
+
 
     return (
         <div id="leadCaptureScreen" className="screen flex-col flex">
@@ -28,20 +34,16 @@ const LeadCaptureScreen = () => {
                     Scan to save your picks and get your exclusive in-store offer.
                 </h3>
                 
-                {/* <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3">
+                <div id="qrCodeContainer" 
+                     className={`mt-8 mx-auto flex items-center justify-center p-4 rounded-xl border border-dashed ${isDarkTheme ? 'bg-E6E2D3 border-DAD5C1' : 'bg-white border-gray-400'}`}
+                >
                     <QRCode 
                         value={profileUrl} 
                         size={200} 
                         level="H" 
-                        bgColor="#E6E2D3" 
-                        fgColor="#111111" 
-                        // Note: You might need to adjust bgColor/fgColor dynamically for light theme 
+                        bgColor={qrBgColor} 
+                        fgColor={qrFgColor} 
                     />
-                </div> */}
-
-                <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3 h-64 border-4 border-dashed border-gray-400">
-                    {/* Placeholder for QR Code: Component removed to fix crash */}
-                    <p className="text-gray-700">QR Code functionality removed.</p>
                 </div>
 
                 <p className="mt-8 text-sm text-B1B1B1 font-sans">
