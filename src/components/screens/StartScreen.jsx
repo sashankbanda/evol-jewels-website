@@ -15,16 +15,16 @@ const StartScreen = () => {
                 EVOL JEWELS
             </h1>
             <p className="text-2xl md:text-3xl font-sans font-light mb-12 text-B1B1B1">
-                Your Personal Digital Stylist Kiosk
+                Your Personal Style Stylist
             </p>
             <button 
                 onClick={startQuiz}
                 className="px-10 py-5 text-xl md:text-2xl font-sans rounded-xl primary-cta"
             >
-                Start Your Vibe Quiz
+                Start the Vibe Quiz
             </button>
             <div className="mt-16 text-lg text-B1B1B1 font-sans">
-                Tap to unlock your personal collection match.
+                Tap to discover pieces that match your style.
             </div>
         </div>
     );

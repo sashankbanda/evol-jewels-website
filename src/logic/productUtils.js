@@ -19,17 +19,28 @@ export const getProductById = (id) => {
 
 // Utility 3: Vibe Matching Logic (Scoring)
 export const getAllFilteredRecommendations = (answers) => {
-    const primaryCategory = answers.q2;
+    const primaryCategory = answers.q2; // e.g., 'Ring'
     const occasion = answers.q1;
     const outfitStyle = answers.q3;
     const metal = answers.q4;
 
-    let scoredRecommendations = productData.map(product => {
+    // --- NEW STEP: Apply mandatory Category Filter ---
+    let filteredProducts = productData.filter(product => {
+        // Normalize 'Pendant' to 'Necklace' for the filter
+        const productCategory = product.category === 'Pendant' ? 'Necklace' : product.category;
+        
+        // ONLY keep products that match the user's chosen category (q2)
+        return productCategory === primaryCategory;
+    });
+    
+    // --- OLD SCORING LOGIC (Now applied only to the filtered list) ---
+    let scoredRecommendations = filteredProducts.map(product => { // <-- Change: Use filteredProducts
         let score = 0;
         const productCategory = product.category === 'Pendant' ? 'Necklace' : product.category;
         const productCollection = product.collection || '';
         
         // Match Scoring Logic (copied from prototype)
+        // NOTE: The category match is already guaranteed here, but keeping scoring logic for context:
         if (productCategory === primaryCategory) { score += 3; } 
         if (product.tags.includes(metal)) { score += 2; }
         if (product.tags.includes(occasion)) { score += 1.5; }

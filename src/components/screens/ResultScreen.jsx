@@ -29,10 +29,21 @@ const ResultScreen = () => {
     }, []);
 
     const handleShowMore = () => {
-        const allProducts = getAllFilteredRecommendations(quizAnswers); // Regenerate/refetch all if necessary
-        const addedCount = loadNextBatch(allProducts);
-        if (addedCount === 0) {
-             alert("That's all the vibe matches we found for you! Try the 'Browse All Products' feature or restart the quiz.");
+        // Re-generate ALL filtered products, but start from offset 0 temporarily
+        // NOTE: The `loadNextBatch` currently uses the state `offset`, but this is safer:
+        const allProducts = getAllFilteredRecommendations(quizAnswers); 
+        
+        // 1. Calculate the next batch based on the current offset in state
+        const nextBatch = allProducts.slice(offset, offset + batchSize);
+        
+        // 2. Add the next batch to the existing list
+        setRecommendations(prev => [...prev, ...nextBatch]); 
+        
+        // 3. Update the offset
+        setOffset(prev => prev + nextBatch.length); 
+
+        if (nextBatch.length === 0) { // Check length of the newly loaded batch
+            alert("That's all the vibe matches we found for you! Try the 'Browse All Products' feature or restart the quiz.");
         }
     };
     
@@ -51,14 +62,14 @@ const ResultScreen = () => {
                     {/* VIBE MATCH CARD */}
                     <div className="md:w-1/2 w-full">
                         <div id="recommendationCard" className={recommendationCardClass}>
-                            <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">Your style matches:</p>
+                            <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">Here’s your signature style:</p>
                             <h3 id="styleIcon" className="text-3xl md:text-5xl font-serif font-extrabold text-accent-platinum">
                                 {match.icon}
                             </h3>
                             <p id="styleSubtitle" className={`text-xl mt-4 font-sans font-semibold ${styleSubtitleClass}`}>
                                 {match.subtitle}
                             </p>
-                            <p className="text-base mt-2 text-B1B1B1 font-sans">Find the perfect pieces that capture this iconic look.</p>
+                            <p className="text-base mt-2 text-B1B1B1 font-sans">Explore pieces that bring this look to life.</p>
                         </div>
                         
                         {/* CELEBRITY AND MOVIE PANELS (Static placeholders) */}
@@ -98,7 +109,7 @@ const ResultScreen = () => {
                             onClick={handleShowMore}
                             className="mt-6 w-full py-3 text-lg font-sans rounded-xl shadow-md secondary-cta"
                         >
-                            Refine & Show More Vibe Matches
+                            Show More Matches
                         </button>
                     </div>
                 </div>

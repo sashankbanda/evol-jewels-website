@@ -25,7 +25,7 @@ const LeadCaptureScreen = () => {
                     Save Your Look!
                 </p>
                 <h3 className="text-xl md:text-2xl font-sans font-semibold mb-8 leading-tight">
-                    Scan the QR code to save your recommended products and unlock your special in-store offer.
+                    Scan to save your picks and get your exclusive in-store offer.
                 </h3>
                 
                 {/* <div id="qrCodeContainer" className="mt-8 mx-auto flex items-center justify-center bg-E6E2D3">

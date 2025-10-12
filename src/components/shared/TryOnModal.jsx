@@ -5,7 +5,7 @@ import { useVibe } from '../../context/VibeContext';
 
 const TryOnModal = () => {
     const { isDarkTheme, tryOnProduct, handleTryOnFeedback } = useVibe();
-    const [engagementStatus, setEngagementStatus] = useState("Detecting Engagement...");
+    const [engagementStatus, setEngagementStatus] = useState("Loading your look...");
 
     // Close the modal if the product is null
     if (!tryOnProduct) return null;
@@ -47,12 +47,12 @@ const TryOnModal = () => {
                     <button 
                         onClick={() => handleTryOnFeedback('love', product)}
                         className="flex-1 py-4 text-lg font-sans rounded-xl shadow-md primary-cta">
-                        Keep This Vibe (Add to Cart)
+                        Love it (Add to Cart)
                     </button>
                     <button 
                         onClick={() => handleTryOnFeedback('dislike', product)}
                         className="flex-1 py-4 text-lg font-sans rounded-xl shadow-md tertiary-cta">
-                        Refine Look (Try Again)
+                        Try Another Style
                     </button>
                 </div>
 

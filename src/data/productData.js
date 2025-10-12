@@ -67,10 +67,10 @@ export const productData = [
 ];
 
 export const vibeMatches = {
-    'Party/Celebration_Classic_Polished Gold': { icon: 'Zendaya: Effortlessly Chic', subtitle: 'The ultimate statement pieces: Polished gold and dramatic silhouettes for the evening.', celebrityImage: 'https://placehold.co/400x200/ff69b4/F5F5F5?text=Zendaya+Statement+Gold' },
-    'Work_Modern_Matte Silver': { icon: 'Amal Clooney: Power Minimalist', subtitle: 'Sleek, geometric designs that convey confidence and professionalism in matte silver.', celebrityImage: 'https://placehold.co/400x200/3c8dbc/F5F5F5?text=Amal+Clooney+Geometric' },
-    'Casual_Relaxed_Mixed Metals': { icon: 'Gigi Hadid: Relaxed Luxury', subtitle: 'Effortless layering with mixed metals for a trendy, casual-cool look.', celebrityImage: 'https://placehold.co/400x200/ffa500/F5F5F5?text=Gigi+Hadid+Casual+Layers' },
-    'Work_Classic_Polished Gold': { icon: 'Priyanka Chopra: Classic Structure', subtitle: 'Timeless elegance in polished gold, perfect for structured workwear.', celebrityImage: 'https://placehold.co/400x200/9932CC/F5F5F5?text=Priyanka+Gold+Elegance' },
-    'Party/Celebration_Modern_Mixed Metals': { icon: 'Rihanna: Bold & Experimental', subtitle: 'Unconventional pairings and bold mixed metals for maximum impact.', celebrityImage: 'https://placehold.co/400x200/CC0000/F5F5F5?text=Rihanna+Bold+Mix' },
-    'default': { icon: 'Audrey Hepburn: Timeless Elegance', subtitle: 'When in doubt, choose classic, refined styles that transcend trends.', celebrityImage: 'https://placehold.co/400x200/4CAF50/F5F5F5?text=Audrey+Hepburn+Classic' }
+    'Party/Celebration_Classic_Polished Gold': { icon: 'Zendaya: Effortlessly Chic', subtitle: 'Polished gold and bold silhouettes made for a standout evening look.', celebrityImage: 'https://placehold.co/400x200/ff69b4/F5F5F5?text=Zendaya+Statement+Gold' },
+    'Work_Modern_Matte Silver': { icon: 'Amal Clooney: Power Minimalist', subtitle: 'Sleek, geometric pieces that mean business — in cool matte silver.', celebrityImage: 'https://placehold.co/400x200/3c8dbc/F5F5F5?text=Amal+Clooney+Geometric' },
+    'Casual_Relaxed_Mixed Metals': { icon: 'Gigi Hadid: Relaxed Luxury', subtitle: 'Layered mixed metals that keep it casual yet elevated.', celebrityImage: 'https://placehold.co/400x200/ffa500/F5F5F5?text=Gigi+Hadid+Casual+Layers' },
+    'Work_Classic_Polished Gold': { icon: 'Priyanka Chopra: Classic Edge', subtitle: 'Polished gold with structured lines — timeless and sharp.', celebrityImage: 'https://placehold.co/400x200/9932CC/F5F5F5?text=Priyanka+Gold+Elegance' },
+    'Party/Celebration_Modern_Mixed Metals': { icon: 'Rihanna: Bold & Experimental', subtitle: 'Contrasting metals and standout shapes for fearless energy.', celebrityImage: 'https://placehold.co/400x200/CC0000/F5F5F5?text=Rihanna+Bold+Mix' },
+    'default': { icon: 'Audrey Hepburn: Timeless Grace', subtitle: 'Elegant, refined, and forever in style.', celebrityImage: 'https://placehold.co/400x200/4CAF50/F5F5F5?text=Audrey+Hepburn+Classic' }
 };
