@@ -1,14 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Camera, Sparkles, X } from 'lucide-react';
+import { Camera, X } from 'lucide-react';
+// We don't need Sparkles anymore, removed it.
+
+// Helper function to load the correct image path
+// The path pattern is public/media_bgr/image[id].png
+const getImagePath = (id) => `/media_bgr/image${id}.png`;
+
 
 const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
-    // Note: The parent component (TryOnModal) handles isActive toggling 
-    // for the entire modal, so we'll treat the prop as the source of truth.
-    // The camera will manage its own ready state internally.
     const [isCameraReady, setIsCameraReady] = useState(false);
+    const [jewelryImage, setJewelryImage] = useState(null); // NEW: State to hold the loaded image object
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const streamRef = useRef(null);
+
+    // Effect to load the image based on selectedJewelry.id
+    useEffect(() => {
+        if (selectedJewelry && selectedJewelry.id) {
+            const img = new Image();
+            img.onload = () => {
+                setJewelryImage(img);
+            };
+            img.onerror = () => {
+                console.error(`Failed to load jewelry image for ID: ${selectedJewelry.id}`);
+                setJewelryImage(null); // Clear image on load error
+            };
+            // Set the source using the ID and the new path helper
+            img.src = getImagePath(selectedJewelry.id); 
+        } else {
+            setJewelryImage(null); // Clear image if no product is selected
+        }
+    }, [selectedJewelry]); // Re-run whenever a new product is selected
 
     // Effect to start/stop the camera based on the parent's isActive prop
     useEffect(() => {
@@ -21,15 +43,21 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
         return () => stopCamera();
     }, [isActive]);
 
-    // Effect to start drawing when the camera is ready and jewelry is selected
+    // Effect to start drawing when the camera is ready and jewelry is loaded
+    // Changed dependency to jewelryImage instead of selectedJewelry
     useEffect(() => {
-        if (isActive && isCameraReady && selectedJewelry) {
+        // Only start drawing if the camera is active, ready, AND the specific image is loaded
+        if (isActive && isCameraReady && jewelryImage) { 
             drawJewelry();
         }
-    }, [isActive, isCameraReady, selectedJewelry]);
+        // NOTE: The drawJewelry function will call requestAnimationFrame recursively, 
+        // which will continue until isActive, isCameraReady, or jewelryImage becomes false/null.
+        // We don't need to return a cleanup function here for animation frame because the animate 
+        // loop checks the state on every frame.
+    }, [isActive, isCameraReady, jewelryImage]); // Dependency change
 
     const startCamera = async () => {
-        if (streamRef.current) return; // Prevent multiple streams
+        if (streamRef.current) return;
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
@@ -41,14 +69,12 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
                 videoRef.current.onloadedmetadata = () => {
                     setIsCameraReady(true);
                 };
-                // Ensure video starts playing when stream is set
                 await videoRef.current.play();
             }
         } catch (err) {
             console.error('Camera access error:', err);
-            // Alert user and set active state to false if camera access fails
             alert('Unable to access camera. Please grant camera permissions.');
-            setIsActive(false); 
+            setIsActive(false);
         }
     };
 
@@ -60,100 +86,93 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
         setIsCameraReady(false);
     };
 
+    // MODIFIED: This function now uses the loaded jewelryImage to draw
     const drawJewelry = () => {
         const canvas = canvasRef.current;
         const video = videoRef.current;
-        if (!canvas || !video || video.paused) return;
+        const image = jewelryImage; // Use the image from state
+        
+        // CRITICAL CHECK: Ensure all resources are available before drawing
+        if (!canvas || !video || video.paused || !image || !isActive) return;
 
         const ctx = canvas.getContext('2d');
-        // Match canvas size to video size
         canvas.width = video.videoWidth || 640;
         canvas.height = video.videoHeight || 480;
 
+        // Using a global ID for the animation frame to allow stopping the loop
+        let animationFrameId;
+
         const animate = () => {
-            // Check main activity and selection status before drawing
-            if (!isActive || !selectedJewelry) return;
+            // Re-check state at the start of each frame
+            if (!isActive || !image) {
+                // If try-on is stopped or image is gone, clear the animation frame and stop.
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                return;
+            }
 
             // 1. Draw the video frame
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Draw mirrored image to match user expectation (as seen in the image you provided)
+            ctx.save();
+            ctx.scale(-1, 1); // Flip horizontally
+            ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+            ctx.restore();
 
-            // 2. Determine jewelry position (fixed, since there's no tracking library)
+            // 2. Determine jewelry position based on category
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
+            const category = selectedJewelry.category === 'Pendant' ? 'Necklace' : selectedJewelry.category;
+            
+            // Image placement logic (You will need to adjust these offsets and sizes 
+            // to match your actual images and face landmarks)
+            let drawX = 0;
+            let drawY = 0;
+            let drawWidth = image.width * 0.5; // Scaling factor
+            let drawHeight = image.height * 0.5; // Scaling factor
 
-            // 3. Draw the appropriate jewelry type
-            if (selectedJewelry.category === 'Ring') {
-                // Approximate finger position
-                drawRing(ctx, centerX + 100, centerY + 120, selectedJewelry.color || '#FFD700'); 
-            } else if (selectedJewelry.category === 'Necklace' || selectedJewelry.category === 'Pendant') {
-                // Approximate neck position
-                drawNecklace(ctx, centerX, centerY - 80, selectedJewelry.color || '#F8F8FF');
-            } else if (selectedJewelry.category === 'Earring') {
-                // Approximate ear positions
-                drawEarrings(ctx, centerX, centerY - 60, selectedJewelry.color || '#50C878');
+            switch (category) {
+                case 'Necklace':
+                    // Center just below the chin/neck area
+                    drawX = centerX - drawWidth / 2;
+                    drawY = centerY + 10;
+                    break;
+                case 'Earring':
+                    // For now, center in the middle (you'd need face detection for proper placement)
+                    // The drawing will be a placeholder until face landmarks are integrated.
+                    drawX = centerX - drawWidth / 2;
+                    drawY = centerY - drawHeight / 2;
+                    drawWidth = image.width * 0.3; // Smaller for earrings
+                    drawHeight = image.height * 0.3;
+                    break;
+                case 'Ring':
+                    // Approximate hand/ring position (far from the face)
+                    drawX = centerX + 100;
+                    drawY = centerY + 100;
+                    drawWidth = image.width * 0.2; // Very small for a ring
+                    drawHeight = image.height * 0.2;
+                    break;
+                default:
+                    // Default to center if category is unknown
+                    drawX = centerX - drawWidth / 2;
+                    drawY = centerY - drawHeight / 2;
             }
 
-            requestAnimationFrame(animate);
-        };
+            // 3. Draw the loaded image asset
+            ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 
+            // 4. Request the next frame
+            animationFrameId = requestAnimationFrame(animate);
+        };
+        
+        // Start the animation loop
         animate();
     };
-
-    // --- Drawing functions (simplified from original code for stability) ---
-    const drawRing = (ctx, x, y, color) => {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.ellipse(x, y, 25, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x, y - 10, 6, 0, Math.PI * 2);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fill();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-    };
-
-    const drawNecklace = (ctx, x, y, color) => {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        // Simple V-shape chain
-        ctx.moveTo(x - 50, y);
-        ctx.lineTo(x, y + 60);
-        ctx.lineTo(x + 50, y);
-        ctx.stroke();
-
-        // Pendant
-        ctx.beginPath();
-        ctx.arc(x, y + 60, 8, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-    };
-
-    const drawEarrings = (ctx, x, y, color) => {
-        // Left earring
-        drawSingleEarring(ctx, x - 60, y, color);
-        // Right earring
-        drawSingleEarring(ctx, x + 60, y, color);
-    };
-
-    const drawSingleEarring = (ctx, x, y, color) => {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(x, y + 15, 8, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#FFFFFF';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-    };
+    // Removed the unused drawRing, drawNecklace, drawEarrings, drawSingleEarring functions.
     // -------------------------------------------------------------------
 
 
-    const showCameraPlaceholder = !isActive || !isCameraReady;
-    
+    const showCameraPlaceholder = !isActive || !isCameraReady || !jewelryImage;
+
     return (
         <div className="w-full h-full relative">
             {/* The hidden video element captures the camera stream */}
@@ -163,7 +182,8 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
                 playsInline
                 muted
                 className="absolute inset-0 w-full h-full object-cover"
-                style={{ display: 'none' }}
+                // The style is changed to mirror the video stream before it's drawn to canvas
+                style={{ display: 'none' }} 
             />
             {/* The canvas overlays the video and draws the jewelry */}
             <canvas
@@ -177,8 +197,9 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
                     <Camera size={48} className="mb-4" />
                     <p className="font-sans font-semibold">
                         {isActive ? (
-                            isCameraReady ? "Waiting for jewelry selection..." : "Requesting camera access..."
-                        ) : "Click 'Start Try-On' to activate camera."}
+                            // Updated status based on image loading
+                            jewelryImage ? "Starting Try-On..." : "Loading image and camera..."
+                        ) : "Click 'Start Try-On View' to activate camera."}
                     </p>
                 </div>
             )}
