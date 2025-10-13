@@ -15,12 +15,15 @@ const HAND_MODEL_PATH = '/models/hand_landmarker.task';
 const NECK_CENTER_LANDMARK_INDEX = 152; 
 const LEFT_EAR_LANDMARK_INDEX = 132;   
 const RIGHT_EAR_LANDMARK_INDEX = 361;  
-const RING_FINGER_TIP_LANDMARK_INDEX = 16; 
+const MIDDLE_FINGER_MIDDLE_LANDMARK_INDEX = 10; // Stable knuckle point for rings
+const HAND_WRIST_LANDMARK_INDEX = 0;    // Wrist for bracelet anchor
+const RING_FINGER_TIP_LANDMARK_INDEX = 16; // User-specified ring position
 
 // Helper to flip X coordinate for mirrored display
 const flipX = (normalizedX, canvasWidth) => (1 - normalizedX) * canvasWidth;
 
-const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
+// CRITICAL CHANGE: Accept manualAdjustment prop
+const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive, manualAdjustment }) => {
     const [isCameraReady, setIsCameraReady] = useState(false);
     const [jewelryImage, setJewelryImage] = useState(null);
     const [isModelLoading, setIsModelLoading] = useState(true);
@@ -32,6 +35,15 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
     const landmarkerRef = useRef(null); 
     const animationFrameId = useRef(null); 
     const lastVideoTimeRef = useRef(-1);
+    
+    // NEW: Ref to store and access the latest adjustments inside the animation loop
+    const adjustmentsRef = useRef(manualAdjustment);
+
+    // --- EFFECT TO KEEP ADJUSTMENTS REF UPDATED ---
+    useEffect(() => {
+        adjustmentsRef.current = manualAdjustment;
+    }, [manualAdjustment]);
+
 
     // Get model configuration based on category
     const getModelConfig = useCallback((category) => {
@@ -209,78 +221,151 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
     };
 
     const drawEarrings = (ctx, landmarks, image, canvas) => {
-        const earringOffsetX = 5; 
-        const earringOffsetY = 8; 
-        const drawScaleFactor = 0.08;
+        // GET LATEST ADJUSTMENTS HERE
+        const adjustments = adjustmentsRef.current;
+        
+        // Base auto-calculated placement:
+        const initialDrawScaleFactor = 0.08;
+        const initialOffsetX = 5; 
+        const initialOffsetY = 8; 
+
+        // Apply manual adjustments from the slider:
+        const finalDrawScaleFactor = initialDrawScaleFactor * adjustments.scaleFactor;
+        const finalOffsetX = adjustments.offsetX; // Apply horizontal move globally
+        const finalOffsetY = initialOffsetY + adjustments.offsetY;
+        const rotationRadians = (adjustments.rotationAngle || 0) * (Math.PI / 180); // CRITICAL: Rotation
 
         const drawSingleEarring = (earIndex, sideOffsetX) => {
             const earPoint = landmarks[earIndex];
-            const earDrawWidth = image.width * drawScaleFactor; 
-            const earDrawHeight = image.height * drawScaleFactor; 
+            if (!earPoint) return; // Skip drawing if landmark is missing (user turned head)
+
+            const earDrawWidth = image.width * finalDrawScaleFactor; 
+            const earDrawHeight = image.height * finalDrawScaleFactor; 
             const flippedX = flipX(earPoint.x, canvas.width);
-            const finalDrawX = flippedX - (earDrawWidth / 2) + sideOffsetX;
-            const finalDrawY = earPoint.y * canvas.height - (earDrawHeight / 2) + earringOffsetY;
-            ctx.drawImage(image, finalDrawX, finalDrawY, earDrawWidth, earDrawHeight);
+            
+            const anchorX = flippedX + finalOffsetX; // Center of rotation/translation X
+            const anchorY = earPoint.y * canvas.height + finalOffsetY; // Center of rotation/translation Y
+            
+            ctx.save();
+            ctx.translate(anchorX, anchorY); // Move origin to the anchor point
+            ctx.rotate(rotationRadians); // Rotate the canvas
+
+            // Draw the image centered on the new origin (x, y = 0, 0)
+            const drawX = (sideOffsetX * initialDrawScaleFactor) - (earDrawWidth / 2);
+            const drawY = -(earDrawHeight / 2); // Center vertical placement
+
+            ctx.drawImage(image, drawX, drawY, earDrawWidth, earDrawHeight);
+            
+            ctx.restore(); // Restore canvas state
         };
 
-        drawSingleEarring(LEFT_EAR_LANDMARK_INDEX, -earringOffsetX); 
-        drawSingleEarring(RIGHT_EAR_LANDMARK_INDEX, earringOffsetX);
+        drawSingleEarring(LEFT_EAR_LANDMARK_INDEX, -initialOffsetX); 
+        drawSingleEarring(RIGHT_EAR_LANDMARK_INDEX, initialOffsetX);
     };
 
     const drawNecklace = (ctx, landmarks, image, canvas) => {
-        const drawScaleFactor = 0.3; 
-        const offsetY = 60; 
+        // GET LATEST ADJUSTMENTS HERE
+        const adjustments = adjustmentsRef.current;
+
+        // Base auto-calculated placement:
+        const initialDrawScaleFactor = 0.3; 
+        const initialOffsetY = 60; 
+
+        // Apply manual adjustments from the slider:
+        const finalDrawScaleFactor = initialDrawScaleFactor * adjustments.scaleFactor;
+        const finalOffsetX = adjustments.offsetX;
+        const finalOffsetY = initialOffsetY + adjustments.offsetY;
+        const rotationRadians = (adjustments.rotationAngle || 0) * (Math.PI / 180); // CRITICAL: Rotation
+
         const normalizedPoint = landmarks[NECK_CENTER_LANDMARK_INDEX];
-        const drawWidth = image.width * drawScaleFactor;
-        const drawHeight = image.height * drawScaleFactor;
+        const drawWidth = image.width * finalDrawScaleFactor;
+        const drawHeight = image.height * finalDrawScaleFactor;
         const flippedX = flipX(normalizedPoint.x, canvas.width);
-        const drawX = flippedX - (drawWidth / 2);
-        const drawY = normalizedPoint.y * canvas.height - (drawHeight / 2) + offsetY;
-        ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+        
+        const anchorX = flippedX + finalOffsetX;
+        const anchorY = normalizedPoint.y * canvas.height + finalOffsetY;
+        
+        ctx.save();
+        ctx.translate(anchorX, anchorY); // Move origin to the anchor point
+        ctx.rotate(rotationRadians); // Rotate the canvas
+
+        // Draw the image centered on the new origin
+        ctx.drawImage(image, -(drawWidth / 2), -(drawHeight / 2), drawWidth, drawHeight);
+
+        ctx.restore(); // Restore canvas state
     };
 
     const drawRing = (ctx, handLandmarks, image, canvas) => {
+        // GET LATEST ADJUSTMENTS HERE
+        const adjustments = adjustmentsRef.current;
+        
+        // Base auto-calculated placement:
+        const initialDrawScaleFactor = 0.08; 
+        const initialOffsetY = 5;
+        
+        // Apply manual adjustments from the slider:
+        const finalDrawScaleFactor = initialDrawScaleFactor * adjustments.scaleFactor;
+        const finalOffsetX = adjustments.offsetX;
+        const finalOffsetY = initialOffsetY + adjustments.offsetY;
+        const rotationRadians = (adjustments.rotationAngle || 0) * (Math.PI / 180); // CRITICAL: Rotation
+
         const normalizedPoint = handLandmarks[RING_FINGER_TIP_LANDMARK_INDEX]; 
-        const drawScaleFactor = 0.08; 
-        const offsetY = 5;
-        
-        const drawWidth = image.width * drawScaleFactor;
-        const drawHeight = image.height * drawScaleFactor;
+        const drawWidth = image.width * finalDrawScaleFactor;
+        const drawHeight = image.height * finalDrawScaleFactor;
         const flippedX = flipX(normalizedPoint.x, canvas.width);
-        const drawX = flippedX - (drawWidth / 2);
-        const drawY = normalizedPoint.y * canvas.height - (drawHeight / 2) + offsetY;
         
-        ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+        const anchorX = flippedX + finalOffsetX;
+        const anchorY = normalizedPoint.y * canvas.height + finalOffsetY;
+        
+        ctx.save();
+        ctx.translate(anchorX, anchorY); // Move origin to the anchor point
+        ctx.rotate(rotationRadians); // Rotate the canvas
+        
+        // Draw the image centered on the new origin
+        ctx.drawImage(image, -(drawWidth / 2), -(drawHeight / 2), drawWidth, drawHeight);
+        
+        ctx.restore(); // Restore canvas state
     };
 
     const drawBracelet = (ctx, handLandmarks, image, canvas) => {
-        const normalizedPoint = handLandmarks[0]; // Wrist
-        let drawWidth, drawHeight, drawX, drawY;
-        const offsetY = 10;
+        // GET LATEST ADJUSTMENTS HERE
+        const adjustments = adjustmentsRef.current;
         
+        const normalizedPoint = handLandmarks[HAND_WRIST_LANDMARK_INDEX]; // Wrist (Landmark 0)
+        let drawWidth, drawHeight;
+
+        // Apply manual adjustments to offsets:
+        const finalOffsetX = adjustments.offsetX;
+        const finalOffsetY = 10 + adjustments.offsetY; // 10 is base offset
+        const rotationRadians = (adjustments.rotationAngle || 0) * (Math.PI / 180); // CRITICAL: Rotation
+
         // Dynamic scaling based on hand size (using landmarks 5 and 17)
         if (handLandmarks[5] && handLandmarks[17]) {
             const knuckleDistanceX = Math.abs(handLandmarks[5].x - handLandmarks[17].x) * canvas.width;
             const handScale = knuckleDistanceX / 100; 
             
-            drawWidth = image.width * handScale * 0.6; 
-            drawHeight = image.height * handScale * 0.6;
-            
-            const flippedX = flipX(normalizedPoint.x, canvas.width);
-            drawX = flippedX - (drawWidth / 2); 
-            drawY = normalizedPoint.y * canvas.height - (drawHeight / 2) + offsetY;
+            // Apply manual scale multiplier here
+            drawWidth = image.width * handScale * 0.6 * adjustments.scaleFactor; 
+            drawHeight = image.height * handScale * 0.6 * adjustments.scaleFactor;
         } else {
             // Fallback static sizing
-            const drawScaleFactor = 0.35;
+            const drawScaleFactor = 0.35 * adjustments.scaleFactor;
             drawWidth = image.width * drawScaleFactor;
             drawHeight = image.height * drawScaleFactor;
-            
-            const flippedX = flipX(normalizedPoint.x, canvas.width);
-            drawX = flippedX - (drawWidth / 2);
-            drawY = normalizedPoint.y * canvas.height - (drawHeight / 2) + offsetY;
         }
+
+        const flippedX = flipX(normalizedPoint.x, canvas.width);
+        const anchorX = flippedX + finalOffsetX;
+        const anchorY = normalizedPoint.y * canvas.height + finalOffsetY;
         
-        ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+        ctx.save();
+        ctx.translate(anchorX, anchorY); // Move origin to the anchor point
+        ctx.rotate(rotationRadians); // Rotate the canvas
+        
+        // Draw the image centered on the new origin
+        ctx.drawImage(image, -(drawWidth / 2), -(drawHeight / 2), drawWidth, drawHeight);
+        
+        ctx.restore(); // Restore canvas state
     };
 
     // --- CORE AR DETECTION LOOP ---
@@ -304,19 +389,15 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
             }
 
             try {
-                // Only process new video frames
                 if (video.currentTime !== lastVideoTimeRef.current) {
                     let results = null;
                     let newDetectionStatus = "Waiting for subject...";
                     
-                    // Run detection
                     results = landmarker.detectForVideo(video, performance.now());
 
-                    // Clear and draw video frame
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawMirroredVideo(ctx, video, canvas);
                     
-                    // Draw jewelry based on detection results
                     if (category === 'Necklace' || category === 'Earring') {
                         if (results?.faceLandmarks?.length > 0) {
                             const landmarks = results.faceLandmarks[0];
@@ -328,11 +409,9 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
                                 drawNecklace(ctx, landmarks, image, canvas);
                             }
                         } else {
-                            // NEW: Specific Guidance Message
                             newDetectionStatus = "Ensure your face is clearly visible and aligned with the camera.";
                         }
                     } else if (category === 'Ring' || category === 'Bracelet') {
-                        // Using 'landmarks' for single HandLandmarker results
                         if (results?.landmarks?.length > 0) { 
                             const handLandmarks = results.landmarks[0];
                             newDetectionStatus = "Tracking hand...";
@@ -343,7 +422,6 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
                                 drawBracelet(ctx, handLandmarks, image, canvas);
                             }
                         } else {
-                            // NEW: Specific Guidance Message
                             newDetectionStatus = "Direct your camera to capture your wrist and the back of your hand for a virtual fitting.";
                         }
                     }
@@ -379,7 +457,7 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
     }
 
     const showHandIcon = (selectedJewelry?.category === 'Ring' || selectedJewelry?.category === 'Bracelet') 
-        && statusMessage.includes("Direct your camera"); // Check for the specific hand failure message
+        && statusMessage.includes("Direct your camera"); 
 
     return (
         <div className="w-full h-full relative">
@@ -398,7 +476,6 @@ const JewelryARTryOn = ({ selectedJewelry, isActive, setIsActive }) => {
             
             <div 
                 className="absolute inset-0 flex flex-col items-center justify-center text-text-light/50 bg-111111/50 rounded-xl"
-                // Hide overlay only when camera and model are ready
                 style={{ display: (isCameraReady && !isModelLoading) ? 'none' : 'flex' }}
             >
                 {showHandIcon ? (
