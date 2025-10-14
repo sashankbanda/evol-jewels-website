@@ -2,12 +2,29 @@
 
 Unleash Your Style, Elevate Every Moment
 
-[![GitHub issues](https://img.shields.io/github/issues/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/issues)
-[![GitHub forks](https://img.shields.io/github/forks/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/network)
-[![GitHub stars](https://img.shields.io/github/stars/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/stargazers)
-[![License](https://img.shields.io/github/license/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/blob/main/LICENSE)
-[![GitHub watchers](https://img.shields.io/github/watchers/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/watchers)
-[![Last Commit](https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge)](https://github.com/sashankbanda/evol-jewels-website/commits/main)
+<p align="center">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=last%20commit&color=2A2A2A">
+    <img alt="Today's Date" src="https://img.shields.io/badge/today-05C2E0?style=for-the-badge">
+    <img alt="JavaScript Percentage" src="https://img.shields.io/github/languages/percentage/sashankbanda/evol-jewels-website/javascript?style=for-the-badge&color=0079C1">
+    <img alt="Language Count" src="https://img.shields.io/github/languages/count/sashankbanda/evol-jewels-website?style=for-the-badge&label=languages&color=2A2A2A">
+</p>
+
+Built with the tools and technologies:
+
+<p align="center">
+    <img alt="Express" src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express">
+    <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
+    <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white">
+    <img alt="npm" src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+    <img alt="Autoprefixer" src="https://img.shields.io/badge/Autoprefixer-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
+    <img alt="PostCSS" src="https://img.shields.io/badge/PostCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
+    <br>
+    <img alt="dotenv" src="https://img.shields.io/badge/dotenv-D2B948?style=for-the-badge&logo=dotenv&logoColor=white">
+    <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+    <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+    <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+</p>
 
 ---
 
