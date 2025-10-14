@@ -11,7 +11,7 @@ export const useVibe = () => useContext(VibeContext);
 
 // 3. Provider Component
 export const VibeProvider = ({ children }) => {
-    // State copied from prototype globals
+    // --- Application State ---
     const [isDarkTheme, setIsDarkTheme] = useState(true);
     const [currentStep, setCurrentStep] = useState(1);
     const [quizAnswers, setQuizAnswers] = useState({});
@@ -20,7 +20,11 @@ export const VibeProvider = ({ children }) => {
     const [tryOnProduct, setTryOnProduct] = useState(null); 
     const [recommendationOffset, setRecommendationOffset] = useState(0);
     const [messageModal, setMessageModal] = useState(null);
-
+    
+    // --- NEW STATE FOR OUTFIT CONTEXT ---
+    const [outfitKeywords, setOutfitKeywords] = useState(null); 
+    const [outfitRefImageUrl, setOutfitRefImageUrl] = useState(null);
+    // ------------------------------------
 
     // --- Initialization & Theme Logic ---
     useEffect(() => {
@@ -72,7 +76,6 @@ export const VibeProvider = ({ children }) => {
             // If history is empty after cleanup, default to start
             if (history.length === 0) return ['start'];
 
-            // Return the corrected history array
             return history; 
         });
     };
@@ -82,6 +85,8 @@ export const VibeProvider = ({ children }) => {
         setQuizAnswers({});
         setCurrentStep(1);
         setRecommendationOffset(0);
+        setOutfitKeywords(null); 
+        setOutfitRefImageUrl(null);
         navigate('quiz'); 
     };
 
@@ -92,12 +97,57 @@ export const VibeProvider = ({ children }) => {
         if (currentStep < 4) {
             setTimeout(() => setCurrentStep(prev => prev + 1), 400);
         } else {
-            navigate('loading');
-            setTimeout(() => navigate('results'), 1500); 
+            // *** CRITICAL CHANGE ***: Navigate to outfit input after last quiz step
+            navigate('outfitinput'); 
         }
     };
 
-    // --- NEW: Custom Modal Logic ---
+    // --- NEW: CONTEXT ANALYSIS FUNCTION ---
+    const startContextAnalysis = async (text) => {
+        if (!text || text.trim() === '') {
+            // If user clicks skip
+            setOutfitKeywords(null);
+            setOutfitRefImageUrl(null);
+            navigate('loading');
+            setTimeout(() => navigate('results'), 500);
+            return;
+        }
+
+        navigate('loading');
+        setRecommendationOffset(0); 
+
+        try {
+            // *** REAL BACKEND CALL TO NODE SERVER ***
+            // This URL must match the port and endpoint in your server.js file (http://localhost:3001)
+            const response = await fetch('http://localhost:3001/api/analyze-outfit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ outfitText: text }),
+            });
+
+            if (!response.ok) {
+                console.error("Server responded with error:", response.status);
+                throw new Error(`AI service failed with status ${response.status}.`);
+            }
+
+            const aiResponse = await response.json(); 
+            
+            // Use the real structured data returned from server.js
+            setOutfitKeywords(aiResponse.keywords); 
+            setOutfitRefImageUrl(aiResponse.imageUrl);
+
+        } catch (error) {
+            console.error("Context Analysis Error:", error);
+            setOutfitKeywords(null); 
+            setOutfitRefImageUrl(null);
+            showMessageModal("We failed to connect to the styling AI. Results are based on your quiz answers only.");
+        }
+        
+        setTimeout(() => navigate('results'), 1500); 
+    };
+
+
+    // --- Custom Modal Logic ---
     const showMessageModal = (message) => {
         setMessageModal(message);
     };
@@ -143,6 +193,8 @@ export const VibeProvider = ({ children }) => {
         setQuizAnswers({});
         setCurrentStep(1);
         setRecommendationOffset(0);
+        setOutfitKeywords(null);
+        setOutfitRefImageUrl(null);
         setScreenHistory(['start']);
     };
 
@@ -153,6 +205,8 @@ export const VibeProvider = ({ children }) => {
         toggleTheme,
         currentStep,
         quizAnswers,
+        outfitKeywords, 
+        outfitRefImageUrl, 
         cart,
         screenHistory: screenHistory[screenHistory.length - 1] || 'start', 
         tryOnProduct,
@@ -164,14 +218,15 @@ export const VibeProvider = ({ children }) => {
         goBack,
         startQuiz,
         answerQuiz,
+        startContextAnalysis, 
         addToCart,
         removeCartItem,
         getCartTotal,
         showTryOnModal,
         handleTryOnFeedback,
         startNewSession,
-        showMessageModal, // <-- EXPORT NEW FUNCTION
-        hideMessageModal, // <-- EXPORT NEW FUNCTION
+        showMessageModal, 
+        hideMessageModal, 
     };
 
     useEffect(() => {

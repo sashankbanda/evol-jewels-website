@@ -18,33 +18,45 @@ export const getProductById = (id) => {
 };
 
 // Utility 3: Vibe Matching Logic (Scoring)
-export const getAllFilteredRecommendations = (answers) => {
-    const primaryCategory = answers.q2; // e.g., 'Ring'
+// ADD outfitKeywords as a parameter
+export const getAllFilteredRecommendations = (answers, outfitKeywords = null) => {
+    const primaryCategory = answers.q2; 
     const occasion = answers.q1;
     const outfitStyle = answers.q3;
     const metal = answers.q4;
+    
+    // --- NEW: Extract AI Metal Match ---
+    let aiMetalMatch = null;
+    if (outfitKeywords && outfitKeywords.metal_match) {
+        // Use the metal suggested by the AI based on the user's text
+        aiMetalMatch = outfitKeywords.metal_match;
+    }
+    // ------------------------------------
 
-    // --- NEW STEP: Apply mandatory Category Filter ---
+    // --- STEP 1: Apply mandatory Category Filter ---
     let filteredProducts = productData.filter(product => {
-        // Normalize 'Pendant' to 'Necklace' for the filter
         const productCategory = product.category === 'Pendant' ? 'Necklace' : product.category;
-        
-        // ONLY keep products that match the user's chosen category (q2)
         return productCategory === primaryCategory;
     });
     
-    // --- OLD SCORING LOGIC (Now applied only to the filtered list) ---
-    let scoredRecommendations = filteredProducts.map(product => { // <-- Change: Use filteredProducts
+    // --- STEP 2: Score products based on Quiz and AI context ---
+    let scoredRecommendations = filteredProducts.map(product => {
         let score = 0;
         const productCategory = product.category === 'Pendant' ? 'Necklace' : product.category;
         const productCollection = product.collection || '';
         
-        // Match Scoring Logic (copied from prototype)
-        // NOTE: The category match is already guaranteed here, but keeping scoring logic for context:
+        // Base Quiz Scores
         if (productCategory === primaryCategory) { score += 3; } 
         if (product.tags.includes(metal)) { score += 2; }
         if (product.tags.includes(occasion)) { score += 1.5; }
         if (productCollection.includes(outfitStyle) || product.tags.includes(outfitStyle)) { score += 1; }
+        
+        // --- NEW: CONTEXTUAL AI BONUS (Applies if user provided text) ---
+        // Boost product score significantly if it matches the metal suggested by the AI
+        if (aiMetalMatch && product.tags.includes(aiMetalMatch)) {
+            score += 3.5; 
+        }
+        // -----------------------------------
         
         // Price proximity scoring
         const PRICE_TARGET = 100000;

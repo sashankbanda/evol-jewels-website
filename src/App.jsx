@@ -12,7 +12,7 @@ import AllProductsScreen from './components/screens/AllProductsScreen';
 import CartScreen from './components/screens/CartScreen';
 import LeadCaptureScreen from './components/screens/LeadCaptureScreen';
 import CheckoutScreen from './components/screens/CheckoutScreen';
-
+import OutfitInputScreen from './components/screens/OutfitInputScreen'; // <--- ADD THIS
 // Import shared components
 import NavBar from './components/shared/NavBar';
 import ThemeToggle from './components/shared/ThemeToggle';
@@ -40,6 +40,7 @@ const AppContent = () => {
     const renderScreen = () => {
         switch (currentScreenId) {
             case 'quiz': return <QuizScreen />;
+            case 'outfitinput': return <OutfitInputScreen />; // <--- ADD THIS CASE
             // ... (keep other cases)
             case 'loading': 
                 return (

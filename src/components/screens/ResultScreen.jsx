@@ -7,13 +7,16 @@ import ProductCard from '../shared/ProductCard';
 
 const ResultScreen = () => {
     // NOTE: startNewSession is pulled from useVibe()
-    const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession } = useVibe(); 
+    const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession, outfitKeywords, outfitRefImageUrl } = useVibe(); 
     const [recommendations, setRecommendations] = useState([]);
     const [offset, setOffset] = useState(0);
     const batchSize = 4;
 
     const match = getVibeMatchDetails(quizAnswers);
-    
+    // --- NEW: Pass outfitKeywords to the utility function ---
+    const generateRecommendations = (answers, keywords) => {
+        return getAllFilteredRecommendations(answers, keywords);
+    };
     // Combined logic for generating recommendations and fetching batches
     const loadNextBatch = (allProducts) => {
         // 1. Calculate the next batch slice based on the current offset in state
@@ -28,7 +31,7 @@ const ResultScreen = () => {
 
     useEffect(() => {
         // Generate initial recommendations only once when screen loads (offset should be 0)
-        const allProducts = getAllFilteredRecommendations(quizAnswers);
+        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); // <--- PASS KEYWORDS HERE
         
         // Fetch the initial batch
         const initialBatch = allProducts.slice(0, batchSize);
@@ -36,11 +39,11 @@ const ResultScreen = () => {
         // Set initial state for recommendations and offset
         setRecommendations(initialBatch); 
         setOffset(initialBatch.length); 
-    }, []); // Dependency array remains empty, runs only on mount
+    }, [outfitKeywords]); // <--- IMPORTANT: Re-run if AI data changes
 
     const handleShowMore = () => {
         // 1. Regenerate all filtered products (the full list, correctly filtered by category)
-        const allProducts = getAllFilteredRecommendations(quizAnswers);
+        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); // <--- PASS KEYWORDS HERE
         
         // 2. Get the next slice and update the offset via the function
         const nextBatch = loadNextBatch(allProducts);
@@ -70,8 +73,38 @@ const ResultScreen = () => {
                 <div className="w-full flex flex-col md:flex-row md:space-x-8 items-start">
                     {/* VIBE MATCH CARD */}
                     <div className="md:w-1/2 w-full">
-                        <div id="recommendationCard" className={recommendationCardClass}>
-                            <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">Here’s your signature style:</p>
+                        
+                        {/* --- NEW OUTFIT CONTEXT CARD --- */}
+                        {outfitKeywords && (
+                            <div className="card-bg p-6 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6">
+                                <p className="font-bold text-lg text-DAD5C1 mb-2 font-sans">
+                                    Outfit Context Analysis
+                                </p>
+                                <h3 className="text-xl font-serif font-extrabold text-accent-platinum mb-2">
+                                    Suggested Metal: {outfitKeywords.metal_match}
+                                </h3>
+                                <p className="text-base mt-1 text-B1B1B1 font-sans">
+                                    {outfitKeywords.description}
+                                </p>
+                                                
+                                {/* Display the reference image if available */}
+                                {outfitRefImageUrl && (
+                                    <img 
+                                        src={outfitRefImageUrl} 
+                                        alt="Outfit Reference from Web Search" 
+                                        className="mt-4 w-full h-auto object-cover rounded-lg shadow-md border-2 border-B1B1B1/30" 
+                                    />
+                                )}
+                                {/* If you had a static yellow box previously, it should be removed here. */}
+                            </div>
+                        )}
+                        {/* --- END NEW OUTFIT CONTEXT CARD --- */}
+
+                        <div id="recommendationCard" className={recommendationCardClass} style={outfitKeywords ? { borderTop: 'none', boxShadow: 'none' } : {}}>
+                            {/* Adjusted content positioning based on the new card */}
+                            <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">
+                                Here’s your signature style (from quiz):
+                            </p>
                             <h3 id="styleIcon" className="text-3xl md:text-5xl font-serif font-extrabold text-accent-platinum">
                                 {match.icon}
                             </h3>
@@ -81,8 +114,9 @@ const ResultScreen = () => {
                             <p className="text-base mt-2 text-B1B1B1 font-sans">Explore pieces that bring this look to life.</p>
                         </div>
                         
-                        {/* CELEBRITY AND MOVIE PANELS (Static placeholders) */}
+                        {/* CELEBRITY AND MOVIE PANELS (Existing code goes here) */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {/* ... existing celebrity panel code ... */}
                             <div className="card-bg rounded-xl shadow-lg overflow-hidden border border-B1B1B1/30">
                                 <div className="h-40 bg-111111 flex items-center justify-center text-text-light text-lg">
                                     <img id="celebImage" src={match.celebrityImage} alt={match.icon} className="w-full h-full object-cover opacity-80" />
