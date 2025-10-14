@@ -3,10 +3,10 @@
 *<p align="center">Unleash Your Style, Elevate Every Moment</p>*
 
 <p align="center">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=last%20commit&color=555555&logo=github&logoColor=white">
-    <img alt="Today's Date" src="https://img.shields.io/badge/today-14%20Oct%202025-05C2E0?style=for-the-badge&color=555555">
-    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/javascript-94.3%25-05C2E0?style=for-the-badge&color=555555">
-    <img alt="Language Count" src="https://img.shields.io/badge/languages-3-05C2E0?style=for-the-badge&color=555555">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&logo=github&logoColor=white&colorA=555555&colorB=05C2E0">
+    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&colorA=555555&colorB=05C2E0">
+    <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&colorA=555555&colorB=05C2E0">
+
 </p>
 
 *<p align="center">Built with the tools and technologies:</p>*
