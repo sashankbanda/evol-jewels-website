@@ -70,7 +70,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
+    git clone https://github.com/sashankbanda/evol-jewels-website.git
     ```
 
 2.  **Navigate to the project directory:**
