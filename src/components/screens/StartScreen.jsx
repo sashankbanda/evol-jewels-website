@@ -26,6 +26,10 @@ const StartScreen = () => {
             <div className="mt-16 text-lg text-B1B1B1 font-sans">
                 Tap to discover pieces that match your style.
             </div>
+            {/* NEW: Branding - REMOVED /70 opacity modifier for theme compatibility */}
+            <p className="mt-6 text-sm text-B1B1B1 font-sans">
+                Made with ❤️ by Team: Mahaveer
+            </p>
         </div>
     );
 };
