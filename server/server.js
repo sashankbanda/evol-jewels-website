@@ -1,17 +1,15 @@
-// server.js - THE ACTUAL SECURE NODE/EXPRESS BACKEND (Converted to ES Modules)
-
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { GoogleGenAI } from '@google/genai'; // Gemini SDK
-import { google } from 'googleapis'; // Google APIs client for Custom Search
+import { GoogleGenAI } from '@google/genai';
+import { google } from 'googleapis';
 
 // Load environment variables from .env file
 dotenv.config({ path: 'server/.env' });
 
 const app = express();
-const PORT = 3001; // Use port 3001 for the backend
+const PORT = 3001;
 
 // --- 1. MIDDLEWARE & SETUP ---
 app.use(cors());
@@ -210,6 +208,46 @@ app.post('/api/analyze-outfit', async (req, res) => {
         });
     }
 });
+
+// --- NEW CHAT ENDPOINT ---
+app.post('/api/product-chat', async (req, res) => {
+    const { productDataJson, userQuery } = req.body;
+
+    if (!productDataJson || !userQuery) {
+        return res.status(400).json({ error: "Missing data in request body." });
+    }
+
+    const systemPrompt = `
+        You are the Evol Jewels Product Assistant. Your goal is to answer questions about the jewelry line.
+        
+        CRITICAL RULE: Always use **Indian Rupee (₹) symbol** for currency. Never use the dollar sign ($) or any other currency symbol.
+
+        PRODUCT KNOWLEDGE: Use ONLY the following JSON data to form your answers.
+        If a user asks about a product, you MUST include the **name** and **price** in your response, formatted clearly using Markdown. If you cannot find an answer or a specific product in the data, apologize and suggest they browse the full collection.
+
+        JSON Data: ${productDataJson}
+    `;
+
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: userQuery,
+            config: {
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            }
+        });
+
+        // The response text already contains the Markdown
+        res.json({ answer: response.text });
+        
+    } catch (error) {
+        console.error("Gemini Chat API Error:", error);
+        res.status(500).json({ answer: "My apologies, I am having trouble connecting to my product database right now. Please try again in a moment." });
+    }
+});
+
 
 // --- 3. START SERVER ---
 app.listen(PORT, () => {

@@ -20,6 +20,7 @@ export const VibeProvider = ({ children }) => {
     const [tryOnProduct, setTryOnProduct] = useState(null);
     const [recommendationOffset, setRecommendationOffset] = useState(0);
     const [messageModal, setMessageModal] = useState(null);
+    const [isChatOpen, setIsChatOpen] = useState(false); // <--- NEW STATE
     
     // --- NEW STATE FOR OUTFIT CONTEXT & VIBE MATCH ---
     const [outfitKeywords, setOutfitKeywords] = useState(null);
@@ -207,6 +208,12 @@ export const VibeProvider = ({ children }) => {
         setScreenHistory(['start']);
     };
 
+    // --- NEW: Chatbot Logic ---
+    const toggleChat = () => {
+        setIsChatOpen(prev => !prev);
+    };
+    // -------------------------
+
 
     const contextValue = {
         isKioskMode: window.location.pathname.startsWith('/kiosk'),
@@ -223,6 +230,7 @@ export const VibeProvider = ({ children }) => {
         messageModal,
         recommendationOffset,
         setRecommendationOffset,
+        isChatOpen, // <--- EXPORT STATE
 
         navigate,
         goBack,
@@ -237,6 +245,7 @@ export const VibeProvider = ({ children }) => {
         startNewSession,
         showMessageModal,
         hideMessageModal,
+        toggleChat, // <--- EXPORT FUNCTION
     };
 
     useEffect(() => {
