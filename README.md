@@ -45,15 +45,20 @@
 
 ## Overview
 
-This project is a multi-screen **jewelry style quiz, virtual try-on, and product recommendation kiosk/website**. It uses **Gemini API** for advanced outfit-to-metal matching and **TensorFlow.js (MobileNet)** for client-side feature extraction for visual image search (K-Nearest Neighbors).
+This is an AI-Enhanced Jewelry Styling Kiosk/Website designed to offer a personalized and interactive shopping experience.
 
-It provides users with a personalized experience that includes:
+It’s built with React and Express, integrating several key AI features:
 
-* A quick quiz to determine their style 'vibe'.
-* **AI Context Analysis** (Gemini) to refine metal recommendations based on a text description of their outfit.
-* **Image Search** to find similar products by uploading a photo.
-* **Virtual AR Try-On** using MediaPipe for real-time jewelry placement (necklace/bracelet).
-* A product-aware **Chatbot** (Gemini) that answers questions using the product data catalog.
+- **Intelligent Style Matching (Gemini API):** An outfit analysis feature that uses AI to refine product recommendations based on a user's quiz answers and a free-text description of their current outfit.
+
+- **Virtual Try-On (MediaPipe):** Real-time augmented reality (AR) for trying on necklaces and bracelets via a webcam, complete with full placement and scale adjustment.
+
+- **Visual Search (TensorFlow.js / KNN):** Users can upload a photo of any jewelry piece to instantly find the most visually similar products in the catalog.
+
+- **Product Chatbot (Gemini API):** A conversational assistant that can answer specific questions about the jewelry catalog (prices, materials, collections) by referring to the provided product data.
+
+It's a full-stack proof-of-concept for the future of interactive retail, focusing on hyper-personalization powered by ML and vision models.
+
 
 ---
 
@@ -74,7 +79,7 @@ Follow these steps to get your development environment running.
 
     ```bash
     git clone https://github.com/sashankbanda/evol-jewels-website.git
-    
+
     ```
 
 2.  **Navigate to the project directory:**
