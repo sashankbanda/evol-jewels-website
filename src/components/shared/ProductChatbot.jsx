@@ -168,7 +168,7 @@ const ProductChatbot = () => {
             <div className={`flex items-center justify-between p-4 shadow-md ${isDarkTheme ? 'bg-111111 text-DAD5C1' : 'bg-light-secondary text-F5F5F5'}`}>
                 <div className='flex items-center'>
                     <MessageSquareText size={20} className='mr-2' />
-                    <h3 className="text-xl font-serif font-bold">Product Vibe Assistant</h3>
+                    <h3 className="text-xl font-serif font-bold">Product Assistant</h3>
                 </div>
                 <button onClick={toggleChat} className="p-1 rounded-full hover:opacity-70 transition">
                     <X size={20} />
