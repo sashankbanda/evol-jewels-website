@@ -6,24 +6,27 @@
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=last%20commit&color=555555&logo=github">
     <img alt="Today's Date" src="https://img.shields.io/badge/today-05C2E0?style=for-the-badge&color=555555">
     <img alt="JavaScript Percentage" src="https://img.shields.io/badge/javascript-94.3%25-05C2E0?style=for-the-badge&color=555555">
-    <img alt="Language Count" src="https://img.shields.io/github/languages/count/sashankbanda/evol-jewels-website?style=for-the-badge&label=languages&color=555555">
+    <img alt="Language Count" src="https://img.shields.io/badge/languages-3-05C2E0?style=for-the-badge&color=555555">
 </p>
 
 *<p align="center">Built with the tools and technologies:</p>*
 
 <p align="center">
-    <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
-    <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
-    <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
-    <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-    <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
-    <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
-    <br>
-    <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
     <img alt="JavaScript" src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
     <img alt="React" src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img alt="Tailwind CSS" src="https://img.shields.io/badge/TAILWIND%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
     <img alt="Vite" src="https://img.shields.io/badge/VITE-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+    <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
+    <img alt="Google Gemini API" src="https://img.shields.io/badge/GEMINI%20API-4285F4?style=for-the-badge&logo=google&logoColor=white">
+    <img alt="TensorFlow.js" src="https://img.shields.io/badge/TENSORFLOW%20JS-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white">
+    <br>
+    <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+    <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
+    <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
     <img alt="ESLint" src="https://img.shields.io/badge/ESLINT-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+    <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
+    <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
+    <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
 </p>
 
 ---
