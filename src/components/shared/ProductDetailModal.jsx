@@ -459,7 +459,7 @@ const ProductDetailModal = ({ product, isDarkTheme, onClose }) => {
                                 <div className={`p-4 rounded-lg border-l-4 ${accentBorder} ${isDarkTheme ? 'bg-111111/50' : 'bg-gray-50'}`}>
                                     <ul className={`list-disc list-inside space-y-2 text-sm ${textMuted}`}>
                                         {product.details.map((detail, index) => (
-                                            <li key={index}>{detail}</li>
+                                            <li key={index}className="text-left">{detail}</li>
                                         ))}
                                     </ul>
                                 </div>
