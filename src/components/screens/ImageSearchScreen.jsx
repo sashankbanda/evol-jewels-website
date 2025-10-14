@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { useVibe } from '../../context/VibeContext';
+// FIX: Reverted to correct relative path (two steps up)
+import { useVibe } from '../../context/VibeContext'; 
 import { UploadCloud, Image, Loader2, CheckCircle } from 'lucide-react';
+// FIX: Reverted to correct relative path (one step up)
 import ProductCard from '../shared/ProductCard';
-import { productData } from '../../data/productData'; 
+// FIX: Reverted to correct relative path (two steps up)
 import { getProductById } from '../../logic/productUtils'; 
 
 const ImageSearchScreen = () => {
-    // Get necessary state and functions from context
-    const { navigate, isDarkTheme, startImageSearch, imageSearchResult, goBack, screenHistory } = useVibe();
+    // Get necessary state and functions from context, including the new isModelLoading
+    const { navigate, isDarkTheme, startImageSearch, imageSearchResult, goBack, screenHistory, isModelLoading } = useVibe();
     
     // Local state for the upload process
     const [selectedFile, setSelectedFile] = useState(null);
@@ -59,6 +61,7 @@ const ImageSearchScreen = () => {
             
             try {
                 // Pass the full Base64 data (including prefix) and file type to context function
+                // The context now handles feature extraction and the API call
                 await startImageSearch(base64Data, selectedFile.type);
             } catch (err) {
                 console.error("Error during image processing:", err);
@@ -82,9 +85,15 @@ const ImageSearchScreen = () => {
     // 1. Upload/Loading State (when not in results view)
     if (!isResultsView) {
         
-        const title = isProcessing ? "Analyzing Image..." : "Find Your Look by Photo";
+        // Unified check for disabling buttons
+        const isButtonDisabled = !selectedFile || isProcessing || isModelLoading;
+        
+        // Dynamic titles and subtitles based on state
+        const title = isProcessing ? "Analyzing Image..." : isModelLoading ? "Loading AI Model..." : "Find Your Look by Photo";
         const subtitle = isProcessing 
             ? "Comparing aesthetic features against our entire product line, just a moment."
+            : isModelLoading
+            ? "Preparing the MobileNet model for image feature extraction, please wait."
             : "Upload a photo of any jewelry piece to find the closest matches in our collection.";
 
         return (
@@ -95,8 +104,9 @@ const ImageSearchScreen = () => {
 
                     {/* Image Upload Area */}
                     <div 
-                        className={`border-2 border-dashed ${isDarkTheme ? 'border-DAD5C1/50' : 'border-gray-400'} rounded-xl p-8 mb-8 flex flex-col items-center justify-center relative min-h-[250px] ${isProcessing ? 'pointer-events-none opacity-70' : ''}`}
-                        onClick={!selectedFile ? triggerFileUpload : undefined}
+                        className={`border-2 border-dashed ${isDarkTheme ? 'border-DAD5C1/50' : 'border-gray-400'} rounded-xl p-8 mb-8 flex flex-col items-center justify-center relative min-h-[250px] ${isButtonDisabled ? 'pointer-events-none opacity-70' : ''}`}
+                        // Disable click if loading or processing
+                        onClick={!selectedFile && !isModelLoading ? triggerFileUpload : undefined} 
                     >
                         <input
                             type="file"
@@ -104,15 +114,15 @@ const ImageSearchScreen = () => {
                             onChange={handleFileChange}
                             accept="image/jpeg,image/png"
                             className="hidden"
-                            disabled={isProcessing}
+                            disabled={isProcessing || isModelLoading} // Disable input if processing or loading
                         />
 
-                        {previewUrl && !isProcessing ? (
+                        {previewUrl && !isProcessing && !isModelLoading ? ( 
                             <img src={previewUrl} alt="Preview" className="max-h-[200px] w-auto object-contain rounded-lg shadow-lg border border-B1B1B1/30" />
-                        ) : isProcessing ? (
+                        ) : isProcessing || isModelLoading ? ( 
                              <div className="flex flex-col items-center justify-center p-4">
                                 <Loader2 size={36} className="animate-spin text-accent-platinum mb-4" />
-                                <p className="text-text-light font-sans mt-2">Processing...</p>
+                                <p className="text-text-light font-sans mt-2">{isModelLoading ? 'Waiting for Model...' : 'Processing...'}</p>
                             </div>
                         ) : (
                             <div className='text-center text-B1B1B1'>
@@ -121,25 +131,26 @@ const ImageSearchScreen = () => {
                             </div>
                         )}
                         
-                        {!isProcessing && (
+                        {!isProcessing && !isModelLoading && ( 
                             <button
-                                onClick={selectedFile ? triggerFileUpload : handleStartSearch}
+                                onClick={triggerFileUpload} // FIX: Calls the file selector
                                 className={`mt-4 px-6 py-2 text-lg font-sans rounded-lg shadow-md ${selectedFile ? 'secondary-cta' : 'primary-cta'}`}
+                                style={{ pointerEvents: 'auto' }}
                             >
                                 {selectedFile ? 'Change Photo' : 'Upload Photo'}
                             </button>
                         )}
                     </div>
                     
-                    {/* Action Button */}
+                    {/* Action Button (Find Matches) */}
                     <button
                         onClick={handleStartSearch}
-                        disabled={!selectedFile || isProcessing}
-                        className={`w-full py-4 text-xl font-sans rounded-xl shadow-lg primary-cta flex items-center justify-center gap-2 ${(!selectedFile || isProcessing) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={isButtonDisabled}
+                        className={`w-full py-4 text-xl font-sans rounded-xl shadow-lg primary-cta flex items-center justify-center gap-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                        {isProcessing ? (
+                        {isProcessing || isModelLoading ? (
                             <>
-                                <Loader2 size={24} className="animate-spin" /> Matching...
+                                <Loader2 size={24} className="animate-spin" /> {isModelLoading ? 'Waiting for Model...' : 'Matching...'}
                             </>
                         ) : (
                             <>
@@ -180,12 +191,15 @@ const ImageSearchScreen = () => {
                 </p>
 
                 {matchedProducts.length > 0 ? (
-                    <div id="matchProductGrid" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 w-full">
-                        {matchedProducts.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
+                    // ADD THIS WRAPPER: Centers the entire grid container
+                    <div className="flex justify-center">
+                        <div id="matchProductGrid" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+                        {matchedProducts.map(product => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                        </div>
                     </div>
-                ) : (
+                ) : (
                     <div className="text-center p-8 card-bg rounded-xl shadow-lg">
                         <p className="text-2xl font-sans text-B1B1B1">
                             Hmm, we couldn't find a direct match. Try browsing our full selection or adjusting your photo!
