@@ -3,27 +3,27 @@
 Unleash Your Style, Elevate Every Moment
 
 <p align="center">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=last%20commit&color=2A2A2A">
-    <img alt="Today's Date" src="https://img.shields.io/badge/today-05C2E0?style=for-the-badge">
-    <img alt="JavaScript Percentage" src="https://img.shields.io/github/languages/percentage/sashankbanda/evol-jewels-website/javascript?style=for-the-badge&color=0079C1">
-    <img alt="Language Count" src="https://img.shields.io/github/languages/count/sashankbanda/evol-jewels-website?style=for-the-badge&label=languages&color=2A2A2A">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&color=555555">
+    <img alt="Today's Date" src="https://img.shields.io/badge/TODAY-555555?style=for-the-badge">
+    <img alt="JavaScript Percentage" src="https://img.shields.io/github/languages/percentage/sashankbanda/evol-jewels-website/javascript?style=for-the-badge&color=05C2E0">
+    <img alt="Language Count" src="https://img.shields.io/github/languages/count/sashankbanda/evol-jewels-website?style=for-the-badge&label=LANGUAGES&color=555555">
 </p>
 
 Built with the tools and technologies:
 
 <p align="center">
-    <img alt="Express" src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express">
+    <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
     <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
-    <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white">
-    <img alt="npm" src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-    <img alt="Autoprefixer" src="https://img.shields.io/badge/Autoprefixer-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
-    <img alt="PostCSS" src="https://img.shields.io/badge/PostCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
+    <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
+    <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+    <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
+    <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
     <br>
-    <img alt="dotenv" src="https://img.shields.io/badge/dotenv-D2B948?style=for-the-badge&logo=dotenv&logoColor=white">
-    <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-    <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-    <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
-    <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+    <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
+    <img alt="JavaScript" src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+    <img alt="React" src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img alt="Vite" src="https://img.shields.io/badge/VITE-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+    <img alt="ESLint" src="https://img.shields.io/badge/ESLINT-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
 </p>
 
 ---
@@ -70,7 +70,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/sashankbanda/evol-jewels-website.git
+    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
     ```
 
 2.  **Navigate to the project directory:**
