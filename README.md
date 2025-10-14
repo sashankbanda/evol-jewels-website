@@ -3,10 +3,10 @@
 *<p align="center">Unleash Your Style, Elevate Every Moment</p>*
 
 <p align="center">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&logo=github&logoColor=white&colorA=555555&colorB=05C2E0">
-    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&colorA=555555&colorB=05C2E0">
-    <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&colorA=555555&colorB=05C2E0">
-
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&labelColor=555555&color=05C2E0&logo=github&logoColor=white">
+    <img alt="Today's Date" src="https://img.shields.io/badge/TODAY-14%20OCT%202025-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+    <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
 </p>
 
 *<p align="center">Built with the tools and technologies:</p>*
@@ -34,6 +34,7 @@
 ## Table of Contents
 
 * [Overview](#overview)
+* [Technology Stack](#technology-stack)
 * [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Installation](#installation)
@@ -45,20 +46,30 @@
 
 ## Overview
 
-This is an AI-Enhanced Jewelry Styling Kiosk/Website designed to offer a personalized and interactive shopping experience.
+This is an **AI-Enhanced Jewelry Styling Kiosk/Website** designed to offer a personalized and interactive shopping experience.
 
 It’s built with React and Express, integrating several key AI features:
 
 - **Intelligent Style Matching (Gemini API):** An outfit analysis feature that uses AI to refine product recommendations based on a user's quiz answers and a free-text description of their current outfit.
-
 - **Virtual Try-On (MediaPipe):** Real-time augmented reality (AR) for trying on necklaces and bracelets via a webcam, complete with full placement and scale adjustment.
-
 - **Visual Search (TensorFlow.js / KNN):** Users can upload a photo of any jewelry piece to instantly find the most visually similar products in the catalog.
-
 - **Product Chatbot (Gemini API):** A conversational assistant that can answer specific questions about the jewelry catalog (prices, materials, collections) by referring to the provided product data.
 
 It's a full-stack proof-of-concept for the future of interactive retail, focusing on hyper-personalization powered by ML and vision models.
 
+---
+
+## Technology Stack
+
+The project uses a modern MERN-like stack with a focus on cutting-edge AI and ML libraries:
+
+| Area | Technology / Library | Details |
+| :--- | :--- | :--- |
+| **Frontend (Client)** | **React, Vite, Tailwind CSS** | A fast, single-page application (SPA) built with Vite for rapid development. Tailwind is used for utility-first styling, and a custom VibeContext manages state and navigation across screens (Quiz, Results, Cart, etc.). |
+| **Backend (Server)** | **Node.js, Express, dotenv** | Provides a simple REST API on port 3001 to handle heavy lifting and secure API key access. Uses dotenv for secret management. |
+| **AI Integration** | **Google Gemini API, Google Custom Search API** | Drives the contextual style analysis and the product-aware chatbot. |
+| **Machine Learning** | **TensorFlow.js, MobileNet, Jimp** | Used to calculate and compare image feature vectors for the visual search feature. The `server/feature_extractor.js` script handles the initial feature generation. |
+| **AR/Computer Vision** | **MediaPipe Tasks Vision** | Provides the real-time face and hand tracking needed for the augmented reality try-on experience. |
 
 ---
 
@@ -78,8 +89,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/sashankbanda/evol-jewels-website.git
-
+    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
     ```
 
 2.  **Navigate to the project directory:**
