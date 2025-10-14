@@ -44,18 +44,18 @@
 
 ---
 
-## Overview
+## Overview (Revised)
 
-This is an **AI-Enhanced Jewelry Styling Kiosk/Website** designed to offer a personalized and interactive shopping experience.
+This is an **AI-Powered Jewelry Styling Kiosk or Website** that gives customers a fun, hyper-personalized shopping experience.
 
-It’s built with React and Express, integrating several key AI features:
+It’s built using React and an Express backend, bringing together several advanced AI and computer vision features:
 
-- **Intelligent Style Matching (Gemini API):** An outfit analysis feature that uses AI to refine product recommendations based on a user's quiz answers and a free-text description of their current outfit.
-- **Virtual Try-On (MediaPipe):** Real-time augmented reality (AR) for trying on necklaces and bracelets via a webcam, complete with full placement and scale adjustment.
-- **Visual Search (TensorFlow.js / KNN):** Users can upload a photo of any jewelry piece to instantly find the most visually similar products in the catalog.
-- **Product Chatbot (Gemini API):** A conversational assistant that can answer specific questions about the jewelry catalog (prices, materials, collections) by referring to the provided product data.
+* **Intelligent Style Matching (Gemini AI):** A personalized style guide that uses a short quiz and an optional free-text description of your current outfit to recommend the *exact* right metal (like 'Polished Gold' or 'Matte Silver') to complement your look.
+* **Virtual Try-On (MediaPipe):** Uses your webcam to place virtual necklaces and bracelets right onto you in real-time. You can adjust the position, size, and rotation to see how a piece truly fits.
+* **Visual Search (TensorFlow.js / KNN):** Upload a photo of *any* jewelry piece you like, and the system instantly finds the closest matches from our product catalog.
+* **Product Chatbot (Gemini AI):** An assistant that can answer specific questions about our collection (materials, prices, where to find an item) by referring to the live product data.
 
-It's a full-stack proof-of-concept for the future of interactive retail, focusing on hyper-personalization powered by ML and vision models.
+This project showcases what the future of interactive retail looks like, offering a powerful, personal styling session powered by cutting-edge vision and language models.
 
 ---
 
@@ -89,7 +89,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
+    git clone https://github.com/sashankbanda/evol-jewels-website.git
     ```
 
 2.  **Navigate to the project directory:**
