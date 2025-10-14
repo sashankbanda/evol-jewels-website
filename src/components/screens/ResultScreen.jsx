@@ -2,22 +2,24 @@
 
 import React, { useState, useEffect } from 'react';
 import { useVibe } from '../../context/VibeContext';
-import { getAllFilteredRecommendations, getVibeMatchDetails } from '../../logic/productUtils';
+import { getAllFilteredRecommendations } from '../../logic/productUtils';
 import ProductCard from '../shared/ProductCard';
 
 const ResultScreen = () => {
-    // NOTE: startNewSession is pulled from useVibe()
-    const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession, outfitKeywords, outfitRefImageUrl } = useVibe(); 
+    // PULL THE NEW STATE 'vibeMatchDetails' from the context hook
+    const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession, outfitKeywords, outfitRefImageUrl, vibeMatchDetails } = useVibe();
     const [recommendations, setRecommendations] = useState([]);
     const [offset, setOffset] = useState(0);
     const batchSize = 4;
 
-    const match = getVibeMatchDetails(quizAnswers);
-    // --- NEW: Pass outfitKeywords to the utility function ---
+    // Use the dynamic match details from the context, which is set by the backend or client-side fallback
+    const match = vibeMatchDetails; 
+
+    // --- Recommendation Logic (Uses outfitKeywords for the ultimate match) ---
     const generateRecommendations = (answers, keywords) => {
         return getAllFilteredRecommendations(answers, keywords);
     };
-    // Combined logic for generating recommendations and fetching batches
+    
     const loadNextBatch = (allProducts) => {
         // 1. Calculate the next batch slice based on the current offset in state
         const nextBatch = allProducts.slice(offset, offset + batchSize);
@@ -31,37 +33,55 @@ const ResultScreen = () => {
 
     useEffect(() => {
         // Generate initial recommendations only once when screen loads (offset should be 0)
-        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); // <--- PASS KEYWORDS HERE
+        // If match details are null, wait, as they contain the best data/metal match
+        if (vibeMatchDetails === null) return; 
+
+        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); 
         
         // Fetch the initial batch
         const initialBatch = allProducts.slice(0, batchSize);
         
         // Set initial state for recommendations and offset
-        setRecommendations(initialBatch); 
-        setOffset(initialBatch.length); 
-    }, [outfitKeywords]); // <--- IMPORTANT: Re-run if AI data changes
+        setRecommendations(initialBatch);
+        setOffset(initialBatch.length);
+    }, [outfitKeywords, vibeMatchDetails]); // Re-run if AI or fallback data changes
 
     const handleShowMore = () => {
         // 1. Regenerate all filtered products (the full list, correctly filtered by category)
-        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); // <--- PASS KEYWORDS HERE
+        const allProducts = generateRecommendations(quizAnswers, outfitKeywords); 
         
         // 2. Get the next slice and update the offset via the function
         const nextBatch = loadNextBatch(allProducts);
         
         // 3. Append the new batch to the existing list
         if (nextBatch.length > 0) {
-            setRecommendations(prev => [...prev, ...nextBatch]); 
+            setRecommendations(prev => [...prev, ...nextBatch]);
         }
         
         // 4. Check the count and show the custom modal if nothing was loaded
-        if (nextBatch.length === 0) { 
+        if (nextBatch.length === 0) {
             showMessageModal("That's all the vibe matches we found for you! Try the 'Browse All Products' feature or restart the quiz.");
         }
     };
     
     // Dynamic Class Logic
-    const recommendationCardClass = isDarkTheme ? 'card-bg p-6 md:p-10 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6' : 'bg-light-card-bg p-6 md:p-10 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6';
+    // Only apply card border/shadow if outfit context is NOT present, so the cards look continuous
+    const isVibeMatchTopCard = !outfitKeywords;
+    const recommendationCardClass = isDarkTheme ? 
+        `card-bg p-6 md:p-10 rounded-2xl shadow-xl w-full mb-6 ${isVibeMatchTopCard ? 'border-t-8 border-accent-platinum' : ''}` : 
+        `bg-light-card-bg p-6 md:p-10 rounded-2xl shadow-xl w-full mb-6 ${isVibeMatchTopCard ? 'border-t-8 border-accent-platinum' : ''}`;
+    
     const styleSubtitleClass = isDarkTheme ? 'text-F5F5F5' : 'text-gray-700';
+
+    if (!match) {
+        return (
+            <div id="loadingScreen" className="screen flex-col">
+                <div className="spinner mb-6"></div>
+                <p className="text-2xl md:text-4xl font-serif font-semibold text-text-light">Calculating your perfect match...</p>
+                <p className="text-lg md:text-xl mt-2 text-B1B1B1 font-sans">Connecting to our styling expert AI.</p>
+            </div>
+        );
+    }
 
     return (
         <div id="resultScreen" className="screen flex-col flex">
@@ -71,10 +91,10 @@ const ResultScreen = () => {
                 </h2>
 
                 <div className="w-full flex flex-col md:flex-row md:space-x-8 items-start">
-                    {/* VIBE MATCH CARD */}
+                    {/* VIBE MATCH PANELS (LEFT COLUMN) */}
                     <div className="md:w-1/2 w-full">
                         
-                        {/* --- NEW OUTFIT CONTEXT CARD --- */}
+                        {/* --- OUTFIT CONTEXT CARD (Dynamic AI Metal Match) --- */}
                         {outfitKeywords && (
                             <div className="card-bg p-6 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6">
                                 <p className="font-bold text-lg text-DAD5C1 mb-2 font-sans">
@@ -86,22 +106,22 @@ const ResultScreen = () => {
                                 <p className="text-base mt-1 text-B1B1B1 font-sans">
                                     {outfitKeywords.description}
                                 </p>
-                                                
+                                
                                 {/* Display the reference image if available */}
-                                {outfitRefImageUrl && (
+                                {outfitRefImageUrl && outfitRefImageUrl.includes('http') && (
                                     <img 
                                         src={outfitRefImageUrl} 
                                         alt="Outfit Reference from Web Search" 
                                         className="mt-4 w-full h-auto object-cover rounded-lg shadow-md border-2 border-B1B1B1/30" 
+                                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x200/B1B1B1/111111?text=Image+Unavailable'; }}
                                     />
                                 )}
-                                {/* If you had a static yellow box previously, it should be removed here. */}
                             </div>
                         )}
-                        {/* --- END NEW OUTFIT CONTEXT CARD --- */}
+                        {/* --- END OUTFIT CONTEXT CARD --- */}
 
-                        <div id="recommendationCard" className={recommendationCardClass} style={outfitKeywords ? { borderTop: 'none', boxShadow: 'none' } : {}}>
-                            {/* Adjusted content positioning based on the new card */}
+                        <div id="recommendationCard" className={recommendationCardClass}>
+                            {/* VIBE MATCH FROM QUIZ (Icon/Title/Subtitle is now taken from match object) */}
                             <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">
                                 Here’s your signature style (from quiz):
                             </p>
@@ -114,31 +134,45 @@ const ResultScreen = () => {
                             <p className="text-base mt-2 text-B1B1B1 font-sans">Explore pieces that bring this look to life.</p>
                         </div>
                         
-                        {/* CELEBRITY AND MOVIE PANELS (Existing code goes here) */}
+                        {/* CELEBRITY AND MOVIE PANELS (Now Dynamic) */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* ... existing celebrity panel code ... */}
                             <div className="card-bg rounded-xl shadow-lg overflow-hidden border border-B1B1B1/30">
                                 <div className="h-40 bg-111111 flex items-center justify-center text-text-light text-lg">
-                                    <img id="celebImage" src={match.celebrityImage} alt={match.icon} className="w-full h-full object-cover opacity-80" />
+                                    <img 
+                                        id="celebImage" 
+                                        // Use match.celebrityImage (set by backend or fallback)
+                                        src={match.celebrityImage} 
+                                        alt={match.icon} 
+                                        className="w-full h-full object-cover opacity-80" 
+                                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x200/8B2E2E/F5F5F5?text=Image+Error'; }}
+                                    />
                                 </div>
                                 <div className="p-4 text-center">
                                     <p className="font-bold text-sm text-B1B1B1 font-sans">Celebrity Inspiration</p>
-                                    <p className="text-lg font-semibold text-text-light font-sans">Iconic Jewelry Match</p>
+                                    {/* Use match.icon as the title */}
+                                    <p className="text-lg font-semibold text-text-light font-sans">{match.icon}</p>
                                 </div>
                             </div>
                             <div className="card-bg rounded-xl shadow-lg overflow-hidden border border-B1B1B1/30">
                                 <div className="h-40 bg-111111 flex items-center justify-center text-text-light text-lg">
-                                    <img src="https://placehold.co/400x200/0E5C4E/F5F5F5?text=Movie+Inspo+Scene" alt="Movie Scene Reference" className="w-full h-full object-cover opacity-80" />
+                                    <img 
+                                        // Use match.movieImage (set by backend or fallback)
+                                        src={match.movieImage} 
+                                        alt={match.movieScene} 
+                                        className="w-full h-full object-cover opacity-80" 
+                                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x200/0E5C4E/F5F5F5?text=Image+Error'; }}
+                                    />
                                 </div>
                                 <div className="p-4 text-center">
-                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Collection Hint</p>
-                                    <p className="text-lg font-semibold text-text-light font-sans">Geometric & Classic pieces</p>
+                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Movie Inspo Scene</p>
+                                    {/* Use match.movieScene as the title */}
+                                    <p className="text-lg font-semibold text-text-light font-sans">{match.movieScene}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* RECOMMENDED PRODUCTS */}
+                    {/* RECOMMENDED PRODUCTS (RIGHT COLUMN) */}
                     <div className="md:w-1/2 w-full mt-8 md:mt-0">
                         <h3 className="text-2xl md:text-3xl font-serif font-semibold mb-6 text-center md:text-left text-text-light">
                             Recommended Products

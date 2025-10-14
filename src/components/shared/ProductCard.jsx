@@ -3,16 +3,16 @@
 import React, { useState } from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils';
-import ZoomModal from './ZoomModal'; // Import the new component
+import ProductDetailModal from './ProductDetailModal'; // Import the new component
 
 const ProductCard = ({ product }) => {
     const { isDarkTheme, showTryOnModal } = useVibe();
     
-    // NEW STATE: To control the image zoom modal
-    const [isImageZoomed, setIsImageZoomed] = useState(false);
+    // NEW STATE: To control the Product Detail modal
+    const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
     
-    // State to track hover for the subtle zoom effect (kept from last revision)
-    const [isHovered, setIsHovered] = useState(false); 
+    // State to track hover for the subtle zoom effect
+    const [isHovered, setIsHovered] = useState(false);
     
     // Dynamic Class Logic...
     const cardBg = isDarkTheme ? 'bg-2A2A2A/50' : 'bg-light-card-bg';
@@ -38,20 +38,20 @@ const ProductCard = ({ product }) => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                {/* MODIFIED: Added onClick handler to open the zoom modal */}
+                {/* MODIFIED: onClick handler now opens the Product Detail Modal */}
                 <div 
-                    className={`h-40 ${isDarkTheme ? 'bg-111111' : 'bg-gray-200'} flex items-center justify-center ${textMuted} text-lg overflow-hidden relative cursor-zoom-in`}
-                    onClick={() => setIsImageZoomed(true)} // <-- Open the modal on click
+                    className={`h-40 ${isDarkTheme ? 'bg-111111' : 'bg-gray-200'} flex items-center justify-center ${textMuted} text-lg overflow-hidden relative cursor-pointer`}
+                    onClick={() => setIsProductDetailOpen(true)} // <-- Open the detail modal
                 >
                     <img 
                         src={product.imageUrl} 
                         alt={product.name} 
                         className={`w-full h-full object-cover transition-transform duration-500 ease-in-out ${imageZoomClass}`} 
                     />
-                    {/* Optional: Add a subtle overlay icon to guide the user */}
+                    {/* Overlay instruction */}
                     <div className="absolute inset-0 bg-black/10 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span className="text-white text-sm font-sans font-medium p-2 rounded-lg bg-black/60">
-                            Click to Zoom
+                            View Details & Options
                         </span>
                     </div>
                 </div>
@@ -72,13 +72,12 @@ const ProductCard = ({ product }) => {
                 </div>
             </div>
 
-            {/* NEW: Conditionally render the Zoom Modal */}
-            {isImageZoomed && (
-                <ZoomModal
-                    imageUrl={product.imageUrl}
-                    productName={product.name}
+            {/* NEW: Conditionally render the Product Detail Modal */}
+            {isProductDetailOpen && (
+                <ProductDetailModal
+                    product={product}
                     isDarkTheme={isDarkTheme}
-                    onClose={() => setIsImageZoomed(false)}
+                    onClose={() => setIsProductDetailOpen(false)}
                 />
             )}
         </>

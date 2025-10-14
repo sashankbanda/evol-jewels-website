@@ -1,7 +1,7 @@
 // src/context/VibeContext.jsx
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getProductById } from '../logic/productUtils';
+import { getProductById, getVibeMatchDetails } from '../logic/productUtils';
 
 // 1. Create Context
 const VibeContext = createContext();
@@ -16,14 +16,15 @@ export const VibeProvider = ({ children }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [quizAnswers, setQuizAnswers] = useState({});
     const [cart, setCart] = useState([]);
-    const [screenHistory, setScreenHistory] = useState(['start']); 
-    const [tryOnProduct, setTryOnProduct] = useState(null); 
+    const [screenHistory, setScreenHistory] = useState(['start']);
+    const [tryOnProduct, setTryOnProduct] = useState(null);
     const [recommendationOffset, setRecommendationOffset] = useState(0);
     const [messageModal, setMessageModal] = useState(null);
     
-    // --- NEW STATE FOR OUTFIT CONTEXT ---
-    const [outfitKeywords, setOutfitKeywords] = useState(null); 
+    // --- NEW STATE FOR OUTFIT CONTEXT & VIBE MATCH ---
+    const [outfitKeywords, setOutfitKeywords] = useState(null);
     const [outfitRefImageUrl, setOutfitRefImageUrl] = useState(null);
+    const [vibeMatchDetails, setVibeMatchDetails] = useState(null); 
     // ------------------------------------
 
     // --- Initialization & Theme Logic ---
@@ -52,22 +53,22 @@ export const VibeProvider = ({ children }) => {
         setScreenHistory(prev => {
             if (prev.length <= 1) {
                 startNewSession();
-                return ['start']; 
+                return ['start'];
             }
             
             let history = [...prev];
             const lastScreen = history[history.length - 1];
 
-            // 1. Handle Quiz step navigation (same as before)
+            // 1. Handle Quiz step navigation
             if (lastScreen === 'quiz' && currentStep > 1) {
                 setCurrentStep(prevStep => prevStep - 1);
                 return history;
             }
             
             // Pop the current screen off the history array
-            history.pop(); 
+            history.pop();
             
-            // 2. NEW FIX: If the previous screen was 'loading', pop that too, 
+            // 2. If the previous screen was 'loading', pop that too, 
             //    so we land on the screen *before* loading (which is quiz or cart)
             if (history.length > 0 && history[history.length - 1] === 'loading') {
                 history.pop();
@@ -76,18 +77,20 @@ export const VibeProvider = ({ children }) => {
             // If history is empty after cleanup, default to start
             if (history.length === 0) return ['start'];
 
-            return history; 
+            return history;
         });
     };
 
     // --- Quiz Logic ---
     const startQuiz = () => {
+        setCart([]);
         setQuizAnswers({});
         setCurrentStep(1);
         setRecommendationOffset(0);
-        setOutfitKeywords(null); 
+        setOutfitKeywords(null);
         setOutfitRefImageUrl(null);
-        navigate('quiz'); 
+        setVibeMatchDetails(null); 
+        navigate('quiz');
     };
 
     const answerQuiz = (step, answer) => {
@@ -97,32 +100,32 @@ export const VibeProvider = ({ children }) => {
         if (currentStep < 4) {
             setTimeout(() => setCurrentStep(prev => prev + 1), 400);
         } else {
-            // *** CRITICAL CHANGE ***: Navigate to outfit input after last quiz step
-            navigate('outfitinput'); 
+            // Navigate to outfit input after last quiz step
+            navigate('outfitinput');
         }
     };
 
     // --- NEW: CONTEXT ANALYSIS FUNCTION ---
+    // CRITICAL CHANGE: Always call the backend, even if text is empty
     const startContextAnalysis = async (text) => {
-        if (!text || text.trim() === '') {
-            // If user clicks skip
-            setOutfitKeywords(null);
-            setOutfitRefImageUrl(null);
-            navigate('loading');
-            setTimeout(() => navigate('results'), 500);
-            return;
-        }
+        // Create the quiz key for the server
+        const quizKey = `${quizAnswers.q1}_${quizAnswers.q3}_${quizAnswers.q4}`;
+
+        // Clear any previous outfit context before loading new results
+        setOutfitKeywords(null);
+        setOutfitRefImageUrl(null);
+        setVibeMatchDetails(null); 
 
         navigate('loading');
-        setRecommendationOffset(0); 
+        setRecommendationOffset(0);
 
         try {
-            // *** REAL BACKEND CALL TO NODE SERVER ***
-            // This URL must match the port and endpoint in your server.js file (http://localhost:3001)
+            // *** REAL BACKEND CALL TO NODE SERVER (ALWAYS CALLED) ***
             const response = await fetch('http://localhost:3001/api/analyze-outfit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ outfitText: text }),
+                // Send both outfitText (which can be empty) and the quiz key
+                body: JSON.stringify({ outfitText: text, quizKey: quizKey }),
             });
 
             if (!response.ok) {
@@ -130,20 +133,25 @@ export const VibeProvider = ({ children }) => {
                 throw new Error(`AI service failed with status ${response.status}.`);
             }
 
-            const aiResponse = await response.json(); 
+            const aiResponse = await response.json();
             
             // Use the real structured data returned from server.js
-            setOutfitKeywords(aiResponse.keywords); 
-            setOutfitRefImageUrl(aiResponse.imageUrl);
+            // outfitKeywords will be null if user skipped/text was empty, which is handled in ResultScreen.
+            setOutfitKeywords(aiResponse.keywords);
+            setOutfitRefImageUrl(aiResponse.outfitImageUrl);
+            setVibeMatchDetails(aiResponse.vibeMatch); 
 
         } catch (error) {
             console.error("Context Analysis Error:", error);
-            setOutfitKeywords(null); 
+            // Fallback if backend or external APIs fail
+            const fallbackVibe = getVibeMatchDetails({ q1: quizAnswers.q1, q3: quizAnswers.q3, q4: quizAnswers.q4 });
+            setOutfitKeywords(null);
             setOutfitRefImageUrl(null);
+            setVibeMatchDetails(fallbackVibe); // SET FALLBACK FOR ALL DETAILS
             showMessageModal("We failed to connect to the styling AI. Results are based on your quiz answers only.");
         }
         
-        setTimeout(() => navigate('results'), 1500); 
+        setTimeout(() => navigate('results'), 1500);
     };
 
 
@@ -162,7 +170,7 @@ export const VibeProvider = ({ children }) => {
         if (product) {
             setCart(prev => [...prev, product]);
         }
-        console.log(`${product?.name || 'Item'} added to cart!`); 
+        console.log(`${product?.name || 'Item'} added to cart!`);
     };
 
     const removeCartItem = (index) => {
@@ -181,9 +189,9 @@ export const VibeProvider = ({ children }) => {
 
     const handleTryOnFeedback = (action, product) => {
         if (action === 'love') {
-            addToCart(product.id); 
+            addToCart(product.id);
         }
-        setTryOnProduct(null); 
+        setTryOnProduct(null);
         // Logic to navigate back only if not already on the result screen
         setScreenHistory(prev => (prev[prev.length - 1] !== 'results' ? [...prev, 'results'] : prev));
     };
@@ -195,20 +203,22 @@ export const VibeProvider = ({ children }) => {
         setRecommendationOffset(0);
         setOutfitKeywords(null);
         setOutfitRefImageUrl(null);
+        setVibeMatchDetails(null); 
         setScreenHistory(['start']);
     };
 
 
     const contextValue = {
-        isKioskMode: window.location.pathname.startsWith('/kiosk'), 
+        isKioskMode: window.location.pathname.startsWith('/kiosk'),
         isDarkTheme,
         toggleTheme,
         currentStep,
         quizAnswers,
-        outfitKeywords, 
-        outfitRefImageUrl, 
+        outfitKeywords,
+        outfitRefImageUrl,
+        vibeMatchDetails, 
         cart,
-        screenHistory: screenHistory[screenHistory.length - 1] || 'start', 
+        screenHistory: screenHistory[screenHistory.length - 1] || 'start',
         tryOnProduct,
         messageModal,
         recommendationOffset,
@@ -218,15 +228,15 @@ export const VibeProvider = ({ children }) => {
         goBack,
         startQuiz,
         answerQuiz,
-        startContextAnalysis, 
+        startContextAnalysis,
         addToCart,
         removeCartItem,
         getCartTotal,
         showTryOnModal,
         handleTryOnFeedback,
         startNewSession,
-        showMessageModal, 
-        hideMessageModal, 
+        showMessageModal,
+        hideMessageModal,
     };
 
     useEffect(() => {
