@@ -208,7 +208,7 @@ export const VibeProvider = ({ children }) => {
         setRecommendationOffset(0);
 
         try {
-            const response = await fetch('${import.meta.env.VITE_BACKEND_URL}/api/analyze-outfit', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/analyze-outfit`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ outfitText: text, quizKey: quizKey }),
@@ -266,7 +266,7 @@ export const VibeProvider = ({ children }) => {
             const initialDelay = 1000;
 
             const executeFetchWithRetry = async () => {
-                const response = await fetch('${import.meta.env.VITE_BACKEND_URL}/api/image-search', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/image-search`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     // 2. SEND THE CORRECT PAYLOAD (Feature Vector)
