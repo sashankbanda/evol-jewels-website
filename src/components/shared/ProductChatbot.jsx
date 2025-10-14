@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 // FIX: Reverting to standard, explicit relative paths as the alias approach failed.
-import { useVibe } from '../../context/VibeContext'; 
+import { Loader2, MessageSquareText, Send, X } from 'lucide-react';
+import { useVibe } from '../../context/VibeContext';
 import { productData } from '../../data/productData';
-import { MessageSquareText, Send, X, Loader2, ArrowDown } from 'lucide-react';
 
 // Constant to hold the entire product data catalog as a string for the AI prompt
 const productDataJson = JSON.stringify(productData);
@@ -99,7 +99,7 @@ const ProductChatbot = () => {
 
             const executeFetchWithRetry = async () => {
                 try {
-                    const response = await fetch('http://localhost:3001/api/product-chat', {
+                    const response = await fetch('${import.meta.env.VITE_BACKEND_URL}/api/product-chat', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
