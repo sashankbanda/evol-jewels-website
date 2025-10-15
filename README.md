@@ -1,385 +1,179 @@
-# 💎 EVOL JEWELS AI Stylist
+# EVOL-JEWELS-WEBSITE
 
-<div align="center">
-  <img src="https://i.imgur.com/r6XJ3B1.png" alt="Evol Jewels AI Stylist Banner" width="100%">
-</div>
-
-<br>
+*<p align="center">Unleash Your Style, Elevate Every Moment</p>*
 
 <p align="center">
-  <strong>Intelligent AI-Powered Kiosk for a Hyper-Personalized Jewelry Shopping Experience</strong><br>
-  <em>Unleash Your Style, Elevate Every Moment</em>
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&labelColor=555555&color=05C2E0&logo=github&logoColor=white">
+    <img alt="Today's Date" src="https://img.shields.io/badge/TODAY-14%20OCT%202025-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+    <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
 </p>
 
-<br>
+*<p align="center">Built with the tools and technologies:</p>*
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/React-19%2B-61DAFB?logo=react&logoColor=black&style=for-the-badge"></a>&nbsp;
-  <a href="#"><img src="https://img.shields.io/badge/Google%20Gemini-Integrated-4285F4?logo=google&logoColor=white&style=for-the-badge"></a>&nbsp;
-  <a href="#"><img src="https://img.shields.io/badge/TensorFlow.js-ML-FF6F00?logo=tensorflow&logoColor=white&style=for-the-badge"></a>&nbsp;
-  <a href="#"><img src="https://img.shields.io/badge/MediaPipe-AR%20Try--On-00C4CC?logo=google&logoColor=white&style=for-the-badge"></a>&nbsp;
-  <a href="#"><img src="https://img.shields.io/badge/Status-Feature%20Complete-00B894?logo=vercel&logoColor=white&style=for-the-badge"></a>
+    <img alt="JavaScript" src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+    <img alt="React" src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img alt="Tailwind CSS" src="https://img.shields.io/badge/TAILWIND%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+    <img alt="Vite" src="https://img.shields.io/badge/VITE-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+    <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
+    <img alt="Google Gemini API" src="https://img.shields.io/badge/GEMINI%20API-4285F4?style=for-the-badge&logo=google&logoColor=white">
+    <img alt="TensorFlow.js" src="https://img.shields.io/badge/TENSORFLOW%20JS-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white">
+    <br>
+    <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+    <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
+    <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
+    <img alt="ESLint" src="https://img.shields.io/badge/ESLINT-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+    <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
+    <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
+    <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
 </p>
 
-<br>
+---
 
-<p align="center">
-  <a href="#overview">Overview</a> •
-  <a href="#core-features">Features</a> •
-  <a href="#system-architecture">Architecture</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#-project-structure">Project Structure</a> •
-  <a href="#getting-started">Getting Started</a> •
-  <a href="#api-reference">API Reference</a>
-</p>
+## Table of Contents
 
-<br>
+* [Overview](#overview)
+* [Technology Stack](#technology-stack)
+* [Technical Architecture (AI/ML)](#technical-architecture)
+* [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Installation](#installation)
+* [Usage](#usage)
+* [Testing](#testing)
+* [Built With](#built-with)
 
-## Overview
+---
 
-> This is an **AI-Powered Jewelry Styling Kiosk or Website** designed to give customers a fun, hyper-personalized, and interactive shopping experience.
+## Overview (Revised)
 
-The Evol Jewels AI Stylist is a sophisticated proof-of-concept application built with a modern React frontend and an Express backend. It integrates several advanced AI and computer vision features to redefine the retail experience for jewelry.
+This is an **AI-Powered Jewelry Styling Kiosk or Website** that gives customers a fun, hyper-personalized shopping experience.
 
-### Key Objective
+**[Read the Full Technical Architecture Document (AI/ML Breakdown)](./technical_architecture.md)**
 
-*To automate and enhance the customer's styling journey through a suite of intelligent tools, including AI-driven recommendations, augmented reality try-ons, and visual search. This reduces friction in the discovery process and provides a memorable, high-tech interaction with the brand.*
+It’s built using React and an Express backend, bringing together several advanced AI and computer vision features:
 
-<br>
+* **Intelligent Style Matching (Gemini AI):** A personalized style guide that uses a short quiz and an optional free-text description of your current outfit to recommend the *exact* right metal (like 'Polished Gold' or 'Matte Silver') to complement your look.
+* **Virtual Try-On (MediaPipe):** Uses your webcam to place virtual necklaces and bracelets right onto you in real-time. You can adjust the position, size, and rotation to see how a piece truly fits.
+* **Visual Search (TensorFlow.js / KNN):** Upload a photo of *any* jewelry piece you like, and the system instantly finds the closest matches from our product catalog.
+* **Product Chatbot (Gemini AI):** An assistant that can answer specific questions about our collection (materials, prices, where to find an item) by referring to the live product data.
 
-## Core Features
+This project showcases what the future of interactive retail looks like, offering a powerful, personal styling session powered by cutting-edge vision and language models.
 
-<div align="center">
+---
 
-### System Capabilities
+## Technology Stack
 
-</div>
+The project uses a modern MERN-like stack with a focus on cutting-edge AI and ML libraries:
 
-```mermaid
-mindmap
-  root((AI Jewelry Kiosk))
-    Intelligent Style Matching
-      Personalized Quiz
-      Gemini-Powered Outfit Analysis
-      Metal & Style Recommendations
-    Virtual AR Try-On
-      Real-time Face & Hand Tracking
-      3D Model Rendering (necklaces, bracelets)
-      Manual Adjustment Controls (position, scale, rotation)
-    Visual Search
-      Image Upload (Find similar items)
-      TensorFlow.js & MobileNet Feature Extraction
-      Backend KNN Similarity Search
-    Product Chatbot
-      Natural Language Q&A
-      Gemini-Powered Product Knowledge
-      Markdown Response Formatting
-    Accessibility
-      Multilingual Support (i18next)
-      Dynamic Font Resizing
-      Dark/Light Theme Toggle
-```
-
-<table align="center">
-<tr>
-<td align="center" width="25%">
-
-**AI Style Matching**
-<br>
-Uses a Gemini-powered backend to analyze quiz answers and outfit descriptions, providing hyper-personalized metal and style recommendations.
-
-</td>
-<td align="center" width="25%">
-
-**Virtual AR Try-On**
-<br>
-Leverages MediaPipe for real-time face and hand tracking to overlay 3D jewelry models, creating an immersive try-on experience.
-
-</td>
-<td align="center" width="25%">
-
-**Visual Product Search**
-<br>
-Allows users to upload a photo of any jewelry piece, using MobileNet and a KNN algorithm to find the closest matches in the catalog.
-
-</td>
-<td align="center" width="25%">
-
-**Accessible & Multilingual**
-<br>
-Features a full accessibility suite, including dynamic font resizing and multilingual support (EN, HI, TE) powered by `react-i18next`.
-
-</td>
-</tr>
-</table>
-
-<br>
-
-## System Architecture
-
-<div align="center">
-
-### Application Data Flow
-
-</div>
-
-```mermaid
-graph TD
-    subgraph "User Interface (React SPA)"
-        A[Customer Interaction <br> Quiz, Text Input, Image Upload]
-        B(VibeContext State Management)
-        C[UI Components <br> Screens, Modals]
-    end
-
-    subgraph "Client-Side AI/ML"
-        D[MediaPipe <br> Face/Hand Tracking]
-        E[TensorFlow.js <br> MobileNet Feature Extraction]
-    end
-
-    subgraph "Backend Server (Node.js/Express)"
-        F(API Endpoints <br> /api/analyze-outfit, /api/image-search, etc.)
-    end
-
-    subgraph "External & Internal Services"
-        G[Google Gemini API]
-        H[Google Custom Search API]
-        I[KNN Search Logic <br> (using product_features.json)]
-    end
-
-    subgraph "User Output"
-        J[Personalized Results & AR View]
-    end
-
-    A --> B
-    B --> C
-
-    C -- Webcam Feed --> D
-    D -- Landmarkers --> C
-
-    C -- Uploaded Image --> E
-    E -- Feature Vector --> F
-
-    C -- API Requests --> F
-    
-    F -- Outfit Analysis --> G
-    G -- Search Queries --> H
-    
-    F -- KNN Search --> I
-
-    F -- AI Responses --> C
-    C --> J
-
-    classDef userInput fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
-    classDef clientML fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
-    classDef backend fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
-    classDef services fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
-    classDef output fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
-
-    class A,B,C userInput
-    class D,E clientML
-    class F backend
-    class G,H,I services
-    class J output
-```
-
-<br>
-
-## Tech Stack
-
-<div align="center">
-
-| Layer | Technology / Library | Purpose |
+| Area | Technology / Library | Details |
 | :--- | :--- | :--- |
-| **Frontend (Client)** | `React 19`, `Vite`, `Tailwind CSS` | Core UI, rapid development, utility-first styling. |
-| **State Management** | `React Context API` (`VibeContext`) | Centralized state for navigation, cart, quiz, and AI results. |
-| **AI/ML (Client)** | `TensorFlow.js (MobileNet)`, `MediaPipe` | In-browser feature extraction for visual search; real-time AR tracking. |
-| **Backend (Server)** | `Node.js`, `Express` | REST API for handling secure AI calls and business logic. |
-| **AI/ML (Server)** | `Google Gemini API`, `Google Custom Search` | Contextual style analysis, chatbot, and image grounding. |
-| **Internationalization** | `react-i18next`, `i18next-http-backend` | Multilingual text rendering and dynamic language loading. |
-| **3D Rendering** | `THREE.js` | Loading and rendering `.glb` 3D models for the AR try-on feature. |
-| **DevOps & Tooling** | `npm`, `ESLint`, `Vite` | Package management, code linting, and build tooling. |
+| **Frontend (Client)** | **React, Vite, Tailwind CSS** | A fast, single-page application (SPA) built with Vite for rapid development. Tailwind is used for utility-first styling, and a custom VibeContext manages state and navigation across screens (Quiz, Results, Cart, etc.). |
+| **Backend (Server)** | **Node.js, Express, dotenv** | Provides a simple REST API on port 3001 to handle heavy lifting and secure API key access. Uses dotenv for secret management. |
+| **AI Integration** | **Google Gemini API, Google Custom Search API** | Drives the contextual style analysis and the product-aware chatbot. |
+| **Machine Learning** | **TensorFlow.js, MobileNet, Jimp** | Used to calculate and compare image feature vectors for the visual search feature. The `server/feature_extractor.js` script handles the initial feature generation. |
+| **AR/Computer Vision** | **MediaPipe Tasks Vision** | Provides the real-time face and hand tracking needed for the augmented reality try-on experience. |
 
-</div>
-
-<br>
-
-## 📂 Project Structure
-
-The repository is organized into a modular structure that separates the frontend application, backend server, and public assets.
-
-```plaintext
-💎 evol-jewels-website/
-│
-├── 🚀 server/
-│   ├── 🤖 server.js                  # Main Express API server for AI logic.
-│   ├── 🔑 .env                       # Environment variables (API keys).
-│   ├── 🧠 feature_extractor.js       # Node script to generate ML feature vectors.
-│   └── 📊 product_features.json      # Pre-computed feature vectors for visual search.
-│
-├── ⚛️ src/
-│   ├── 📱 components/                # Reusable React components (Screens & Shared UI).
-│   ├── 🌐 context/VibeContext.jsx    # Global state management for the entire app.
-│   ├── 📈 data/productData.js        # Static product catalog information.
-│   ├── 🧠 logic/productUtils.js      # Core business logic for filtering and scoring.
-│   ├── 🌍 i18n.js                     # Configuration for react-i18next.
-│   ├── 🎬 App.jsx                     # Main application component and screen router.
-│   └── 🏁 main.jsx                    # Application entry point.
-│
-├── 🌐 public/
-│   ├── 🖼️ media/                      # Product images with backgrounds.
-│   ├── 🖼️ media_bgr/                  # Background-removed product images for ML.
-│   ├── 🗿 3dmodels/                  # GLB files for AR try-on.
-│   ├── 🤖 models/                    # MediaPipe `.task` model files.
-│   └── 🌍 locales/                   # Translation JSON files (en, hi, te).
-│
-├── 📄 package.json                   # Project dependencies and scripts.
-├── 🎨 tailwind.config.js              # Tailwind CSS theme and configuration.
-├── vite.config.js                    # Vite build tool configuration.
-└── 📖 README.md                       # This documentation file.
-```
-
-<br>
+---
 
 ## Getting Started
-
-<details>
-<summary><strong>Local Development Setup</strong></summary>
 
 ### Prerequisites
 
 This project requires two main dependencies to run both the client and the backend server:
 
-*   **Programming Language:** `JavaScript` (Node.js)
-*   **Package Manager:** `npm` (Node Package Manager)
+* **Programming Language:** `JavaScript` (Node.js)
+* **Package Manager:** `npm` (Node Package Manager)
 
 ### Installation
 
 Follow these steps to get your development environment running.
 
 1.  **Clone the repository:**
+
     ```bash
-    git clone https://github.com/sashankbanda/evol-jewels-website.git
+    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
+    ```
+
+2.  **Navigate to the project directory:**
+
+    ```bash
     cd evol-jewels-website
     ```
 
-2.  **Install all dependencies:**
+3.  **Install the dependencies:**
+
     This will install both the frontend (React/Vite) and backend (Express) packages.
+
     ```bash
     npm install
     ```
 
-3.  **Configure API Keys:**
-    Open the `server/.env` file and replace the placeholder values with your actual API keys:
-    *   `GEMINI_API_KEY`
-    *   `GOOGLE_SEARCH_API_KEY`
-    *   `CUSTOM_SEARCH_ENGINE_ID`
+4.  **Configure API Keys and Features:**
 
-4.  **Generate Image Features (Critical Step):**
-    The visual search relies on pre-calculated image feature vectors. You must run this script once.
+    * **API Keys:** Open the `server/.env` file and replace the placeholder values with your actual API keys:
+        * `GEMINI_API_KEY`
+        * `Google Search_API_KEY`
+        * `CUSTOM_SEARCH_ENGINE_ID`
+    * **Image Features (Critical Step):** The image search relies on pre-calculated image feature vectors. You must run the feature extractor script once:
+
     ```bash
     npm run extract-features
     ```
-    *This process loads MobileNet, reads all product images, and saves the feature vectors to `server/product_features.json`.*
 
-### Usage
-
-You need two separate terminal windows to run the frontend and backend simultaneously.
-
-1.  **Start the Backend Server:**
-    ```bash
-    npm run server
-    ```
-    *This hosts the API endpoints for the Gemini and image search services on `http://localhost:3001`.*
-
-2.  **Start the Frontend Application:**
-    ```bash
-    npm run dev
-    ```
-    *This starts the React development server, usually on `http://localhost:5173`.*
-
-</details>
-
-<br>
-
-## API Reference
-
-The backend server exposes a simple REST API to handle computationally expensive or secure operations.
-
-<details>
-<summary><strong>POST /api/analyze-outfit</strong> - AI-Powered Outfit Analysis</summary>
-
-Accepts quiz results and optional outfit text, returning a full Vibe Match analysis from Gemini, including grounded image URLs.
-
-**Request Body:**
-```json
-{
-  "outfitText": "I'm wearing a deep blue kurta for a wedding reception.",
-  "quizKey": "Party/Celebration_Classic_Polished Gold"
-}
-```
-
-**Successful Response (200 OK):**
-```json
-{
-  "keywords": {
-    "metal_match": "Polished Gold",
-    "description": "This metal choice enhances the royal blue of the kurta..."
-  },
-  "vibeMatch": {
-    "icon": "Priyanka Chopra: Classic Edge",
-    "subtitle": "...",
-    "celebrityImage": "https://...",
-    "movieScene": "...",
-    "movieImage": "https://..."
-  },
-  "outfitImageUrl": "https://..."
-}
-```
-</details>
-
-<details>
-<summary><strong>POST /api/product-chat</strong> - Product Information Chatbot</summary>
-
-Accepts a user query and the full product catalog, returning a contextual answer from Gemini.
-
-**Request Body:**
-```json
-{
-  "productDataJson": "[{...}, {...}]",
-  "userQuery": "Do you have any silver rings under ₹50,000?"
-}
-```
-
-**Successful Response (200 OK):**
-```json
-{
-  "answer": "Yes, we have several beautiful matte silver rings! For example, the **'Celestial Orbit Ring'** is priced at **₹45,000**."
-}
-```
-</details>
-
-<details>
-<summary><strong>POST /api/image-search</strong> - Visual Product Search</summary>
-
-Accepts a feature vector from a user-uploaded image and returns the IDs of the top 3 most similar products.
-
-**Request Body:**
-```json
-{
-  "queryFeatureVector": [0.123, -0.456, ..., 0.789]
-}
-```
-
-**Successful Response (200 OK):**
-```json
-{
-  "productIds": [42, 15, 58]
-}
-```
-</details>
-
-<br>
+    *This process loads MobileNet, reads all 60 product images from the `public/media_bgr` folder, and saves the feature vectors to `server/product_features.json`.*
 
 ---
 
-**[Star this repository](https://github.com/sashankbanda/evol-jewels-website)** | **[Report an Issue](https://github.com/sashankbanda/evol-jewels-website/issues)** | **[View Technical Architecture](./technical_architecture.md)**
+## Usage
+
+You need two separate terminal windows for this project to run both the frontend and the backend simultaneously.
+
+1.  **Start the Backend Server:**
+
+    In the first terminal, start the Express server which hosts the API endpoints for the Gemini and image search services.
+
+    ```bash
+    npm run server
+    ```
+
+2.  **Start the Frontend Application:**
+
+    In a second terminal, start the React development server.
+
+    ```bash
+    npm run dev
+    ```
+
+The application should automatically open in your browser at the local address specified in the console (usually `http://localhost:5173`).
+
+---
+
+## Testing
+
+The project includes two main scripts for quality assurance and environment setup.
+
+* **Feature Extraction Check:** Confirm that your image feature data is correctly generated (run this first!):
+
+    ```bash
+    npm run extract-features
+    ```
+
+* **Linting:** Run ESLint to check for code quality and style issues (configured in `eslint.config.js`):
+
+    ```bash
+    npm run lint
+    ```
+
+---
+
+## Built With
+
+| Feature | Technology / Library | Role |
+| :--- | :--- | :--- |
+| **Styling & AI** | **Google Gemini API** | Vibe Match outfit-to-metal analysis and product Chatbot.|
+| **Image Recognition** | **TensorFlow.js & MobileNet** | Feature vector extraction for client-side/server-side image search.|
+| **Frontend** | React, Vite | Core user interface and rapid development tooling.|
+| **Backend** | Node.js, Express | REST API endpoints for AI analysis and image search.|
+| **Styles** | Tailwind CSS | Utility-first CSS framework for responsive design.|
+| **AR Try-On** | MediaPipe (Face/Hand Landmarker) | Real-time virtual jewelry placement.|
