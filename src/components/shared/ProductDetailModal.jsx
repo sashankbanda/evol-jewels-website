@@ -478,7 +478,7 @@ const ProductDetailModal = ({ product, isDarkTheme, onClose }) => {
                                     <ul className={`space-y-2 text-sm ${textMuted}`}>
                                         {product.specifications.map((spec, index) => (
                                             <li key={index} className="flex justify-between border-b border-gray-700/20 last:border-b-0 py-1">
-                                                <span className="font-medium text-text-light/80">{spec.split(':')[0]}:</span>
+                                                <span className="font-medium text-B1B1B1">{spec.split(':')[0]}:</span>
                                                 <span>{spec.split(':')[1]}</span>
                                             </li>
                                         ))}

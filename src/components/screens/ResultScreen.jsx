@@ -97,7 +97,7 @@ const ResultScreen = () => {
                         {/* --- OUTFIT CONTEXT CARD (Dynamic AI Metal Match) --- */}
                         {outfitKeywords && (
                             <div className="card-bg p-6 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6">
-                                <p className="font-bold text-lg text-DAD5C1 mb-2 font-sans">
+                                <p className="font-bold text-lg text-accent-platinum mb-2 font-sans">
                                     Outfit Context Analysis
                                 </p>
                                 <h3 className="text-xl font-serif font-extrabold text-accent-platinum mb-2">
@@ -122,7 +122,7 @@ const ResultScreen = () => {
 
                         <div id="recommendationCard" className={recommendationCardClass}>
                             {/* VIBE MATCH FROM QUIZ (Icon/Title/Subtitle is now taken from match object) */}
-                            <p id="styleMatchText" className="text-lg text-DAD5C1 mb-2 font-sans">
+                            <p id="styleMatchText" className="text-lg text-accent-platinum mb-2 font-sans">
                                 Here’s your signature style (from quiz):
                             </p>
                             <h3 id="styleIcon" className="text-3xl md:text-5xl font-serif font-extrabold text-accent-platinum">
