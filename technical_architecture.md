@@ -85,8 +85,3 @@ The AR Try-On component (`JewelryARTryOn.jsx`) initializes two pre-trained Media
 * **Jewelry Models:** 3D models are loaded using **THREE.js** from `.glb` files (`public/3dmodels/`).
 * **Automatic Placement:** The model automatically attempts to align the jewelry with the detected landmarker coordinates.
 * **Manual Override:** The `AdjustmentOverlay.jsx` component provides sliders that allow the user to apply real-time manual offsets (`offsetX`, `offsetY`), **scale factor**, and **rotation angle** to the 3D model. This ensures a realistic fit regardless of camera angle or model size.
-
----
-```eof
-
-This is ready to be saved as `technical_architecture.md`. Now, let's proceed with **Step 2** by implementing the user consent feature.
