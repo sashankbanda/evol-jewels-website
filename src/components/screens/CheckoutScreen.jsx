@@ -1,15 +1,41 @@
 // src/components/screens/CheckoutScreen.jsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils'; 
 
 const CheckoutScreen = () => {
-    const { startNewSession, isDarkTheme, getCartTotal } = useVibe();
+    const { startNewSession, isDarkTheme, getCartTotal, cart } = useVibe();
     
     // Static data based on previous steps
     const orderId = 'EV' + Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
-    const finalTotal = formatPrice(getCartTotal());
+    const finalTotalValue = getCartTotal();
+    const finalTotalDisplay = formatPrice(finalTotalValue);
+
+    // --- NEW: Mock Analytics & ROI Tracking ---
+    useEffect(() => {
+        const conversionData = {
+            eventName: 'conversion_order_completed',
+            orderId: orderId,
+            totalValue: finalTotalValue,
+            currency: 'INR',
+            itemCount: cart.length,
+            items: cart.map(item => ({ id: item.id, name: item.name, price: item.price })),
+            timestamp: new Date().toISOString(),
+        };
+
+        // In a real-world scenario, you would send this to your analytics backend.
+        // For this mock implementation, we are logging to the console to demonstrate capability.
+        console.log('--- MOCK ROI TRACKING: Conversion Event ---', conversionData);
+
+        // This simulates a POST request to an analytics endpoint.
+        // fetch('https://api.your-analytics-service.com/events', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(conversionData),
+        // }).catch(err => console.error("Mock Analytics Fetch Error:", err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Run only once when the component mounts.
 
     // Dynamic Class Logic
     const containerClass = isDarkTheme ? 'bg-E6E2D3 p-6 md:p-12 rounded-3xl shadow-2xl max-w-lg w-full text-111111' : 'bg-white p-6 md:p-12 rounded-3xl shadow-2xl max-w-lg w-full';
@@ -35,7 +61,7 @@ const CheckoutScreen = () => {
                 </p>
 
                 <p className={`text-xl font-bold font-sans ${totalColor}`} id="checkoutTotalDisplay">
-                    Total: {finalTotal}
+                    Total: {finalTotalDisplay}
                 </p>
                 
                 <button 

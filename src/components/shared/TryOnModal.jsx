@@ -24,10 +24,24 @@ const TryOnModal = () => {
 
     useEffect(() => {
         if (product) {
+            // --- NEW: Mock Analytics & ROI Tracking ---
+            const engagementData = {
+                eventName: 'engagement_virtual_try_on',
+                product: {
+                    id: product.id,
+                    name: product.name,
+                    category: product.category,
+                },
+                timestamp: new Date().toISOString(),
+            };
+            // In a real-world scenario, send this to your analytics backend.
+            console.log('--- MOCK ROI TRACKING: Engagement Event (Try-On) ---', engagementData);
+            // --- END NEW ---
+
             // Ensure camera starts active when modal first opens
             setIsCameraActive(true); 
             setShowAdjustmentOverlay(false); 
-            setManualAdjustment({ offsetX: 0, offsetY: 0, scaleFactor: 1.0 }); 
+            setManualAdjustment({ offsetX: 0, offsetY: 0, scaleFactor: 1.0, rotationAngle: 0 }); 
             setEngagementStatus("Loading AR experience...");
             const timer = setTimeout(() => {
                 setEngagementStatus("Ready for try-on!");
