@@ -1,11 +1,16 @@
+
 // src/components/screens/CheckoutScreen.jsx
 
 import React, { useEffect } from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils'; 
+import { useTranslation } from 'react-i18next';
+
 
 const CheckoutScreen = () => {
     const { startNewSession, isDarkTheme, getCartTotal, cart } = useVibe();
+    const { t } = useTranslation();
+
     
     // Static data based on previous steps
     const orderId = 'EV' + Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
@@ -48,27 +53,27 @@ const CheckoutScreen = () => {
     return (
         <div id="checkoutScreen" className="screen flex-col flex">
             <div className={containerClass}>
-                <h2 className={`text-5xl font-serif font-extrabold ${h2Color} mb-4`}>Success!</h2>
+                <h2 className={`text-5xl font-serif font-extrabold ${h2Color} mb-4`}>{t('checkoutSuccess')}</h2>
                 <p className={`text-2xl font-sans font-semibold ${p2Color} mb-8`}>
-                    Your Order is Placed In-Store.
+                    {t('orderPlaced')}
                 </p>
                 <p className={`text-lg ${p3Color} mb-4 font-sans`}>
-                    Our team’s preparing your selections in-store.
+                    {t('orderPreparing')}
                 </p>
                 
                 <p className={`text-lg font-bold ${p3Color} mb-2 font-sans`}>
-                    Order ID: <span id="checkoutOrderIdDisplay" className={spanIdColor}>{orderId}</span>
+                    {t('orderId', { id: '' })} <span id="checkoutOrderIdDisplay" className={spanIdColor}>{orderId}</span>
                 </p>
 
                 <p className={`text-xl font-bold font-sans ${totalColor}`} id="checkoutTotalDisplay">
-                    Total: {finalTotalDisplay}
+                    {t('total')} {finalTotalDisplay}
                 </p>
                 
                 <button 
                     onClick={startNewSession}
                     className="mt-8 w-full py-4 text-xl font-sans rounded-xl shadow-lg primary-cta"
                 >
-                    Start a New Session
+                    {t('startNewSession')}
                 </button>
             </div>
         </div>

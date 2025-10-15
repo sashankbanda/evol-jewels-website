@@ -1,3 +1,4 @@
+
 /* src/index.css */
  
  /* Step 8: Inject Tailwind directives */
@@ -8,6 +9,10 @@
  /* Step 10: Custom CSS (COPIED EXACTLY FROM PROTOTYPE'S <style> BLOCK) */
  
  /* Base Styles */
+ html {
+     font-size: 16px; /* Base font size, will be controlled by JS for accessibility */
+ }
+
  body {
      font-family: 'Inter', sans-serif;
      transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */

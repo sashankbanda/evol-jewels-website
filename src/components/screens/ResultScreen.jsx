@@ -1,11 +1,15 @@
+
 // src/components/screens/ResultScreen.jsx
 
 import React, { useState, useEffect } from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { getAllFilteredRecommendations } from '../../logic/productUtils';
 import ProductCard from '../shared/ProductCard';
+import { useTranslation } from 'react-i18next';
+
 
 const ResultScreen = () => {
+    const { t } = useTranslation();
     // PULL THE NEW STATE 'vibeMatchDetails' from the context hook
     const { isDarkTheme, quizAnswers, navigate, showMessageModal, startNewSession, outfitKeywords, outfitRefImageUrl, vibeMatchDetails } = useVibe();
     const [recommendations, setRecommendations] = useState([]);
@@ -73,7 +77,7 @@ const ResultScreen = () => {
         setRecommendations(initialBatch);
         setOffset(initialBatch.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [outfitKeywords, vibeMatchDetails]); // Re-run if AI or fallback data changes
+    }, [outfitKeywords, vibeMatchDetails]);
 
     const handleShowMore = () => {
         // 1. Regenerate all filtered products (the full list, correctly filtered by category)
@@ -106,8 +110,8 @@ const ResultScreen = () => {
         return (
             <div id="loadingScreen" className="screen flex-col">
                 <div className="spinner mb-6"></div>
-                <p className="text-2xl md:text-4xl font-serif font-semibold text-text-light">Calculating your perfect match...</p>
-                <p className="text-lg md:text-xl mt-2 text-B1B1B1 font-sans">Connecting to our styling expert AI.</p>
+                <p className="text-2xl md:text-4xl font-serif font-semibold text-text-light">{t('loadingAnalysis')}</p>
+                <p className="text-lg md:text-xl mt-2 text-B1B1B1 font-sans">{t('connectingToAI')}</p>
             </div>
         );
     }
@@ -116,7 +120,7 @@ const ResultScreen = () => {
         <div id="resultScreen" className="screen flex-col flex">
             <div className="w-full max-w-6xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center mb-8">
-                    Your Vibe Match is Ready!
+                    {t('vibeMatchReady')}
                 </h2>
 
                 <div className="w-full flex flex-col md:flex-row md:space-x-8 items-start">
@@ -127,10 +131,10 @@ const ResultScreen = () => {
                         {outfitKeywords && (
                             <div className="card-bg p-6 rounded-2xl shadow-xl border-t-8 border-accent-platinum w-full mb-6">
                                 <p className="font-bold text-lg text-accent-platinum mb-2 font-sans">
-                                    Outfit Context Analysis
+                                    {t('outfitContextAnalysis')}
                                 </p>
                                 <h3 className="text-xl font-serif font-extrabold text-accent-platinum mb-2">
-                                    Suggested Metal: {outfitKeywords.metal_match}
+                                    {t('suggestedMetal', { metal: outfitKeywords.metal_match })}
                                 </h3>
                                 <p className="text-base mt-1 text-B1B1B1 font-sans">
                                     {outfitKeywords.description}
@@ -152,7 +156,7 @@ const ResultScreen = () => {
                         <div id="recommendationCard" className={recommendationCardClass}>
                             {/* VIBE MATCH FROM QUIZ (Icon/Title/Subtitle is now taken from match object) */}
                             <p id="styleMatchText" className="text-lg text-accent-platinum mb-2 font-sans">
-                                Here’s your signature style (from quiz):
+                                {t('signatureStyle')}
                             </p>
                             <h3 id="styleIcon" className="text-3xl md:text-5xl font-serif font-extrabold text-accent-platinum">
                                 {match.icon}
@@ -160,7 +164,7 @@ const ResultScreen = () => {
                             <p id="styleSubtitle" className={`text-xl mt-4 font-sans font-semibold ${styleSubtitleClass}`}>
                                 {match.subtitle}
                             </p>
-                            <p className="text-base mt-2 text-B1B1B1 font-sans">Explore pieces that bring this look to life.</p>
+                            <p className="text-base mt-2 text-B1B1B1 font-sans">{t('exploreThisLook')}</p>
                         </div>
                         
                         {/* CELEBRITY AND MOVIE PANELS (Now Dynamic) */}
@@ -177,7 +181,7 @@ const ResultScreen = () => {
                                     />
                                 </div>
                                 <div className="p-4 text-center">
-                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Celebrity Inspiration</p>
+                                    <p className="font-bold text-sm text-B1B1B1 font-sans">{t('celebrityInspiration')}</p>
                                     {/* Use match.icon as the title */}
                                     <p className="text-lg font-semibold text-text-light font-sans">{match.icon}</p>
                                 </div>
@@ -193,7 +197,7 @@ const ResultScreen = () => {
                                     />
                                 </div>
                                 <div className="p-4 text-center">
-                                    <p className="font-bold text-sm text-B1B1B1 font-sans">Movie Inspo Scene</p>
+                                    <p className="font-bold text-sm text-B1B1B1 font-sans">{t('movieInspo')}</p>
                                     {/* Use match.movieScene as the title */}
                                     <p className="text-lg font-semibold text-text-light font-sans">{match.movieScene}</p>
                                 </div>
@@ -205,14 +209,14 @@ const ResultScreen = () => {
                             onClick={() => navigate('imagesearch')}
                             className="w-full py-4 text-lg font-sans rounded-xl shadow-lg primary-cta mt-6"
                         >
-                            ✨ Shop the Look: Upload a Photo
+                            {t('shopTheLook')}
                         </button>
                     </div>
 
                     {/* RECOMMENDED PRODUCTS (RIGHT COLUMN) */}
                     <div className="md:w-1/2 w-full mt-8 md:mt-0">
                         <h3 className="text-2xl md:text-3xl font-serif font-semibold mb-6 text-center md:text-left text-text-light">
-                            Recommended Products
+                            {t('recommendedProducts')}
                         </h3>
                         <div id="productGrid" className="grid grid-cols-2 gap-4 md:gap-6">
                             {recommendations.map(product => (
@@ -223,7 +227,7 @@ const ResultScreen = () => {
                             onClick={handleShowMore}
                             className="mt-6 w-full py-3 text-lg font-sans rounded-xl shadow-md secondary-cta"
                         >
-                            Show More Matches
+                            {t('showMoreMatches')}
                         </button>
                     </div>
                 </div>
@@ -234,19 +238,19 @@ const ResultScreen = () => {
                         onClick={startNewSession} // <-- RESTART QUIZ BUTTON
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
                     >
-                        Restart Quiz
+                        {t('restartQuiz')}
                     </button>
                     <button 
                         onClick={() => navigate('allproducts')}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
                     >
-                        Browse All Products
+                        {t('browseAllProducts')}
                     </button>
                     <button 
                         onClick={() => navigate('leadcapture')}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg primary-cta"
                     >
-                        Save Look to Phone & Offer
+                        {t('saveLook')}
                     </button>
                 </div>
             </div>

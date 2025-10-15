@@ -1,10 +1,15 @@
+
 // src/components/shared/MessageModal.jsx
 
 import React from 'react';
 import { useVibe } from '../../context/VibeContext';
+import { useTranslation } from 'react-i18next';
+
 
 const MessageModal = () => {
-    const { isDarkTheme, messageModal, hideMessageModal, navigate } = useVibe();
+    const { isDarkTheme, messageModal, hideMessageModal } = useVibe();
+    const { t } = useTranslation();
+
 
     if (!messageModal) return null;
 
@@ -24,7 +29,7 @@ const MessageModal = () => {
             <div className={modalContentClass}>
                 
                 <h4 className="text-2xl font-serif font-bold mb-4 text-text-light">
-                    Heads Up!
+                    {t('modalHeadsUp')}
                 </h4>
                 
                 <p className="text-lg text-B1B1B1 font-sans mb-8">
@@ -35,7 +40,7 @@ const MessageModal = () => {
                     onClick={handleOk}
                     className={`w-full py-3 text-xl font-sans rounded-xl shadow-md ${primaryCtaClass}`}
                 >
-                    OK
+                    {t('modalOK')}
                 </button>
 
             </div>

@@ -1,3 +1,4 @@
+
 // src/components/shared/TryOnModal.jsx
 
 import React, { useState, useEffect } from 'react';
@@ -5,12 +6,16 @@ import { useVibe } from '../../context/VibeContext';
 import { X, SlidersHorizontal, Camera } from 'lucide-react'; 
 import JewelryARTryOn from './JewelryARTryOn'; 
 import AdjustmentOverlay from './AdjustmentOverlay'; 
+import { useTranslation } from 'react-i18next';
+
 
 const TryOnModal = () => {
     const { isDarkTheme, tryOnProduct, handleTryOnFeedback } = useVibe();
+    const { t } = useTranslation();
+
     
     const [isCameraActive, setIsCameraActive] = useState(true); 
-    const [engagementStatus, setEngagementStatus] = useState("Loading AR experience...");
+    const [engagementStatus, setEngagementStatus] = useState(t('loadingAR'));
     
     const [manualAdjustment, setManualAdjustment] = useState({
         offsetX: 0,
@@ -42,13 +47,14 @@ const TryOnModal = () => {
             setIsCameraActive(true); 
             setShowAdjustmentOverlay(false); 
             setManualAdjustment({ offsetX: 0, offsetY: 0, scaleFactor: 1.0, rotationAngle: 0 }); 
-            setEngagementStatus("Loading AR experience...");
+            setEngagementStatus(t('loadingAR'));
             const timer = setTimeout(() => {
-                setEngagementStatus("Ready for try-on!");
+                setEngagementStatus(t('readyForTryOn'));
             }, 1000);
             return () => clearTimeout(timer);
         }
-    }, [product]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product, t]);
 
     // Function to handle stopping the view
     const handleStopView = () => {
@@ -74,7 +80,7 @@ const TryOnModal = () => {
     const closeBtnTextClass = isDarkTheme ? 'text-B1B1B1 hover:text-F5F5F5' : 'text-gray-500 hover:text-gray-700';
     
     // NEW: Conditional button styles and functionality
-    const mainCtaText = isCameraActive ? 'Stop Try-On View' : 'Start Try-On View';
+    const mainCtaText = isCameraActive ? t('stopTryOn') : t('startTryOn');
     const mainCtaClass = isCameraActive 
         ? 'bg-red-500 hover:bg-red-600 text-white' 
         : 'bg-green-500 hover:bg-green-600 text-white';
@@ -91,7 +97,7 @@ const TryOnModal = () => {
     return (
         <div id="feedbackModal" className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ backgroundColor: modalBg }}>
             <div className={modalContentClass}>
-                <h4 className="text-3xl font-serif font-bold mb-2 text-text-light">Virtual Try-On</h4>
+                <h4 className="text-3xl font-serif font-bold mb-2 text-text-light">{t('tryOnTitle')}</h4>
                 <p id="modalProductName" className="text-xl text-accent-platinum font-sans font-semibold mb-4">
                     {product.name}
                 </p>
@@ -135,19 +141,19 @@ const TryOnModal = () => {
                     <button 
                         onClick={() => handleTryOnFeedback('love', product)}
                         className="flex-1 py-4 text-lg font-sans rounded-xl shadow-md primary-cta">
-                        Love it (Add to Cart)
+                        {t('loveIt')}
                     </button>
                     <button 
                         onClick={() => handleTryOnFeedback('dislike', product)}
                         className="flex-1 py-4 text-lg font-sans rounded-xl shadow-md tertiary-cta">
-                        Try Another Style
+                        {t('tryAnotherStyle')}
                     </button>
                 </div>
 
                <button 
                     onClick={() => handleTryOnFeedback('cancel')} 
                     className={`mt-4 w-full py-2 text-sm font-sans transition duration-200 ${closeBtnTextClass}`}>
-                    Back to Looks
+                    {t('backToLooks')}
                 </button>
             </div>
         </div>

@@ -1,12 +1,17 @@
+
 // src/components/shared/ProductCard.jsx
 
 import React, { useState } from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils';
 import ProductDetailModal from './ProductDetailModal'; // Import the new component
+import { useTranslation } from 'react-i18next';
+
 
 const ProductCard = ({ product }) => {
     const { isDarkTheme, showTryOnModal } = useVibe();
+    const { t } = useTranslation();
+
     
     // NEW STATE: To control the Product Detail modal
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -51,7 +56,7 @@ const ProductCard = ({ product }) => {
                     {/* Overlay instruction */}
                     <div className="absolute inset-0 bg-black/10 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span className="text-white text-sm font-sans font-medium p-2 rounded-lg bg-black/60">
-                            View Details & Options
+                            {t('viewDetails')}
                         </span>
                     </div>
                 </div>
@@ -66,7 +71,7 @@ const ProductCard = ({ product }) => {
                             onClick={() => showTryOnModal(product.id)} 
                             className={`flex-1 py-2 ${btnBg} ${btnText} text-sm font-sans rounded-lg ${btnHoverBg} transition duration-200`}
                         >
-                            Try On & Rate
+                            {t('tryOnAndRate')}
                         </button>
                     </div>
                 </div>

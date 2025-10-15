@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 // FIX: Reverted to correct relative path (two steps up)
 import { useVibe } from '../../context/VibeContext'; 
@@ -6,8 +7,11 @@ import { UploadCloud, Image, Loader2, CheckCircle } from 'lucide-react';
 import ProductCard from '../shared/ProductCard';
 // FIX: Reverted to correct relative path (two steps up)
 import { getProductById } from '../../logic/productUtils'; 
+import { useTranslation } from 'react-i18next';
+
 
 const ImageSearchScreen = () => {
+    const { t } = useTranslation();
     // Get necessary state and functions from context, including the new isModelLoading
     const { navigate, isDarkTheme, startImageSearch, imageSearchResult, goBack, screenHistory, isModelLoading } = useVibe();
     
@@ -89,12 +93,12 @@ const ImageSearchScreen = () => {
         const isButtonDisabled = !selectedFile || isProcessing || isModelLoading;
         
         // Dynamic titles and subtitles based on state
-        const title = isProcessing ? "Analyzing Image..." : isModelLoading ? "Loading AI Model..." : "Find Your Look by Photo";
+        const title = isProcessing ? t('analyzingImage') : isModelLoading ? t('loadingAiModel') : t('imageSearchTitle');
         const subtitle = isProcessing 
-            ? "Comparing aesthetic features against our entire product line, just a moment."
+            ? t('analyzingImageDesc')
             : isModelLoading
-            ? "Preparing the MobileNet model for image feature extraction, please wait."
-            : "Upload a photo of any jewelry piece to find the closest matches in our collection.";
+            ? t('loadingAiModelDesc')
+            : t('imageSearchSubtitle');
 
         return (
             <div id="imageSearchScreen" className="screen flex-col">
@@ -122,12 +126,12 @@ const ImageSearchScreen = () => {
                         ) : isProcessing || isModelLoading ? ( 
                              <div className="flex flex-col items-center justify-center p-4">
                                 <Loader2 size={36} className="animate-spin text-accent-platinum mb-4" />
-                                <p className="text-text-light font-sans mt-2">{isModelLoading ? 'Waiting for Model...' : 'Processing...'}</p>
+                                <p className="text-text-light font-sans mt-2">{isModelLoading ? t('waitingForModel') : t('processing')}</p>
                             </div>
                         ) : (
                             <div className='text-center text-B1B1B1'>
                                 <UploadCloud size={48} className="text-DAD5C1 mx-auto mb-2" />
-                                <p className='font-sans'>Tap to select an image file.</p>
+                                <p className='font-sans'>{t('tapToSelect')}</p>
                             </div>
                         )}
                         
@@ -137,7 +141,7 @@ const ImageSearchScreen = () => {
                                 className={`mt-4 px-6 py-2 text-lg font-sans rounded-lg shadow-md ${selectedFile ? 'secondary-cta' : 'primary-cta'}`}
                                 style={{ pointerEvents: 'auto' }}
                             >
-                                {selectedFile ? 'Change Photo' : 'Upload Photo'}
+                                {selectedFile ? t('changePhoto') : t('uploadPhoto')}
                             </button>
                         )}
                     </div>
@@ -150,11 +154,11 @@ const ImageSearchScreen = () => {
                     >
                         {isProcessing || isModelLoading ? (
                             <>
-                                <Loader2 size={24} className="animate-spin" /> {isModelLoading ? 'Waiting for Model...' : 'Matching...'}
+                                <Loader2 size={24} className="animate-spin" /> {isModelLoading ? t('waitingForModel') : t('matching')}
                             </>
                         ) : (
                             <>
-                                <Image size={24} /> Find Matches
+                                <Image size={24} /> {t('findMatches')}
                             </>
                         )}
                     </button>
@@ -163,7 +167,7 @@ const ImageSearchScreen = () => {
                         onClick={goBack}
                         className="mt-4 w-full py-2 text-sm font-sans secondary-cta"
                     >
-                        &larr; Back to Last Screen
+                        {t('backToLastScreen')}
                     </button>
                 </div>
             </div>
@@ -183,26 +187,26 @@ const ImageSearchScreen = () => {
                 <div className="flex items-center justify-center mb-6">
                     <CheckCircle size={36} className="text-0E5C4E mr-3" />
                     <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center">
-                        Top Matches Found!
+                        {t('topMatchesFound')}
                     </h2>
                 </div>
                 <p className="text-xl font-sans font-medium mb-8 text-B1B1B1 text-center">
-                    Based on your uploaded photo, here are the closest pieces from our collection:
+                    {t('topMatchesDesc')}
                 </p>
 
                 {matchedProducts.length > 0 ? (
-                    // ADD THIS WRAPPER: Centers the entire grid container
+                    // ADD THIS WRAPPER: Centers the entire grid container
                     <div className="flex justify-center">
-                        <div id="matchProductGrid" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
-                        {matchedProducts.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                        </div>
+                        <div id="matchProductGrid" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+                        {matchedProducts.map(product => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                        </div>
                     </div>
-                ) : (
+                ) : (
                     <div className="text-center p-8 card-bg rounded-xl shadow-lg">
                         <p className="text-2xl font-sans text-B1B1B1">
-                            Hmm, we couldn't find a direct match. Try browsing our full selection or adjusting your photo!
+                            {t('noDirectMatch')}
                         </p>
                     </div>
                 )}
@@ -213,19 +217,19 @@ const ImageSearchScreen = () => {
                         onClick={goBack}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
                     >
-                        &larr; Back to Vibe Match
+                        {t('backToVibeMatch')}
                     </button>
-                    <button 
+                    <button 
                         onClick={() => navigate('imagesearch')}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg secondary-cta"
                     >
-                        Try Another Photo
+                        {t('tryAnotherPhoto')}
                     </button>
-                    <button 
+                    <button 
                         onClick={() => navigate('allproducts')}
                         className="flex-1 py-4 text-xl font-sans rounded-xl shadow-lg primary-cta"
                     >
-                        Browse All Products
+                        {t('browseAllProducts')}
                     </button>
                 </div>
 

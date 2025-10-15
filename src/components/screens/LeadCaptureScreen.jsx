@@ -1,12 +1,17 @@
+
 // src/components/screens/LeadCaptureScreen.jsx
 
 import React from 'react';
 // FIX: Using the highly stable 'react-qr-code' library
 import QRCode from 'react-qr-code'; 
 import { useVibe } from '../../context/VibeContext';
+import { useTranslation } from 'react-i18next';
+
 
 const LeadCaptureScreen = () => {
     const { quizAnswers, navigate, isDarkTheme } = useVibe();
+    const { t } = useTranslation();
+
 
     // Dynamic Class Logic (These use colors defined in tailwind.config/index.css)
     const containerBg = isDarkTheme ? 'bg-E6E2D3' : 'bg-light-card-bg';
@@ -28,10 +33,10 @@ const LeadCaptureScreen = () => {
         <div id="leadCaptureScreen" className="screen flex-col flex">
             <div className={`${containerBg} p-6 md:p-12 rounded-3xl shadow-2xl max-w-lg w-full ${textPrimary}`}>
                 <p className="text-3xl md:text-5xl font-serif font-extrabold mb-4">
-                    Save Your Look!
+                    {t('saveYourLook')}
                 </p>
                 <h3 className="text-xl md:text-2xl font-sans font-semibold mb-8 leading-tight">
-                    Scan to save your picks and get your exclusive in-store offer.
+                    {t('saveLookPrompt')}
                 </h3>
                 
                 <div id="qrCodeContainer" 
@@ -47,13 +52,13 @@ const LeadCaptureScreen = () => {
                 </div>
 
                 <p className="mt-8 text-sm text-B1B1B1 font-sans">
-                    Scan this code with your phone camera now!
+                    {t('scanNow')}
                 </p>
                 <button 
                     onClick={() => navigate('results')}
                     className={buttonClass}
                 >
-                    Done Scanning / Back to Products
+                    {t('doneScanning')}
                 </button>
             </div>
         </div>

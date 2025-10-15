@@ -1,9 +1,14 @@
+
 // src/components/shared/ZoomModal.jsx (UPDATED for Zoom/Pan/Pinch)
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 
 const ZoomModal = ({ imageUrl, productName, isDarkTheme, onClose }) => {
+    const { t } = useTranslation();
+
     
     // --- State for Pan/Zoom/Pinch ---
     const [scale, setScale] = useState(1.0);
@@ -71,7 +76,7 @@ const ZoomModal = ({ imageUrl, productName, isDarkTheme, onClose }) => {
 
         setScale(newScale);
         
-    }, [scale, MIN_SCALE, MAX_SCALE, ZOOM_STEP]);
+    }, [scale]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -226,7 +231,7 @@ const ZoomModal = ({ imageUrl, productName, isDarkTheme, onClose }) => {
                 <img 
                     ref={imageRef}
                     src={imageUrl} 
-                    alt={`Zoomed view of ${productName}`}
+                    alt={t('zoomedView', { productName: productName })}
                     // Apply the computed transform style
                     style={transformStyle}
                     // Prevent image drag ghost
@@ -245,7 +250,7 @@ const ZoomModal = ({ imageUrl, productName, isDarkTheme, onClose }) => {
                         onClick={() => { setScale(1.0); setOffset({ x: 0, y: 0 }); }}
                         className="ml-4 text-xs font-sans p-1 px-2 rounded-full border border-current hover:bg-white/10 transition"
                     >
-                        Reset View
+                        {t('resetView')}
                     </button>
                 )}
             </div>

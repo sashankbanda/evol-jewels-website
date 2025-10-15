@@ -1,16 +1,14 @@
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 // FIX: Reverting to standard, explicit relative paths as the alias approach failed.
 import { Loader2, MessageSquareText, Send, X } from 'lucide-react';
 import { useVibe } from '../../context/VibeContext';
 import { productData } from '../../data/productData';
+import { useTranslation } from 'react-i18next';
+
 
 // Constant to hold the entire product data catalog as a string for the AI prompt
 const productDataJson = JSON.stringify(productData);
-
-// Initial messages to guide the user
-const initialMessages = [
-    { type: 'ai', text: "Hi there! I'm your Evol Jewels Product Assistant. Ask me anything about our collections, prices, or specifications!" },
-];
 
 /**
  * Utility function to convert simple Markdown (bold, list items) to HTML.
@@ -58,9 +56,16 @@ const renderMarkdown = (markdownText) => {
 
 
 const ProductChatbot = () => {
+    const { t } = useTranslation();
     
     // The previous error was specifically pointing to these paths:
     const { isDarkTheme, isChatOpen, toggleChat } = useVibe();
+
+    // Initial messages to guide the user, now using translation
+    const initialMessages = [
+        { type: 'ai', text: t('chatbotWelcome') },
+    ];
+
     const [messages, setMessages] = useState(initialMessages);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -127,16 +132,16 @@ const ProductChatbot = () => {
             result = await executeFetchWithRetry();
             
             // Add the AI's response to state
-            const aiResponseText = result?.answer || "I'm sorry, I couldn't get an answer right now. Please try again.";
+            const aiResponseText = result?.answer || t('chatbotError');
             setMessages(prev => [...prev, { type: 'ai', text: aiResponseText }]);
 
         } catch (error) {
             console.error("Chat API Error:", error);
-            setMessages(prev => [...prev, { type: 'ai', text: "It looks like my connection is down. Try checking your backend server." }]);
+            setMessages(prev => [...prev, { type: 'ai', text: t('chatbotConnectionError') }]);
         } finally {
             setIsLoading(false);
         }
-    }, [isLoading]);
+    }, [isLoading, t]);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -201,7 +206,7 @@ const ProductChatbot = () => {
                 {isLoading && (
                     <div className="flex justify-start">
                         <div className={`p-3 rounded-xl shadow-md font-sans text-sm italic ${aiMessageBg}`}>
-                            <Loader2 size={16} className='animate-spin inline mr-2' /> Assistant is typing...
+                            <Loader2 size={16} className='animate-spin inline mr-2' /> {t('chatbotTyping')}
                         </div>
                     </div>
                 )}
@@ -215,7 +220,7 @@ const ProductChatbot = () => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="Ask about a product..."
+                        placeholder={t('chatbotPlaceholder')}
                         className={`flex-1 p-3 rounded-xl focus:outline-none focus:ring-1 ${inputBg} ${isDarkTheme ? 'focus:ring-DAD5C1' : 'focus:ring-light-primary'}`}
                         disabled={isLoading}
                     />

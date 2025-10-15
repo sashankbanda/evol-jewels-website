@@ -1,10 +1,14 @@
+
 // src/components/shared/AdjustmentOverlay.jsx
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Maximize, GripVertical, Move, RotateCw } from 'lucide-react'; // Added RotateCw icon
+import { useTranslation } from 'react-i18next';
+
 
 // This is the custom adjustment overlay with sliders
 const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
+    const { t } = useTranslation();
     // State to toggle between Position and Scale views
     // MODIFIED: Added 'Rotation' mode
     const [mode, setMode] = useState('Position'); // 'Position', 'Scale', or 'Rotation'
@@ -46,7 +50,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
             x: initialPosition.current.x + dx,
             y: initialPosition.current.y + dy,
         });
-    }, [position.x, position.y]);
+    }, []);
 
 
     const handleDragEnd = useCallback(() => {
@@ -80,8 +84,6 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
         }`;
         
     const sliderTrackClass = isDarkTheme ? 'bg-DAD5C1/30' : 'bg-gray-300';
-    const sliderThumbClass = isDarkTheme ? 'bg-DAD5C1' : 'bg-light-primary';
-
 
     const handleSliderChange = (e) => {
         const { name, value } = e.target;
@@ -134,19 +136,19 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                         onClick={() => setMode('Position')}
                         className={modeBtnClass('Position')}
                     >
-                        <GripVertical size={16} className="mr-2" /> Position
+                        <GripVertical size={16} className="mr-2" /> {t('adjustPosition')}
                     </button>
                     <button 
                         onClick={() => setMode('Rotation')}
                         className={modeBtnClass('Rotation')}
                     >
-                        <RotateCw size={16} className="mr-2" /> Rotate
+                        <RotateCw size={16} className="mr-2" /> {t('adjustRotation')}
                     </button>
                     <button 
                         onClick={() => setMode('Scale')}
                         className={modeBtnClass('Scale')}
                     >
-                        <Maximize size={16} className="mr-2" /> Scale
+                        <Maximize size={16} className="mr-2" /> {t('adjustScale')}
                     </button>
                 </div>
                 <Move size={20} className="text-DAD5C1 min-w-[20px]" />
@@ -157,7 +159,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                     <>
                         {/* Horizontal Position (Left/Right) */}
                         <div className="w-full">
-                            <label className="text-B1B1B1 text-sm block mb-1">Horizontal Offset (Left / Right)</label>
+                            <label className="text-B1B1B1 text-sm block mb-1">{t('horizontalOffset')}</label>
                             <input
                                 type="range"
                                 name="offsetX"
@@ -170,14 +172,14 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                                 style={{ accentColor: isDarkTheme ? '#DAD5C1' : '#ff5a5f' }}
                             />
                             <div className="flex justify-between text-xs text-B1B1B1 mt-1">
-                                <span>Left</span>
-                                <span>Right</span>
+                                <span>{t('left')}</span>
+                                <span>{t('right')}</span>
                             </div>
                         </div>
 
                         {/* Vertical Position (Up/Down) */}
                         <div className="w-full">
-                            <label className="text-B1B1B1 text-sm block mb-1">Vertical Offset (Up / Down)</label>
+                            <label className="text-B1B1B1 text-sm block mb-1">{t('verticalOffset')}</label>
                             <input
                                 type="range"
                                 name="offsetY"
@@ -190,8 +192,8 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                                 style={{ accentColor: isDarkTheme ? '#DAD5C1' : '#ff5a5f' }}
                             />
                             <div className="flex justify-between text-xs text-B1B1B1 mt-1">
-                                <span>Up</span>
-                                <span>Down</span>
+                                <span>{t('up')}</span>
+                                <span>{t('down')}</span>
                             </div>
                         </div>
                         
@@ -200,7 +202,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                             onClick={handleResetPosition}
                             className="px-4 py-2 text-sm secondary-cta mt-2"
                         >
-                            Reset Position
+                            {t('resetPosition')}
                         </button>
                     </>
                 )}
@@ -210,7 +212,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                     <>
                         <div className="w-full">
                             <label className="text-B1B1B1 text-sm block mb-1 flex items-center">
-                                <RotateCw size={14} className="mr-2" /> Angle (Counter-Clockwise / Clockwise)
+                                <RotateCw size={14} className="mr-2" /> {t('angle')}
                             </label>
                             <input
                                 type="range"
@@ -224,8 +226,8 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                                 style={{ accentColor: isDarkTheme ? '#DAD5C1' : '#ff5a5f' }}
                             />
                             <div className="flex justify-between text-xs text-B1B1B1 mt-1">
-                                <span>-90° (Left)</span>
-                                <span>+90° (Right)</span>
+                                <span>{t('angleLeft')}</span>
+                                <span>{t('angleRight')}</span>
                             </div>
                         </div>
                         
@@ -234,7 +236,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                             onClick={handleResetRotation}
                             className="px-4 py-2 text-sm secondary-cta"
                         >
-                            Reset Rotation
+                            {t('resetRotation')}
                         </button>
                     </>
                 )}
@@ -243,7 +245,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                     <>
                         {/* Scale (Size) */}
                         <div className="w-full">
-                            <label className="text-B1B1B1 text-sm block mb-1">Scale (Smaller / Larger)</label>
+                            <label className="text-B1B1B1 text-sm block mb-1">{t('scale')}</label>
                             <input
                                 type="range"
                                 name="scaleFactor"
@@ -256,8 +258,8 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                                 style={{ accentColor: isDarkTheme ? '#DAD5C1' : '#ff5a5f' }}
                             />
                             <div className="flex justify-between text-xs text-B1B1B1 mt-1">
-                                <span>Smaller</span>
-                                <span>Larger</span>
+                                <span>{t('smaller')}</span>
+                                <span>{t('larger')}</span>
                             </div>
                         </div>
                         {/* Reset scale button */}
@@ -265,7 +267,7 @@ const AdjustmentOverlay = ({ adjustment, setAdjustment, isDarkTheme }) => {
                             onClick={handleResetScale}
                             className="px-4 py-2 text-sm secondary-cta"
                         >
-                            Reset Scale
+                            {t('resetScale')}
                         </button>
                     </>
                 )}

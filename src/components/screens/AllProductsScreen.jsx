@@ -1,13 +1,13 @@
+
 // src/components/screens/AllProductsScreen.jsx
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useVibe } from '../../context/VibeContext';
-import { getAllFilteredRecommendations, formatPrice } from '../../logic/productUtils';
-import { productData } from '../../data/productData'; // Using raw data here
+import { productData } from '../../data/productData';
 import ProductCard from '../shared/ProductCard';
+import { useTranslation } from 'react-i18next';
 
-
-// Helper function to handle sorting and filtering
+// Helper functaion to handle sorting and filtering
 const applyFiltersAndSort = (products, categoryFilter, sortBy) => {
     let filteredProducts = [...products];
 
@@ -42,6 +42,7 @@ const applyFiltersAndSort = (products, categoryFilter, sortBy) => {
 
 const AllProductsScreen = () => {
     const { isDarkTheme, navigate } = useVibe();
+    const { t } = useTranslation();
     
     // Local state for filters and sort
     const [categoryFilter, setCategoryFilter] = useState('');
@@ -64,7 +65,7 @@ const AllProductsScreen = () => {
         <div id="allProductsScreen" className="screen flex-col flex">
             <div className="w-full max-w-6xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center mb-8">
-                    All Evol Jewels Products
+                    {t('allProductsTitle')}
                 </h2>
 
                 {/* Filter and Sort Controls (Replaces HTML Selects) */}
@@ -76,11 +77,11 @@ const AllProductsScreen = () => {
                         value={categoryFilter}
                         className={`p-3 border ${borderColor} rounded-lg text-lg ${selectText} ${selectBg} ${focusRing}`}
                     >
-                        <option value="">All Categories</option>
-                        <option value="Earring">Earrings</option>
-                        <option value="Ring">Rings</option>
-                        <option value="Necklace">Necklaces/Pendants</option>
-                        <option value="Bracelet">Bracelets</option>
+                        <option value="">{t('allCategories')}</option>
+                        <option value="Earring">{t('earrings')}</option>
+                        <option value="Ring">{t('rings')}</option>
+                        <option value="Necklace">{t('necklacesPendants')}</option>
+                        <option value="Bracelet">{t('bracelets')}</option>
                     </select>
 
                     <select 
@@ -89,10 +90,10 @@ const AllProductsScreen = () => {
                         value={sortBy}
                         className={`p-3 border ${borderColor} rounded-lg text-lg ${selectText} ${selectBg} ${focusRing}`}
                     >
-                        <option value="default">Default</option>
-                        <option value="priceLow">Price: Low to High</option>
-                        <option value="priceHigh">Price: High to Low</option>
-                        <option value="nameAsc">Name: A-Z</option>
+                        <option value="default">{t('sortByDefault')}</option>
+                        <option value="priceLow">{t('priceLowToHigh')}</option>
+                        <option value="priceHigh">{t('priceHighToLow')}</option>
+                        <option value="nameAsc">{t('nameAZ')}</option>
                     </select>
                 </div>
 
@@ -103,7 +104,7 @@ const AllProductsScreen = () => {
                     ))}
                     {displayedProducts.length === 0 && (
                         <p className="col-span-full text-center text-B1B1B1 mt-8">
-                            No items match your filters. Try adjusting your selection.
+                            {t('noItemsMatch')}
                         </p>
                     )}
                 </div>
@@ -113,7 +114,7 @@ const AllProductsScreen = () => {
                     onClick={() => navigate('results')}
                     className="mt-10 w-full max-w-sm mx-auto block py-4 text-xl font-sans rounded-xl shadow-lg primary-cta"
                 >
-                    &larr; Back to My Vibe Match
+                    {t('backToVibeMatch')}
                 </button>
             </div>
         </div>

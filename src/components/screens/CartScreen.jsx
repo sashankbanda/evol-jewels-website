@@ -1,12 +1,17 @@
+
 // src/components/screens/CartScreen.jsx
 
 import React from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { formatPrice } from '../../logic/productUtils';
-import { ShoppingCart, Trash2 } from 'lucide-react'; // Changed X to Trash2
+import { Trash2 } from 'lucide-react'; // Changed X to Trash2
+import { useTranslation } from 'react-i18next';
+
 
 const CartScreen = () => {
-    const { isDarkTheme, cart, removeCartItem, getCartTotal, navigate, isKioskMode } = useVibe();
+    const { isDarkTheme, cart, removeCartItem, getCartTotal, navigate } = useVibe();
+    const { t } = useTranslation();
+
 
     // Dynamic Class Logic
     const bgColor = isDarkTheme ? 'bg-2A2A2A' : 'bg-light-card-bg';
@@ -26,13 +31,13 @@ const CartScreen = () => {
         <div id="cartScreen" className="screen flex-col flex pt-24">
             <div className="w-full max-w-4xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-text-light text-center mb-8">
-                    Your Shopping Cart
+                    {t('shoppingCartTitle')}
                 </h2>
                 
                 <div id="cartItemsContainer" className="w-full space-y-4">
                     {cart.length === 0 ? (
                         <p className={`text-xl text-center ${subTextColor} mt-10 font-sans`}>
-                            Your cart is empty — let’s find your vibe!
+                            {t('cartEmpty')}
                         </p>
                     ) : (
                         cart.map((product, index) => (
@@ -61,7 +66,7 @@ const CartScreen = () => {
                 {cart.length > 0 && (
                     <div id="cartSummary" className={`w-full mt-8 p-6 card-bg rounded-xl shadow-xl border-t-4 border-accent-platinum`}>
                         <div className="flex justify-between items-center text-2xl font-serif font-bold mb-4">
-                            <span>Total:</span>
+                            <span>{t('total')}</span>
                             <span id="cartTotal" className="text-accent-platinum font-sans font-medium total-price-font">
                                 {formatPrice(total)}
                             </span>
@@ -70,7 +75,7 @@ const CartScreen = () => {
                             onClick={handleCheckout}
                             className="w-full py-4 text-xl font-sans rounded-xl shadow-lg primary-cta"
                         >
-                            Proceed to Checkout
+                            {t('proceedToCheckout')}
                         </button>
                     </div>
                 )}
@@ -79,7 +84,7 @@ const CartScreen = () => {
                     onClick={() => navigate('results')}
                     className="mt-8 w-full max-w-xs mx-auto block py-3 text-B1B1B1 text-lg font-sans hover:text-F5F5F5 transition duration-300"
                 >
-                    &larr; Continue Shopping
+                    {t('continueShopping')}
                 </button>
             </div>
         </div>

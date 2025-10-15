@@ -1,10 +1,15 @@
+
 // src/components/shared/NavBar.jsx
 import React from 'react';
 import { useVibe } from '../../context/VibeContext';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 
 const NavBar = ({ type, onClick, cartCount }) => {
     const { isDarkTheme } = useVibe();
+    const { t } = useTranslation();
+
     
     // Dynamic Class Logic
     const cartBg = isDarkTheme ? 'bg-DAD5C1' : 'bg-light-primary'; 
@@ -19,7 +24,7 @@ const NavBar = ({ type, onClick, cartCount }) => {
             // Removed 'hidden' class from here. Visibility is controlled by {showBack && ...} in App.jsx
             <button onClick={onClick} className={`back-btn ${backBg} ${backText} ${backHover}`}>
                 <ArrowLeft className="h-5 w-5 mr-2" />
-                <span className="font-sans font-medium">Back</span>
+                <span className="font-sans font-medium">{t('navBack')}</span>
             </button>
         );
     }
