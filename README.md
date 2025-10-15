@@ -41,6 +41,8 @@
 
 The Evol Jewels AI Stylist is a sophisticated proof-of-concept application built with a modern React frontend and an Express backend. It integrates several advanced AI and computer vision features to redefine the retail experience for jewelry.
 
+**[Read the Full Technical Architecture Document (AI/ML Breakdown)](./technical_architecture.md)**
+
 ### Key Objective
 
 *To automate and enhance the customer's styling journey through a suite of intelligent tools, including AI-driven recommendations, augmented reality try-ons, and visual search. This reduces friction in the discovery process and provides a memorable, high-tech interaction with the brand.*
@@ -49,69 +51,11 @@ The Evol Jewels AI Stylist is a sophisticated proof-of-concept application built
 
 ## Core Features
 
-<div align="center">
-
-### System Capabilities
-
-</div>
-
-```mermaid
-mindmap
-  root((AI Jewelry Kiosk))
-    Intelligent Style Matching
-      Personalized Quiz
-      Gemini-Powered Outfit Analysis
-      Metal & Style Recommendations
-    Virtual AR Try-On
-      Real-time Face & Hand Tracking
-      3D Model Rendering (necklaces, bracelets)
-      Manual Adjustment Controls (position, scale, rotation)
-    Visual Search
-      Image Upload (Find similar items)
-      TensorFlow.js & MobileNet Feature Extraction
-      Backend KNN Similarity Search
-    Product Chatbot
-      Natural Language Q&A
-      Gemini-Powered Product Knowledge
-      Markdown Response Formatting
-    Accessibility
-      Multilingual Support (i18next)
-      Dynamic Font Resizing
-      Dark/Light Theme Toggle
-```
-
-<table align="center">
-<tr>
-<td align="center" width="25%">
-
-**AI Style Matching**
-<br>
-Uses a Gemini-powered backend to analyze quiz answers and outfit descriptions, providing hyper-personalized metal and style recommendations.
-
-</td>
-<td align="center" width="25%">
-
-**Virtual AR Try-On**
-<br>
-Leverages MediaPipe for real-time face and hand tracking to overlay 3D jewelry models, creating an immersive try-on experience.
-
-</td>
-<td align="center" width="25%">
-
-**Visual Product Search**
-<br>
-Allows users to upload a photo of any jewelry piece, using MobileNet and a KNN algorithm to find the closest matches in the catalog.
-
-</td>
-<td align="center" width="25%">
-
-**Accessible & Multilingual**
-<br>
-Features a full accessibility suite, including dynamic font resizing and multilingual support (EN, HI, TE) powered by `react-i18next`.
-
-</td>
-</tr>
-</table>
+*   **Intelligent Style Matching (Gemini AI):** A personalized style guide that uses a short quiz and an optional free-text description of your current outfit to recommend the *exact* right metal (like 'Polished Gold' or 'Matte Silver') to complement your look.
+*   **Virtual Try-On (MediaPipe):** Uses your webcam to place virtual necklaces and bracelets right onto you in real-time. You can adjust the position, size, and rotation to see how a piece truly fits.
+*   **Visual Search (TensorFlow.js / KNN):** Upload a photo of *any* jewelry piece you like, and the system instantly finds the closest matches from our product catalog.
+*   **Product Chatbot (Gemini AI):** An assistant that can answer specific questions about our collection (materials, prices, where to find an item) by referring to the live product data.
+*   **Accessibility Suite:** A dedicated UI for adjusting font size and switching between multiple languages (English, Hindi, Telugu) to ensure a comfortable experience for all users.
 
 <br>
 
