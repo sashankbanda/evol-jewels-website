@@ -35,6 +35,7 @@
 
 * [Overview](#overview)
 * [Technology Stack](#technology-stack)
+* [Technical Architecture (AI/ML)](#technical-architecture)
 * [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Installation](#installation)
@@ -47,6 +48,8 @@
 ## Overview (Revised)
 
 This is an **AI-Powered Jewelry Styling Kiosk or Website** that gives customers a fun, hyper-personalized shopping experience.
+
+**[Read the Full Technical Architecture Document (AI/ML Breakdown)](./technical_architecture.md)**
 
 It’s built using React and an Express backend, bringing together several advanced AI and computer vision features:
 
@@ -89,7 +92,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/sashankbanda/evol-jewels-website.git
+    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
     ```
 
 2.  **Navigate to the project directory:**
