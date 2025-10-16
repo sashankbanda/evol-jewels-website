@@ -75,6 +75,10 @@ This project showcases what the future of interactive retail looks like, offerin
 </div>
 
 ```mermaid
+---
+config:
+  theme: redux-color
+---
 mindmap
   root((AI Jewelry Kiosk))
     Intelligent Style Matching
