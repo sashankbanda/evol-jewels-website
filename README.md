@@ -521,7 +521,7 @@ flowchart LR
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=100&section=footer&animation=twinkling" width="100%" />
 
 <p align="center">
-  Crafted with 💎 by Sashank Banda
+  Crafted with 💎 by Team : Mahaveer
   <br>
   <i>The future of personalized retail experiences</i>
 </p>
