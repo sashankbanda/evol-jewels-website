@@ -73,33 +73,27 @@ This project showcases what the future of interactive retail looks like, offerin
 
 ```mermaid
 mindmap
-  classDef style fill:#2E8B57,color:#fff,stroke:#E0E0E0,stroke-width:1px;
-  classDef ar fill:#9932CC,color:#fff,stroke:#E0E0E0,stroke-width:1px;
-  classDef search fill:#5F9EA0,color:#fff,stroke:#E0E0E0,stroke-width:1px;
-  classDef chat fill:#A0522D,color:#fff,stroke:#E0E0E0,stroke-width:1px;
-  classDef a11y fill:#B22222,color:#fff,stroke:#E0E0E0,stroke-width:1px;
-
   root((AI Jewelry Kiosk))
-    ism[Intelligent Style Matching]:::style
-      pq[Personalized Quiz]:::style
-      gpa[Gemini-Powered Outfit Analysis]:::style
-      msr[Metal & Style Recommendations]:::style
-    varto[Virtual AR Try-On]:::ar
-      rft[Real-time Face & Hand Tracking]:::ar
-      mr[3D Model Rendering (necklaces, bracelets)]:::ar
-      mac[Manual Adjustment Controls (position, scale, rotation)]:::ar
-    vs[Visual Search]:::search
-      iu[Image Upload (Find similar items)]:::search
-      tf[TensorFlow.js & MobileNet Feature Extraction]:::search
-      knn[Backend KNN Similarity Search]:::search
-    pc[Product Chatbot]:::chat
-      nlq[Natural Language Q&A]:::chat
-      gpk[Gemini-Powered Product Knowledge]:::chat
-      mrf[Markdown Response Formatting]:::chat
-    acc[Accessibility]:::a11y
-      mls[Multilingual Support (i18next)]:::a11y
-      dfr[Dynamic Font Resizing]:::a11y
-      dtt[Dark/Light Theme Toggle]:::a11y
+    Intelligent Style Matching
+      Personalized Quiz
+      Gemini-Powered Outfit Analysis
+      Metal & Style Recommendations
+    Virtual AR Try-On
+      Real-time Face & Hand Tracking
+      3D Model Rendering (necklaces, bracelets)
+      Manual Adjustment Controls (position, scale, rotation)
+    Visual Search
+      Image Upload (Find similar items)
+      TensorFlow.js & MobileNet Feature Extraction
+      Backend KNN Similarity Search
+    Product Chatbot
+      Natural Language Q&A
+      Gemini-Powered Product Knowledge
+      Markdown Response Formatting
+    Accessibility
+      Multilingual Support (i18next)
+      Dynamic Font Resizing
+      Dark/Light Theme Toggle
 ```
 
 <table align="center">
