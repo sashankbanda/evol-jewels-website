@@ -182,25 +182,25 @@ This diagram outlines the technical components of the application, showing the r
 
 ```mermaid
 architecture-beta
-    group client(browser)[Client (Browser)]
+    group client(browser)["Client (Browser)"]
         actor user(user)
-        service spa(react)[React SPA] in client
-        service mediapipe(code)[MediaPipe AR] in client
-        service tfjs(code)[TensorFlow.js] in client
+        service spa(react)["React SPA"] in client
+        service mediapipe(code)["MediaPipe AR"] in client
+        service tfjs(code)["TensorFlow.js"] in client
 
         user -- spa
         spa -- mediapipe
         spa -- tfjs
 
-    group backend(server)[Backend (Node.js)]
-        service express(server)[Express API] in backend
-        service features(database)[product_features.json] in backend
+    group backend(server)["Backend (Node.js)"]
+        service express(server)["Express API"] in backend
+        service features(database)["product_features.json"] in backend
 
         express -- features
 
-    group gcp(cloud)[Google Cloud APIs]
-        service gemini(brain)[Gemini API] in gcp
-        service gsearch(search)[Custom Search API] in gcp
+    group gcp(cloud)["Google Cloud APIs"]
+        service gemini(brain)["Gemini API"] in gcp
+        service gsearch(search)["Custom Search API"] in gcp
 
     spa:R -- L:express
     express:R -- L:gemini
