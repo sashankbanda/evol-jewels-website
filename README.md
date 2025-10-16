@@ -75,10 +75,6 @@ This project showcases what the future of interactive retail looks like, offerin
 </div>
 
 ```mermaid
----
-config:
-  theme: redux-color
----
 mindmap
   root((AI Jewelry Kiosk))
     Intelligent Style Matching
@@ -185,30 +181,28 @@ flowchart TD
 This diagram outlines the technical components of the application, showing the relationship between the client, backend server, and external Google Cloud APIs.
 
 ```mermaid
-architecture-beta
-    group client(browser)["Client (Browser)"]
-        actor user(user)
-        service spa(react)["React SPA"] in client
-        service mediapipe(code)["MediaPipe AR"] in client
-        service tfjs(code)["TensorFlow.js"] in client
+flowchart LR
+    subgraph "Client (Browser)"
+        direction TB
+        U(fa:fa-user User) --> S[React SPA]
+        S --> M[MediaPipe AR]
+        S --> T[TensorFlow.js]
+    end
 
-        user -- spa
-        spa -- mediapipe
-        spa -- tfjs
+    subgraph "Backend (Node.js)"
+        direction TB
+        E[Express API] --> F(fa:fa-database product_features.json)
+    end
 
-    group backend(server)["Backend (Node.js)"]
-        service express(server)["Express API"] in backend
-        service features(database)["product_features.json"] in backend
+    subgraph "Google Cloud APIs"
+        direction TB
+        G[fa:fa-brain Gemini API]
+        GS[fa:fa-search Custom Search API]
+    end
 
-        express -- features
-
-    group gcp(cloud)["Google Cloud APIs"]
-        service gemini(brain)["Gemini API"] in gcp
-        service gsearch(search)["Custom Search API"] in gcp
-
-    spa:R -- L:express
-    express:R -- L:gemini
-    express:R -- L:gsearch
+    S -- "HTTP Request" --> E
+    E -- "API Call" --> G
+    E -- "API Call" --> GS
 ```
 
 ### AI/ML Feature Breakdown
