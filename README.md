@@ -3,42 +3,43 @@
 *<p align="center">Unleash Your Style, Elevate Every Moment</p>*
 
 <p align="center">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&labelColor=555555&color=05C2E0&logo=github&logoColor=white">
-    <img alt="Today's Date" src="https://img.shields.io/badge/TODAY-14%20OCT%202025-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
-    <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
-    <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/sashankbanda/evol-jewels-website?style=for-the-badge&label=LAST%20COMMIT&labelColor=555555&color=05C2E0&logo=github&logoColor=white">
+     <img alt="Today's Date" src="https://img.shields.io/badge/TODAY-14%20OCT%202025-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+     <img alt="JavaScript Percentage" src="https://img.shields.io/badge/JAVASCRIPT-94.3%25-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
+     <img alt="Language Count" src="https://img.shields.io/badge/LANGUAGES-3-05C2E0?style=for-the-badge&labelColor=555555&color=05C2E0">
 </p>
 
 *<p align="center">Built with the tools and technologies:</p>*
 
 <p align="center">
-    <img alt="JavaScript" src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-    <img alt="React" src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-    <img alt="Tailwind CSS" src="https://img.shields.io/badge/TAILWIND%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-    <img alt="Vite" src="https://img.shields.io/badge/VITE-646CFF?style=for-the-badge&logo=vite&logoColor=white">
-    <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
-    <img alt="Google Gemini API" src="https://img.shields.io/badge/GEMINI%20API-4285F4?style=for-the-badge&logo=google&logoColor=white">
-    <img alt="TensorFlow.js" src="https://img.shields.io/badge/TENSORFLOW%20JS-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white">
-    <br>
-    <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-    <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
-    <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
-    <img alt="ESLint" src="https://img.shields.io/badge/ESLINT-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
-    <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
-    <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
-    <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
+     <img alt="JavaScript" src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+     <img alt="React" src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+     <img alt="Tailwind CSS" src="https://img.shields.io/badge/TAILWIND%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+     <img alt="Vite" src="https://img.shields.io/badge/VITE-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+     <img alt="Express" src="https://img.shields.io/badge/EXPRESS-000000?style=for-the-badge&logo=express&logoColor=white">
+     <img alt="Google Gemini API" src="https://img.shields.io/badge/GEMINI%20API-4285F4?style=for-the-badge&logo=google&logoColor=white">
+     <img alt="TensorFlow.js" src="https://img.shields.io/badge/TENSORFLOW%20JS-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white">
+     <br>
+     <img alt="npm" src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+     <img alt="PostCSS" src="https://img.shields.io/badge/POSTCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white">
+     <img alt="Autoprefixer" src="https://img.shields.io/badge/AUTOPREFIXER-CC3A23?style=for-the-badge&logo=autoprefixer&logoColor=white">
+     <img alt="ESLint" src="https://img.shields.io/badge/ESLINT-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+     <img alt="dotenv" src="https://img.shields.io/badge/DOTENV-D2B948?style=for-the-badge&logo=dotenv&logoColor=black">
+     <img alt="JSON" src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white">
+     <img alt="Markdown" src="https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white">
 </p>
 
 ---
 
 ## Table of Contents
 
-* [Overview](#overview)
+* [Overview](#overview-revised)
+* [Core Features](#core-features)
 * [Technology Stack](#technology-stack)
-* [Technical Architecture (AI/ML)](#technical-architecture)
+* [Technical Architecture (AI/ML)](#technical-architecture-aiml)
 * [Getting Started](#getting-started)
-    * [Prerequisites](#prerequisites)
-    * [Installation](#installation)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
 * [Usage](#usage)
 * [Testing](#testing)
 * [Built With](#built-with)
@@ -59,6 +60,76 @@ It’s built using React and an Express backend, bringing together several advan
 * **Product Chatbot (Gemini AI):** An assistant that can answer specific questions about our collection (materials, prices, where to find an item) by referring to the live product data.
 
 This project showcases what the future of interactive retail looks like, offering a powerful, personal styling session powered by cutting-edge vision and language models.
+
+---
+
+## Core Features
+
+<div align="center">
+
+### System Capabilities
+
+</div>
+
+```mermaid
+mindmap
+  root((AI Jewelry Kiosk))
+    Intelligent Style Matching
+      Personalized Quiz
+      Gemini-Powered Outfit Analysis
+      Metal & Style Recommendations
+    Virtual AR Try-On
+      Real-time Face & Hand Tracking
+      3D Model Rendering (necklaces, bracelets)
+      Manual Adjustment Controls (position, scale, rotation)
+    Visual Search
+      Image Upload (Find similar items)
+      TensorFlow.js & MobileNet Feature Extraction
+      Backend KNN Similarity Search
+    Product Chatbot
+      Natural Language Q&A
+      Gemini-Powered Product Knowledge
+      Markdown Response Formatting
+    Accessibility
+      Multilingual Support (i18next)
+      Dynamic Font Resizing
+      Dark/Light Theme Toggle
+```
+
+<table align="center">
+<tr>
+<td align="center" width="25%">
+
+**AI Style Matching**
+<br>
+Uses a Gemini-powered backend to analyze quiz answers and outfit descriptions, providing hyper-personalized metal and style recommendations.
+
+</td>
+<td align="center" width="25%">
+
+**Virtual AR Try-On**
+<br>
+Leverages MediaPipe for real-time face and hand tracking to overlay 3D jewelry models, creating an immersive try-on experience.
+
+</td>
+<td align="center" width="25%">
+
+**Visual Product Search**
+<br>
+Allows users to upload a photo of any jewelry piece, using MobileNet and a KNN algorithm to find the closest matches in the catalog.
+
+</td>
+<td align="center" width="25%">
+
+**Accessible & Multilingual**
+<br>
+Features a full accessibility suite, including dynamic font resizing and multilingual support (EN, HI, TE) powered by `react-i18next`.
+
+</td>
+</tr>
+</table>
+
+<br>
 
 ---
 
@@ -92,7 +163,7 @@ Follow these steps to get your development environment running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/sashankbanda/evol-jewels-website.git](https://github.com/sashankbanda/evol-jewels-website.git)
+    git clone https://github.com/sashankbanda/evol-jewels-website.git
     ```
 
 2.  **Navigate to the project directory:**
@@ -112,9 +183,9 @@ Follow these steps to get your development environment running.
 4.  **Configure API Keys and Features:**
 
     * **API Keys:** Open the `server/.env` file and replace the placeholder values with your actual API keys:
-        * `GEMINI_API_KEY`
-        * `Google Search_API_KEY`
-        * `CUSTOM_SEARCH_ENGINE_ID`
+         * `GEMINI_API_KEY`
+         * `Google Search_API_KEY`
+         * `CUSTOM_SEARCH_ENGINE_ID`
     * **Image Features (Critical Step):** The image search relies on pre-calculated image feature vectors. You must run the feature extractor script once:
 
     ```bash
