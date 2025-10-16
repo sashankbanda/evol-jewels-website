@@ -36,7 +36,10 @@
 * [Overview](#overview-revised)
 * [Core Features](#core-features)
 * [Technology Stack](#technology-stack)
-* [Technical Architecture (AI/ML)](#technical-architecture-aiml)
+* [Technical Architecture](#technical-architecture)
+  * [User Flow Diagram](#user-flow-diagram)
+  * [System Architecture Diagram](#system-architecture-diagram)
+  * [AI/ML Feature Breakdown](#aiml-feature-breakdown)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -144,6 +147,69 @@ The project uses a modern MERN-like stack with a focus on cutting-edge AI and ML
 | **AI Integration** | **Google Gemini API, Google Custom Search API** | Drives the contextual style analysis and the product-aware chatbot. |
 | **Machine Learning** | **TensorFlow.js, MobileNet, Jimp** | Used to calculate and compare image feature vectors for the visual search feature. The `server/feature_extractor.js` script handles the initial feature generation. |
 | **AR/Computer Vision** | **MediaPipe Tasks Vision** | Provides the real-time face and hand tracking needed for the augmented reality try-on experience. |
+
+---
+
+## Technical Architecture
+
+### User Flow Diagram
+
+This diagram illustrates the primary journey a user takes through the AI Jewelry Kiosk, from starting the quiz to checkout.
+
+```mermaid
+flowchart TD
+    A[Start Screen] -->|"Start Vibe Quiz"| B(Quiz Screen)
+    B --> C{Outfit Input Screen}
+    C -->|Skip| E[Result Screen]
+    C -->|"Describe Outfit"| D[fa:fa-magic AI Analysis w/ Gemini]
+    D --> E
+    E -->|Explore Recommendations| F[Product Grid]
+    E -->|Upload Photo| G[Visual Search Screen]
+    F --> H{Product Interaction}
+    G --> H
+    H -->|View Details| I[Product Detail Modal]
+    H -->|"Virtual Try-On"| J[fa:fa-camera AR Try-On]
+    H -->|Add to Cart| K(Shopping Cart)
+    I --> K
+    J --> K
+    K --> L[Checkout Screen]
+    L -->|"Start New Session"| A
+```
+
+### System Architecture Diagram
+
+This diagram outlines the technical components of the application, showing the relationship between the client, backend server, and external Google Cloud APIs.
+
+```mermaid
+architecture-beta
+    group client(browser)[Client (Browser)]
+        actor user(user)
+        service spa(react)[React SPA] in client
+        service mediapipe(code)[MediaPipe AR] in client
+        service tfjs(code)[TensorFlow.js] in client
+
+        user -- spa
+        spa -- mediapipe
+        spa -- tfjs
+
+    group backend(server)[Backend (Node.js)]
+        service express(server)[Express API] in backend
+        service features(database)[product_features.json] in backend
+
+        express -- features
+
+    group gcp(cloud)[Google Cloud APIs]
+        service gemini(brain)[Gemini API] in gcp
+        service gsearch(search)[Custom Search API] in gcp
+
+    spa:R -- L:express
+    express:R -- L:gemini
+    express:R -- L:gsearch
+```
+
+### AI/ML Feature Breakdown
+
+**[Read the Full Technical Architecture Document (AI/ML Breakdown)](./technical_architecture.md)**
 
 ---
 
