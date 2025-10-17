@@ -122,6 +122,14 @@ This project showcases what the future of interactive retail looks like, offerin
 
 </div>
 
+<div align="center">
+
+```diff
+- ⚠️ **Note:** If you see an error such as “Unable to render rich display", please disable ad blockers, update your browser and If viewing on mobile, switch to desktop mode.
+```
+
+</div>
+
 ```mermaid
 ---
 config:
