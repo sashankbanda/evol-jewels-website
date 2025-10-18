@@ -356,7 +356,7 @@ Follow these steps to get your development environment running.
     ```
 
 4.  **Configure API Keys and Features:**
-
+    **[Links to generate your API keys](./Create_API_Key.md)**
     * **API Keys:** Open the `server/.env` file and replace the placeholder values with your actual API keys:
          * `GEMINI_API_KEY`
          * `Google Search_API_KEY`
